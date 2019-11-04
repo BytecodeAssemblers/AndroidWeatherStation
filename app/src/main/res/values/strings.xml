@@ -1,3 +1,12 @@
 <resources>
     <string name="app_name">AndroidWeatherStation</string>
+    <string name="textview">TextView</string>
+    <string name="enter_city_name_here">Enter City Name Here</string>
+    <string name="cityname">CityName</string>
+    <string name="serres_greece">Serres Greece</string>
+    <string name="_4_november_2019">4 November 2019</string>
+    <string name="fog">Fog</string>
+    <string name="_29_c">29°C</string>
+    <string name="min_temp_04_04_am">Min Temp: 04:04 AM</string>
+    <string name="max_temp_10_00_pm">Max Temp: 10:00 PM</string>
 </resources>
