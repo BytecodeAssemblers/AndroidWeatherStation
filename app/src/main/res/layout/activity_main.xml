@@ -111,6 +111,40 @@
         android:layout_marginRight="131dp"
         android:orientation="vertical"
         android:textAlignment="center">
+        <TextView
+            android:id="@+id/weatherbit_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="cityName"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_windspeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
     </LinearLayout>
 
     <LinearLayout
