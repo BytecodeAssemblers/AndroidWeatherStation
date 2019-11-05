@@ -11,4 +11,8 @@
     <string name="max_temp_10_00_pm">Max Temp: 10:00 PM</string>
     <string name="first">first</string>
     <string name="second">second</string>
+    <string name="temp">temp</string>
+    <string name="max_temp">max_temp</string>
+    <string name="min_temp">min_temp</string>
+    <string name="humidity">humidity</string>
 </resources>
