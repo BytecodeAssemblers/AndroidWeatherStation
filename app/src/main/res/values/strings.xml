@@ -15,4 +15,7 @@
     <string name="max_temp">max_temp</string>
     <string name="min_temp">min_temp</string>
     <string name="humidity">humidity</string>
+    <string name="descriiption">descriiption</string>
+    <string name="wind_speed">wind_speed</string>
+    <string name="description">description</string>
 </resources>
