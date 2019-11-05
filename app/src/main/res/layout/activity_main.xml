@@ -54,34 +54,50 @@
         android:layout_marginRight="260dp"
         android:orientation="vertical"
         android:textAlignment="center">
+
         <TextView
             android:id="@+id/openWeatherTemp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textAlignment="center"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="40dp"
             android:text="@string/temp" />
         <TextView
-            android:id="@+id/OpenWeatherMaxTemp"
+            android:id="@+id/openWeatherMaxTemp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/max_temp"
             android:textAlignment="center" />
         <TextView
-            android:id="@+id/OpenWeatherMinTemp"
+            android:id="@+id/openWeatherMinTemp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/min_temp"
             android:textAlignment="center" />
         <TextView
-            android:id="@+id/OpenWeatherHumidity"
+            android:id="@+id/openWeatherHumidity"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="5dp"
             android:text="@string/humidity"
             android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherWindSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/wind_speed"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/description"
+            android:textAlignment="center" />
+
     </LinearLayout>
 
 
