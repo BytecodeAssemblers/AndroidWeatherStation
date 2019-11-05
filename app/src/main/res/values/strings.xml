@@ -9,4 +9,6 @@
     <string name="_29_c">29°C</string>
     <string name="min_temp_04_04_am">Min Temp: 04:04 AM</string>
     <string name="max_temp_10_00_pm">Max Temp: 10:00 PM</string>
+    <string name="first">first</string>
+    <string name="second">second</string>
 </resources>
