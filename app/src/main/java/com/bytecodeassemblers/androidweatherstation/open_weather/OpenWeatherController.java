@@ -1,5 +1,6 @@
 package com.bytecodeassemblers.androidweatherstation.open_weather;
 
+import android.content.Context;
 import android.widget.TextView;
 
 import com.android.volley.Request;
@@ -8,6 +9,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.StringRequest;
 import com.android.volley.toolbox.Volley;
+import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MainActivity;
 import com.bytecodeassemblers.androidweatherstation.R;
 
@@ -23,13 +25,15 @@ public class OpenWeatherController {
     private TextView descriptionOnView;
     private TextView windSpeedOnView;
     private TextView cityNameOnView;
-    private String lat = "41.090923";
+    private String lat = "41.090923"; //coordinates and stuff
     private String lon = "23.54132";
     private String url = Common.apiRequestLink(lat,lon);
 
 
+
     public OpenWeatherController(MainActivity activity){
         initializeComponents(activity);
+
         myQueue = Volley.newRequestQueue(activity.getApplicationContext());
         executeGet();
     }
@@ -47,16 +51,17 @@ public class OpenWeatherController {
 
 
     public void executeGet(){
+
         StringRequest getRequest = new StringRequest(Request.Method.GET, url, new Response.Listener<String>() {
             @Override
             public void onResponse(String response) {
                 try {
                     JSONObject jsonObj = new JSONObject(response);
-                    JSONObject mainObject = jsonObj.getJSONObject("main");
-                    String temp = mainObject.getString("temp") + "°C";
-                    String tempMin = mainObject.getString("temp_min") + "°C";
-                    String tempMax = mainObject.getString("temp_max") + "°C";
-                    String humidity = mainObject.getString("humidity") + "%";
+                      JSONObject mainObject = jsonObj.getJSONObject("main");
+                        String temp = mainObject.getString("temp") + "°C";
+                        String tempMin = mainObject.getString("temp_min") + "°C";
+                        String tempMax = mainObject.getString("temp_max") + "°C";
+                        String humidity = mainObject.getString("humidity") + "%";
 
                     String cityName = jsonObj.getString("name");
                     JSONObject weatherObject = jsonObj.getJSONArray("weather").getJSONObject(0);
