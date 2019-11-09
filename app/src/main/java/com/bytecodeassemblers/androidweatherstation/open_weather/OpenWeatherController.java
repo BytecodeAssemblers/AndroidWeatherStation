@@ -12,6 +12,8 @@ import com.android.volley.toolbox.Volley;
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MainActivity;
 import com.bytecodeassemblers.androidweatherstation.R;
+import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+import com.google.android.gms.location.LocationRequest;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,11 +31,11 @@ public class OpenWeatherController {
     private String lon = "23.54132";
     private String url = Common.apiRequestLink(lat,lon);
 
-
+    private GetClientLocation getClientLocation;
 
     public OpenWeatherController(MainActivity activity){
+        getClientLocation = new GetClientLocation(activity);
         initializeComponents(activity);
-
         myQueue = Volley.newRequestQueue(activity.getApplicationContext());
         executeGet();
     }
