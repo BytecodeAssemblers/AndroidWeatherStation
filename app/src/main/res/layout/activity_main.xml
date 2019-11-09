@@ -43,6 +43,7 @@
             android:text="@string/_29_c"
             android:textSize="60sp" />
 
+
     </LinearLayout>
 
 
@@ -111,6 +112,7 @@
         android:layout_marginRight="131dp"
         android:orientation="vertical"
         android:textAlignment="center">
+
         <TextView
             android:id="@+id/weatherbit_temp"
             android:layout_width="match_parent"
@@ -145,6 +147,15 @@
             android:layout_marginTop="5dp"
             android:text="@string/temp"
             android:textAlignment="center" />
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/weatherbitImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            />
     </LinearLayout>
 
     <LinearLayout
