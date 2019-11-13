@@ -18,4 +18,9 @@
     <string name="descriiption">descriiption</string>
     <string name="wind_speed">wind_speed</string>
     <string name="description">description</string>
+    <string name="textOpenWeather">Open_Weather</string>
+    <string name="textWeathetBit">Weather_Bit</string>
+    <string name="textWeatherStack">Weather_Stack</string>
+    <string name="todo">TODO</string>
+
 </resources>
