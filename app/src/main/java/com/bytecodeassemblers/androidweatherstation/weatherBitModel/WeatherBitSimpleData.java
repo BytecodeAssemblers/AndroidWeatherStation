@@ -29,6 +29,9 @@ public class WeatherBitSimpleData {
         this.icon = icon;
     }
 
+    public static String getImage(String icon){
+        return String.format("https://www.weatherbit.io/static/img/icons/%s.png",icon);
+    }
 
 
 }
