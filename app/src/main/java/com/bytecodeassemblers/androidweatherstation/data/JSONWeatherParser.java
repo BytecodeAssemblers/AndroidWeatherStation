@@ -1,14 +1,9 @@
 package com.bytecodeassemblers.androidweatherstation.data;
 
 
-import com.example.myapplication.openWeather_model.OpenWeatherClouds;
-import com.example.myapplication.openWeather_model.OpenWeatherCoord;
-import com.example.myapplication.openWeather_model.OpenWeatherMain;
-import com.example.myapplication.openWeather_model.OpenWeatherMap;
-import com.example.myapplication.openWeather_model.OpenWeatherSimpleData;
-import com.example.myapplication.openWeather_model.OpenWeatherSys;
-import com.example.myapplication.openWeather_model.OpenWeatherWeather;
-import com.example.myapplication.openWeather_model.OpenWeatherWind;
+
+import com.bytecodeassemblers.androidweatherstation.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -121,5 +116,89 @@ public class JSONWeatherParser {
             e.printStackTrace();
         }
         return null;
+    }
+    public static WeatherBitMap getWeatherBitData(String data) {
+
+        WeatherBitMap weatherBitMap = new WeatherBitMap();
+        try {
+            JSONObject jsonObject = new JSONObject(data);
+            JSONObject dataObject = jsonObject.getJSONArray("data").getJSONObject(0);
+            JSONObject weatherData = dataObject.getJSONObject("weather");
+
+            //Read WeatherBitSimpleData Data
+            String cityName = dataObject.getString("city_name");
+            String icon = weatherData.getString("icon");
+            String timezone = dataObject.getString("timezone");
+
+
+
+            //Set WeatherBitSimpleData Data
+            WeatherBitSimpleData weatherBitSimple = new WeatherBitSimpleData();
+            weatherBitSimple.setCityName(cityName);
+            weatherBitSimple.setIcon(icon);
+            weatherBitSimple.setTimezone(timezone);
+
+            //Read WeatherBitCoord Data
+            String lat=dataObject.getString("lat");
+            String lon = dataObject.getString("lon");
+
+            //Set WeatherBitCoord Data
+            WeatherBitCoord coord = new WeatherBitCoord();
+            coord.setLat(lat);
+            coord.setLon(lon);
+
+            //Read WeatherBitMain Data
+
+            String temp = dataObject.getString("temp");
+
+            //Set WeatherBitMain Data
+            WeatherBitMain main = new WeatherBitMain();
+            main.setTemp(temp);
+
+            //Read WeatherBitSys Data
+            String country = dataObject.getString("country_code");
+            String sunrise = dataObject.getString("sunrise");
+            String sunset = dataObject.getString("sunset");
+
+            //Set WeatherBitSys Data
+            WeatherBitSys sys = new WeatherBitSys();
+            sys.setCountry(country);
+            sys.setSunrise(sunrise);
+            sys.setSunset(sunset);
+
+            //Read WeatherBitWeather Data
+            String last_observation_time = dataObject.getString("last_ob_time");
+            String weatherCode = weatherData.getString("code");
+            String weatherDescription = weatherData.getString("description");
+
+            //Set WeatherBitWeather Data
+            WeatherBitWeather bitWeather = new WeatherBitWeather();
+            bitWeather.setCode(weatherCode);
+            bitWeather.setDescription(weatherDescription);
+            bitWeather.setLast_observation_time(last_observation_time);
+
+            //Read WeatherBitWind Data
+            String Windspeed= dataObject.getString("wind_spd");
+            String Wind_direction = dataObject.getString("wind_cdir_full");
+
+            //Set WeatherBitWind Data
+            WeatherBitWind WBWind = new WeatherBitWind();
+            WBWind.setDir(Wind_direction);
+            WBWind.setSpeed(Windspeed);
+
+
+            weatherBitMap.simple=weatherBitSimple;
+            weatherBitMap.coord=coord;
+            weatherBitMap.main = main;
+            weatherBitMap.sys = sys;
+            weatherBitMap.wind=WBWind;
+            weatherBitMap.weather =bitWeather;
+
+            return weatherBitMap;
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return  null;
     }
 }
