@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.NetworkImageView;
 import com.example.myapplication.data.JSONWeatherParser;
 import com.example.myapplication.data.WeatherHttpClient;
 import com.example.myapplication.openWeather_model.OpenWeatherMap;
@@ -29,6 +30,8 @@ public class OpenWeatherController {
     
     private String  url;
     private Activity activity;
+    private MimageLoader imageLoader;
+    private NetworkImageView imageView;
 
     public OpenWeatherController(Activity activity){
         this.activity=activity;
@@ -54,6 +57,7 @@ public class OpenWeatherController {
         protected OpenWeatherMap doInBackground(String... strings) {
             String responseData = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from openWeather using http request
             openWeatherObject = JSONWeatherParser.getOpenWeatherData(responseData); //sends the response values into parse
+            imageLoader.setImageLoader();
             return openWeatherObject;
         }
 
@@ -67,6 +71,7 @@ public class OpenWeatherController {
             humidityOnView.setText(weather.main.getHumidity());
             windSpeedOnView.setText(weather.wind.getSpeed());
             descriptionOnView.setText(weather.weather.getDescription());
+            imageView.setImageUrl(weather.simple.getImage(weather.weather.getIcon()),imageLoader.getmImageLoader());
         }
     }
 }
