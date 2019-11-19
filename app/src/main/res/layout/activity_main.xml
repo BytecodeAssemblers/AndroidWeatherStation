@@ -2,140 +2,163 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/constrain"
-    android:layout_width="wrap_content"
-    android:layout_height="wrap_content"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:layout_margin="10dp"
     tools:context=".MainActivity">
 
 
-    <androidx.constraintlayout.widget.ConstraintLayout
-        android:id="@+id/linearLayout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@drawable/grey"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.0">
-
-
-        <View
-            android:id="@+id/view"
-            android:layout_width="wrap_content"
-            android:layout_height="5dp"
-            android:layout_margin="20dp"
-            android:background="#000000"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.442" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center|top"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="26dp"
+        tools:layout_editor_absoluteY="-38dp">
 
         <TextView
             android:id="@+id/address"
-            android:layout_width="217dp"
-            android:layout_height="46dp"
-            android:layout_margin="5dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="top|center"
             android:text="@string/serres_greece"
-            android:textSize="32sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:visibility="visible" />
+            android:textSize="24sp" />
 
         <TextView
             android:id="@+id/updated_at"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="5dp"
+            android:layout_gravity="top|center"
             android:text="@string/_4_november_2019"
-            android:textSize="20sp"
-            android:textStyle="bold"
-            app:layout_constraintStart_toStartOf="@+id/address"
-            app:layout_constraintTop_toBottomOf="@+id/address" />
-
+            android:textSize="14sp" />
 
         <TextView
             android:id="@+id/temp"
-            android:layout_width="111dp"
-            android:layout_height="66dp"
-            android:layout_marginTop="135dp"
-            android:fontFamily="sans-serif-smallcaps"
-            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="90dp"
+            android:fontFamily="sans-serif-thin"
             android:text="@string/_29_c"
-            android:textSize="60sp"
-            android:textStyle="bold"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0" />
+            android:textSize="60sp" />
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="106dp"
-            android:layout_height="72dp"
-            android:baselineAligned="false"
-            android:contentDescription="@string/todo"
-            android:cropToPadding="false"
-            android:scaleType="centerInside"
-            android:src="@drawable/logo"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.024"
-            tools:visibility="visible" />
+    </LinearLayout>
 
-        <LinearLayout
-            android:id="@+id/linearLayout4"
-            android:layout_width="137dp"
-            android:layout_height="300dp"
-            android:layout_marginTop="148dp"
-            android:background="@drawable/round_corners"
-            android:orientation="vertical"
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp"
+        android:layout_marginRight="260dp"
+        android:orientation="vertical"
+        android:textAlignment="center">
+
+        <TextView
+            android:id="@+id/openWeatherTemp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:textAlignment="center"
-            app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.0"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="1.0">
+            android:layout_marginTop="40dp"
+            android:text="@string/temp" />
+        <TextView
+            android:id="@+id/openWeatherMaxTemp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/max_temp"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherMinTemp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/min_temp"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherHumidity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/humidity"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherWindSpeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/wind_speed"
+            android:textAlignment="center" />
+        <TextView
+            android:id="@+id/openWeatherDescription"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/description"
+            android:textAlignment="center" />
 
-            <TextView
-                android:id="@+id/openWeatherTemp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="40dp"
-                android:text="@string/temp"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/openWeatherMaxTemp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/max_temp"
-                android:textAlignment="center" />
-
-            <TextView
-                android:id="@+id/openWeatherMinTemp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="5dp"
-                android:text="@string/min_temp"
-                android:textAlignment="center" />
+    </LinearLayout>
 
 
 
-    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="300dp"
+        android:layout_marginLeft="131dp"
+        android:layout_marginRight="131dp"
+        android:orientation="vertical"
+        android:textAlignment="center">
+        <TextView
+            android:id="@+id/weatherbit_temp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_city"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="cityName"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_description"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
+
+        <TextView
+
+            android:id="@+id/weatherbit_windspeed"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="5dp"
+            android:text="@string/temp"
+            android:textAlignment="center" />
+    </LinearLayout>
+
+    <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="300dp"
+            android:layout_marginLeft="260dp"
+            android:orientation="vertical"
+            android:textAlignment="center">
+    </LinearLayout>
+
+
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
