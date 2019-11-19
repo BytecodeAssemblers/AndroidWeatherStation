@@ -6,10 +6,8 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
+import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
-import com.example.myapplication.data.JSONWeatherParser;
-import com.example.myapplication.data.WeatherHttpClient;
-import com.example.myapplication.weatherBitModel.WeatherBitMap;
 
 
 public class WeatherBitController {
@@ -37,7 +35,7 @@ public class WeatherBitController {
     }
 
     private void InitializeComponent() {
-        result = this.activity.findViewById(R.id.Result);
+       //result = this.activity.findViewById(R.id.Result);
         imageView = this.activity.findViewById(R.id.image);
         imageLoader = new MimageLoader(activity);
     }

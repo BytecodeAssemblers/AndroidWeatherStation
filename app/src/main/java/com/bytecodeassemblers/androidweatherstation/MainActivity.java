@@ -30,7 +30,7 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
         getClientLocation = new GetClientLocation(this);
         weatherBitController = new WeatherBitController(this);
-        openWeatherController = new OpenWeatherController(this);
+        //openWeatherController = new OpenWeatherController(this);
         //mImageLoader = WB_VolleySingleton.getInstance(this).getImageLoader();
 
 
