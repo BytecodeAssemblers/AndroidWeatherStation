@@ -91,7 +91,7 @@ public class WeatherBitController {
                             payloadForDatabase.put("description",weather.getString("description"));
 
                     DatabaseApiInsert historicalDatabaseUpdate = new DatabaseApiInsert();
-                      historicalDatabaseUpdate.setDatabaseInsertEndpoint("http://192.168.1.6/updateweatherhistory.php");
+                      historicalDatabaseUpdate.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
                         historicalDatabaseUpdate.setContext(activityContext);
                          historicalDatabaseUpdate.setPayload(payloadForDatabase);
                           historicalDatabaseUpdate.executeInsert();
