@@ -5,6 +5,8 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
 import com.example.myapplication.data.JSONWeatherParser;
 import com.example.myapplication.data.WeatherHttpClient;
 import com.example.myapplication.weatherBitModel.WeatherBitMap;
