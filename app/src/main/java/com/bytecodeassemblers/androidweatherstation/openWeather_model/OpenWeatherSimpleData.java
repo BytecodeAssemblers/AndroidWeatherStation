@@ -47,4 +47,8 @@ public class OpenWeatherSimpleData {
     public void setCod(String cod) {
         this.cod = cod;
     }
+
+    public static String getImage(String icon){
+        return String.format("http://api.openweathermap.org/img/w/%s.png",icon);
+    }
 }
