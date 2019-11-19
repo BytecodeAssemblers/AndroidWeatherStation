@@ -3,6 +3,21 @@ package com.bytecodeassemblers.androidweatherstation.data;
 
 
 import com.bytecodeassemblers.androidweatherstation.*;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherClouds;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherCoord;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMain;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherSimpleData;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherSys;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherWeather;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherWind;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitCoord;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMain;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitSimpleData;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitSys;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitWeather;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitWind;
 
 import org.json.JSONException;
 import org.json.JSONObject;
