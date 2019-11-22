@@ -106,6 +106,16 @@
             android:text="@string/description"
             android:textAlignment="center" />
 
+
+        <com.android.volley.toolbox.NetworkImageView
+            android:id="@+id/openWeatherImage"
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="6dip"
+            />
+
     </LinearLayout>
 
 
@@ -163,6 +173,7 @@
             android:layout_alignParentTop="true"
             android:layout_marginRight="6dip"
             />
+
     </LinearLayout>
 
     <LinearLayout

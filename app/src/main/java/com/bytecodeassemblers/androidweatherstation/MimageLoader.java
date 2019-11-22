@@ -10,6 +10,7 @@ import com.android.volley.toolbox.Volley;
 
 public class MimageLoader {
 
+
     public MimageLoader(Activity activity) {
         this.activity = activity;
     }
@@ -36,4 +37,5 @@ public class MimageLoader {
         });
 
     }
+
 }

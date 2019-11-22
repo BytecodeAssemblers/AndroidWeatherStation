@@ -33,5 +33,4 @@ public class WeatherBitSimpleData {
         return String.format("https://www.weatherbit.io/static/img/icons/%s.png",icon);
     }
 
-
 }
