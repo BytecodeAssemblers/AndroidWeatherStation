@@ -10,6 +10,7 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
 
+
 public class Controller {
 
     private MimageLoader imageLoader;
