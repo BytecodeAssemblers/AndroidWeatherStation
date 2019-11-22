@@ -5,8 +5,6 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.android.volley.toolbox.ImageLoader;
-
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
@@ -14,8 +12,7 @@ import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLoc
 
 public class MainActivity extends AppCompatActivity {
 
-    private WeatherBitController weatherBitController;
-    private OpenWeatherController openWeatherController;
+    private Controller Controller;
     private GetClientLocation getClientLocation;
 
     @Override
@@ -23,8 +20,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         getClientLocation = new GetClientLocation(this);
-         weatherBitController = new WeatherBitController(this);
-          openWeatherController = new OpenWeatherController(this);
+        Controller = new Controller(this);
+
     }
 
 
