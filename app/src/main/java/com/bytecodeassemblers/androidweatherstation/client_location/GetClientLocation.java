@@ -27,6 +27,7 @@ import java.util.List;
 import java.util.Locale;
 
 import static android.content.ContentValues.TAG;
+import static java.lang.String.valueOf;
 
 
 public class GetClientLocation extends Activity {
@@ -176,9 +177,9 @@ public class GetClientLocation extends Activity {
                     activity.getBaseContext(),
                     "Location changed: Lat: " + loc.getLatitude() + " Lng: "
                             + loc.getLongitude(), Toast.LENGTH_SHORT).show();
-            setLongitude(String.valueOf(loc.getLongitude()));
+            setLongitude(valueOf(loc.getLongitude()));
             Log.v(TAG, longitude);
-            setLatitude(String.valueOf(loc.getLatitude()));
+            setLatitude(valueOf(loc.getLatitude()));
             Log.v(TAG, latitude);
 
             /*------- To get city name from coordinates -------- */
@@ -237,14 +238,14 @@ public class GetClientLocation extends Activity {
     public void onLocationChanged(Location loc) {
 
         OpenWeatherController openWeatherController = new OpenWeatherController((MainActivity)activity);
-        openWeatherController.executeGet(String.valueOf(loc.getLatitude()),String.valueOf(loc.getLongitude()));
+        openWeatherController.executeGet(valueOf(loc.getLatitude()), valueOf(loc.getLongitude()));
         Toast.makeText(
                activity.getBaseContext(),
                 "Location changed: Lat: " + loc.getLatitude() + " Lng: "
                         + loc.getLongitude(), Toast.LENGTH_SHORT).show();
-       setLongitude(String.valueOf(loc.getLongitude()));
+       setLongitude(valueOf(loc.getLongitude()));
         Log.v(TAG, longitude);
-        setLatitude(String.valueOf(loc.getLatitude()));
+        setLatitude(valueOf(loc.getLatitude()));
         Log.v(TAG, latitude);
 
         /*------- To get city name from coordinates -------- */

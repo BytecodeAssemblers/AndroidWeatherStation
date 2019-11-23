@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Controller Controller;
+    private MainActivityController MainActivityController;
     //private GetClientLocation getClientLocation;
 
     @Override
@@ -20,7 +20,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-        Controller = new Controller(this);
+        MainActivityController = new MainActivityController(this);
 
     }
 
