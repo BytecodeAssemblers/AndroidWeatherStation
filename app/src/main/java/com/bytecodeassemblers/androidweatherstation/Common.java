@@ -7,8 +7,16 @@ package com.bytecodeassemblers.androidweatherstation;
  */
 public class Common {
 
+    //OpenWeather call info
+
     public final String openWeather_API_LINK =  "http://api.openweathermap.org/data/2.5/weather";
     public final String openWeather_API_KEY = "ee6892eaa4ce0be1a8eac7817898d322";
+
+
+    //WeatherBit call info
+    public final String weatherBitAPI_LINK =  "https://api.weatherbit.io/v2.0/current";
+    public final String weatherBitAPI_KEY= "85166dfd6eae40128861ff9efb80ec65";
+
 
     private static String latitude; //takes the device latitude
     private static String longitude; //takes the device longitude
@@ -16,6 +24,12 @@ public class Common {
     public  String openWeatherRequestLink(){
         StringBuilder builder = new StringBuilder(openWeather_API_LINK);
         builder.append(String.format("?lat="+latitude+"&lon="+longitude+"&APPID=%s&units=metric",openWeather_API_KEY));
+        return builder.toString();
+    }
+
+    public  String weatherBitRequestLink(){
+        StringBuilder builder = new StringBuilder(weatherBitAPI_LINK);
+        builder.append(String.format("?lat="+latitude+"&lon="+longitude+"&key=%s",weatherBitAPI_KEY));
         return builder.toString();
     }
 

@@ -39,8 +39,8 @@ public class Controller {
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
-    private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
-
+//    private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
+    private String WeatherBitUrl;
 
 
 
@@ -50,6 +50,7 @@ public class Controller {
         weatherBitMap = new WeatherBitMap();
         commonObject = new Common();
         OpenWeatherUrl = commonObject.openWeatherRequestLink();
+        WeatherBitUrl = commonObject.weatherBitRequestLink();
         InitializeComponent();
         new OpenWeatherTask().execute(OpenWeatherUrl);
         new WeatherBitTask().execute(WeatherBitUrl);
