@@ -14,12 +14,15 @@ public class MainActivity extends AppCompatActivity {
 
     private Controller Controller;
     //private GetClientLocation getClientLocation;
+    private DeviceLocation getLocation;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getClientLocation = new GetClientLocation(this);
+       // getClientLocation = new GetClientLocation(this);
+        getLocation = new DeviceLocation(this);
         Controller = new Controller(this);
 
     }

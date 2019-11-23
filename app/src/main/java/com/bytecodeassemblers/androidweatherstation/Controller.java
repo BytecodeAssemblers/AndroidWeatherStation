@@ -17,6 +17,7 @@ public class Controller {
     private double lat = 41.090923;
     private double lon = 23.54132;
     private Activity activity;
+    private Common commonObject;
 
     //openWeather
     private OpenWeatherMap openWeatherObject;
@@ -28,7 +29,8 @@ public class Controller {
     private TextView openWeatherwindSpeedOnView;
     private TextView openWeathercityNameOnView;
     private NetworkImageView openWeathermyImage;
-    private String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
+    private String OpenWeatherUrl;
+
 
     //WeatherBit
     private WeatherBitMap weatherBitMap;
@@ -46,6 +48,8 @@ public class Controller {
         this.activity=activity;
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
+        commonObject = new Common();
+        OpenWeatherUrl = commonObject.openWeatherRequestLink();
         InitializeComponent();
         new OpenWeatherTask().execute(OpenWeatherUrl);
         new WeatherBitTask().execute(WeatherBitUrl);
