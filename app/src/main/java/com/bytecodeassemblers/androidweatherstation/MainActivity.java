@@ -16,6 +16,7 @@ public class MainActivity extends AppCompatActivity {
     //private GetClientLocation getClientLocation;
     private DeviceLocation getLocation;
 
+    private MapActivityController mapController;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -23,8 +24,8 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
        // getClientLocation = new GetClientLocation(this);
         getLocation = new DeviceLocation(this);
+        mapController = new MapActivityController(this);
         Controller = new Controller(this);
-
     }
 
 

@@ -1,6 +1,8 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -10,6 +12,10 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 
 public class Controller {
 
@@ -18,7 +24,8 @@ public class Controller {
     private double lon = 23.54132;
     private Activity activity;
     private Common commonObject;
-
+    private String accurateAddress;
+    
     //openWeather
     private OpenWeatherMap openWeatherObject;
     private TextView openWeathertempOnView;
@@ -39,7 +46,7 @@ public class Controller {
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
-//    private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
+   // private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
     private String WeatherBitUrl;
 
 
@@ -52,9 +59,25 @@ public class Controller {
         OpenWeatherUrl = commonObject.openWeatherRequestLink();
         WeatherBitUrl = commonObject.weatherBitRequestLink();
         InitializeComponent();
+        accurateWeatherAddress();
         new OpenWeatherTask().execute(OpenWeatherUrl);
         new WeatherBitTask().execute(WeatherBitUrl);
     }
+
+
+
+    public void accurateWeatherAddress(){  //this method displays weather for specific location
+        List<Address> addressList = null;
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        try {
+            addressList = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()), Double.parseDouble(commonObject.getLongitude()), 1);
+            accurateAddress = addressList.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+    }
+
 
     public void InitializeComponent() {
 
@@ -93,7 +116,7 @@ public class Controller {
         @Override
         protected void onPostExecute(OpenWeatherMap weather) {
             super.onPostExecute(weather);
-            openWeathercityNameOnView.setText(weather.simple.getCityName());
+            openWeathercityNameOnView.setText(accurateAddress);
             openWeathertempOnView.setText("Temp: "+weather.main.getTemp());
             openWeathermaxTempOnView.setText("Temp max: "+weather.main.getTempMax());
             openWeatherminTempOnView.setText("Temp min: "+weather.main.getTempMin());
