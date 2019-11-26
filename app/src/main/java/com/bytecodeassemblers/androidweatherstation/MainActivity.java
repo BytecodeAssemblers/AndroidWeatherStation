@@ -25,7 +25,7 @@ public class MainActivity extends AppCompatActivity {
        // getClientLocation = new GetClientLocation(this);
         getLocation = new DeviceLocation(this);
         mapController = new MapActivityController(this);
-        Controller = new Controller(this);
+        MainActivityController = new MainActivityController(this);
     }
 
 
