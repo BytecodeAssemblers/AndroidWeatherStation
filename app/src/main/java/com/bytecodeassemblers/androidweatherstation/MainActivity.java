@@ -3,9 +3,12 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+
+import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
@@ -27,6 +30,11 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
         MainActivityController = new MainActivityController(this);
+        ConstraintLayout constraintLayout = findViewById(R.id.layout);
+        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
+        animationDrawable.setEnterFadeDuration(2000);
+        animationDrawable.setExitFadeDuration(4000);
+        animationDrawable.start();
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {

@@ -4,190 +4,152 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_margin="10dp"
+    android:background="@drawable/gradientlist"
+    android:id="@+id/layout"
     tools:context=".MainActivity">
 
 
-    <LinearLayout
-        android:id="@+id/historyActivityButton"
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/openWeatherImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        tools:layout_editor_absoluteY="479dp" />
+
+    <TextView
+        android:id="@+id/openWeatherHumidity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center|top"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="26dp"
-        tools:layout_editor_absoluteY="-38dp">
+        android:layout_height="wrap_content"
+        android:text="@string/humidity"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="412dp" />
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:text="@string/serres_greece"
-            android:textSize="24sp" />
-
-        <TextView
-            android:id="@+id/updated_at"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="top|center"
-            android:text="@string/_4_november_2019"
-            android:textSize="14sp" />
-
-        <Button
-            android:id="@+id/buttonHistoryActivity"
-            android:layout_width="100dp"
-            android:layout_height="35dp"
-            android:text="History" />
-
-        <TextView
-            android:id="@+id/temp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_marginTop="90dp"
-            android:fontFamily="sans-serif-thin"
-            android:text="@string/_29_c"
-            android:textSize="60sp" />
-
-
-    </LinearLayout>
-
-
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/openWeatherDescription"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
-        android:layout_marginRight="260dp"
-        android:orientation="vertical"
-        android:textAlignment="center">
+        android:layout_height="wrap_content"
+        android:text="@string/description"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="460dp" />
 
-        <TextView
-            android:id="@+id/openWeatherTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:textAlignment="center"
-            android:layout_marginTop="40dp"
-            android:text="@string/temp" />
-        <TextView
-            android:id="@+id/openWeatherMaxTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/max_temp"
-            android:textAlignment="center" />
-        <TextView
-            android:id="@+id/openWeatherMinTemp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/min_temp"
-            android:textAlignment="center" />
-        <TextView
-            android:id="@+id/openWeatherHumidity"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/humidity"
-            android:textAlignment="center" />
-        <TextView
-            android:id="@+id/openWeatherWindSpeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/wind_speed"
-            android:textAlignment="center" />
-        <TextView
-            android:id="@+id/openWeatherDescription"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/description"
-            android:textAlignment="center" />
-
-
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/openWeatherImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="6dip"
-            />
-
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
+    <TextView
+        android:id="@+id/openWeatherMaxTemp"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_marginTop="300dp"
-        android:layout_marginLeft="131dp"
-        android:layout_marginRight="131dp"
-        android:orientation="vertical"
-        android:textAlignment="center">
+        android:layout_height="wrap_content"
+        android:text="@string/max_temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="364dp" />
 
-        <TextView
-            android:id="@+id/weatherbit_temp"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
-            android:text="@string/temp"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/openWeatherWindSpeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/wind_speed"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="436dp" />
 
-        <TextView
+    <TextView
+        android:id="@+id/openWeatherTemp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="340dp" />
 
-            android:id="@+id/weatherbit_city"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="cityName"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/openWeatherMinTemp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/min_temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteY="388dp" />
 
-        <TextView
+    <TextView
+        android:id="@+id/address"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:text="@string/serres_greece"
+        android:textSize="24sp"
+        tools:layout_editor_absoluteX="121dp" />
 
-            android:id="@+id/weatherbit_description"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/temp"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:fontFamily="sans-serif-thin"
+        android:text="@string/_29_c"
+        android:textSize="60sp"
+        tools:layout_editor_absoluteX="132dp"
+        tools:layout_editor_absoluteY="176dp" />
 
-        <TextView
+    <Button
+        android:id="@+id/buttonHistoryActivity"
+        android:layout_width="100dp"
+        android:layout_height="35dp"
+        android:text="History"
+        tools:layout_editor_absoluteX="145dp"
+        tools:layout_editor_absoluteY="51dp" />
 
-            android:id="@+id/weatherbit_windspeed"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:text="@string/temp"
-            android:textAlignment="center" />
+    <TextView
+        android:id="@+id/updated_at"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top|center"
+        android:text="@string/_4_november_2019"
+        android:textSize="14sp"
+        tools:layout_editor_absoluteX="139dp"
+        tools:layout_editor_absoluteY="32dp" />
 
-        <com.android.volley.toolbox.NetworkImageView
-            android:id="@+id/weatherbitImage"
-            android:layout_width="48dp"
-            android:layout_height="48dp"
-            android:layout_alignParentBottom="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginRight="6dip"
-            />
+    <TextView
 
-    </LinearLayout>
+        android:id="@+id/weatherbit_city"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="cityName"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="331dp" />
 
-    <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginTop="300dp"
-            android:layout_marginLeft="260dp"
-            android:orientation="vertical"
-            android:textAlignment="center">
-    </LinearLayout>
+    <TextView
 
+        android:id="@+id/weatherbit_windspeed"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="379dp" />
 
+    <TextView
+        android:id="@+id/weatherbit_temp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="307dp" />
 
+    <TextView
 
+        android:id="@+id/weatherbit_description"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/temp"
+        android:textAlignment="center"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="355dp" />
+
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/weatherbitImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        tools:layout_editor_absoluteX="134dp"
+        tools:layout_editor_absoluteY="398dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
