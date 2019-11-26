@@ -44,13 +44,6 @@
             android:textSize="60sp" />
 
 
-        <TextView
-            android:id="@+id/locationResult"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="TextView" />
-
-
     </LinearLayout>
 
 

@@ -5,6 +5,8 @@ import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
@@ -12,7 +14,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private MainActivityController MainActivityController;
+    private MainActivityController mainActivityController;
     //private GetClientLocation getClientLocation;
 
     @Override
@@ -20,7 +22,8 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-        MainActivityController = new MainActivityController(this);
+        mainActivityController = new MainActivityController(this);
+        GetClientLocation clientLocation = new GetClientLocation(this);
 
     }
 

@@ -46,12 +46,11 @@ public class GetClientLocation extends Activity {
 
     }
 
-///////////////////
+
 
     public  GetClientLocation(MainActivity activity) {
         client = LocationServices.getFusedLocationProviderClient(activity);
         this.activity = activity;
-        myLocationResult = activity.findViewById(R.id.locationResult);
 
         locationManager=(LocationManager) activity.getSystemService(activity.getApplicationContext().LOCATION_SERVICE);
         ActivityCompat.requestPermissions(activity,new String[]
@@ -144,26 +143,7 @@ public class GetClientLocation extends Activity {
         alertDialog.show();
 
     }
-////////////////////////////////
 
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
-///////////////////////////////////
 
     private class MyLocationListener implements LocationListener {
 
@@ -171,46 +151,14 @@ public class GetClientLocation extends Activity {
         @Override
         public void onLocationChanged(Location loc) {
 
-//            OpenWeatherController openWeatherController = new OpenWeatherController((MainActivity)activity);
-//            openWeatherController.executeGet(String.valueOf(loc.getLatitude()),String.valueOf(loc.getLongitude()));
-            Toast.makeText(
-                    activity.getBaseContext(),
-                    "Location changed: Lat: " + loc.getLatitude() + " Lng: "
-                            + loc.getLongitude(), Toast.LENGTH_SHORT).show();
-            setLongitude(valueOf(loc.getLongitude()));
-            Log.v(TAG, longitude);
-            setLatitude(valueOf(loc.getLatitude()));
-            Log.v(TAG, latitude);
-
-            /*------- To get city name from coordinates -------- */
-            String cityName = null;
-            Geocoder gcd = new Geocoder(activity.getBaseContext(), Locale.getDefault());
-            List<Address> addresses;
-            try {
-                addresses = gcd.getFromLocation(loc.getLatitude(),
-                        loc.getLongitude(), 1);
-                if (addresses.size() > 0) {
-                    System.out.println(addresses.get(0).getLocality());
-                    cityName = addresses.get(0).getLocality();
-                }
-            }
-            catch (IOException e) {
-                e.printStackTrace();
-            }
-            String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
-                    + cityName;
+            MainActivityController controller = new MainActivityController(activity);
+            controller.setLat(loc.getLatitude());
+            controller.setLon(loc.getLongitude());
+            controller.OpenWeatherTask(); // it gives the ability to the controller to set the lon and lat
+            controller.WeatherBitTask();
 
         }
-////////////////////////////////
 
-
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
 
         @Override
         public void onProviderDisabled(String provider) {}
@@ -220,50 +168,14 @@ public class GetClientLocation extends Activity {
 
         @Override
         public void onStatusChanged(String provider, int status, Bundle extras) {}
-    }
 
 
     }
 
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
 
-///////////////////////////////////
-
-    private class MyLocationListener implements LocationListener {
+}
 
 
-    @Override
-    public void onLocationChanged(Location loc) {
 
-        OpenWeatherController openWeatherController = new OpenWeatherController((MainActivity)activity);
-        openWeatherController.executeGet(valueOf(loc.getLatitude()), valueOf(loc.getLongitude()));
-        Toast.makeText(
-               activity.getBaseContext(),
-                "Location changed: Lat: " + loc.getLatitude() + " Lng: "
-                        + loc.getLongitude(), Toast.LENGTH_SHORT).show();
-       setLongitude(valueOf(loc.getLongitude()));
-        Log.v(TAG, longitude);
-        setLatitude(valueOf(loc.getLatitude()));
-        Log.v(TAG, latitude);
 
-        /*------- To get city name from coordinates -------- */
-        String cityName = null;
-        Geocoder gcd = new Geocoder(activity.getBaseContext(), Locale.getDefault());
-        List<Address> addresses;
-        try {
-            addresses = gcd.getFromLocation(loc.getLatitude(),
-                    loc.getLongitude(), 1);
-            if (addresses.size() > 0) {
-                System.out.println(addresses.get(0).getLocality());
-                cityName = addresses.get(0).getLocality();
-            }
-        }
-        catch (IOException e) {
-            e.printStackTrace();
-        }
-        String s = longitude + "\n" + latitude + "\n\nMy Current City is: "
-                + cityName;
 
-    }
