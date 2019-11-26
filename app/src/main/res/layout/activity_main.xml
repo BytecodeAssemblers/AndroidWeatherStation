@@ -13,7 +13,6 @@
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
         android:layout_height="?attr/actionBarSize"
-        android:background="?attr/colorPrimary"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintBottom_toBottomOf="parent"
@@ -22,7 +21,28 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0"
-        app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:titleMargin="0dp">
+
+        <SearchView
+            android:id="@+id/searchView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:iconifiedByDefault="false"
+            android:queryHint="Search Location"/>
+            <!--android:textColor="@color/lightSecondary"
+            android:color ="@color/lightPrimary"-->
+
+    </androidx.appcompat.widget.Toolbar>
+
+
+
+
+
+
+
+
 
     <TextView
         android:id="@+id/address"
@@ -173,6 +193,8 @@
         android:textSize="60sp"
         tools:layout_editor_absoluteX="142dp"
         tools:layout_editor_absoluteY="311dp" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
