@@ -8,6 +8,8 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
@@ -16,13 +18,14 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 
 
-public class MainActivity extends Activity {
+public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
     private MainActivityController MainActivityController;
     //private GetClientLocation getClientLocation;
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +34,10 @@ public class MainActivity extends Activity {
         //getClientLocation = new GetClientLocation(this);
         MainActivityController = new MainActivityController(this);
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
+
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
