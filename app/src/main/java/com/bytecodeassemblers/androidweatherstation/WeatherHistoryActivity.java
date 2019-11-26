@@ -14,10 +14,15 @@ import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 
+import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.Format;
 import java.text.ParsePosition;
+import java.text.SimpleDateFormat;
 import java.util.Arrays;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.GregorianCalendar;
 
 public class WeatherHistoryActivity extends AppCompatActivity {
 
@@ -29,7 +34,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     {
         this.mainActivity = mainActivity;
         this.locationHistory.setContext(this.mainActivity);
-        this.locationHistory.setDatabaseSelectEndpoint("http://weatherstation");
+        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/");
     }
 
     @Override
@@ -40,13 +45,24 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         plot = findViewById(R.id.plot);
 
         // create a couple arrays of y-values to plot:
-        final Number[] domainLabels = {1, 2, 3, 6, 7, 8, 9, 10, 13, 14};
+        final Date[] years = {
+                new GregorianCalendar(2001, Calendar.JANUARY, 1).getTime(),
+                new GregorianCalendar(2001, Calendar.JULY, 1).getTime(),
+                new GregorianCalendar(2002, Calendar.JANUARY, 1).getTime(),
+                new GregorianCalendar(2002, Calendar.JULY, 1).getTime(),
+                new GregorianCalendar(2003, Calendar.JANUARY, 1).getTime(),
+                new GregorianCalendar(2003, Calendar.JULY, 1).getTime(),
+                new GregorianCalendar(2004, Calendar.JANUARY, 1).getTime(),
+                new GregorianCalendar(2004, Calendar.JULY, 1).getTime(),
+                new GregorianCalendar(2005, Calendar.JANUARY, 1).getTime(),
+                new GregorianCalendar(2005, Calendar.JULY, 1).getTime()
+        };
         Number[] series1Numbers = {1, 4, 2, 8, 4, 16, 8, 32, 16, 64};
 
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
         XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Series1");
+                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sales of 2010");
 
         // create formatters to use for drawing a series using LineAndPointRenderer
         // and configure them from xml:
@@ -61,10 +77,11 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         plot.addSeries(series1, series1Format);
 
         plot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).setFormat(new Format() {
+            private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy");
             @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
-                int i = Math.round(((Number) obj).floatValue());
-                return toAppendTo.append(domainLabels[i]);
+                int yearIndex = (int) Math.round(((Number) obj).doubleValue());
+                return dateFormat.format(years[yearIndex], toAppendTo, pos);
             }
             @Override
             public Object parseObject(String source, ParsePosition pos) {
