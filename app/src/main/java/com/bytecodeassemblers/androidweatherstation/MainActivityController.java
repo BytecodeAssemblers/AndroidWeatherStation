@@ -17,7 +17,7 @@ import java.util.List;
 import java.util.Locale;
 
 
-public class Controller {
+public class MainActivityController {
 
     private MimageLoader imageLoader;
     private double lat = 41.090923;
@@ -51,7 +51,7 @@ public class Controller {
 
 
 
-    public Controller(Activity activity){
+    public MainActivityController(Activity activity){
         this.activity=activity;
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();

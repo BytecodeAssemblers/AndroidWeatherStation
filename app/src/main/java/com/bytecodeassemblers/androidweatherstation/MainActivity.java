@@ -12,7 +12,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 public class MainActivity extends AppCompatActivity {
 
-    private Controller Controller;
+    private MainActivityController MainActivityController;
     //private GetClientLocation getClientLocation;
     private DeviceLocation getLocation;
 
