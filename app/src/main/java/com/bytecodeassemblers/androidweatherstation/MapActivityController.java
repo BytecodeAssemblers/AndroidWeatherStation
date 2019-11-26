@@ -17,7 +17,7 @@ public class MapActivityController {
     private EditText longitudeText;
     private Common commonObject;
 
-    private Controller Controller;
+    private MainActivityController mainActivityController;
 
 
     public MapActivityController(final Activity activity){
@@ -45,7 +45,7 @@ public  void  buttonClick(){
                        value = Double.parseDouble(longtitudeT);
                        commonObject.setLat(latitudeT);
                        commonObject.setLon(longtitudeT);
-                       Controller = new Controller(activity);
+                       mainActivityController = new MainActivityController(activity);
                        openMapActivity();
                       // it means it is double
                    } catch (Exception e1) {
