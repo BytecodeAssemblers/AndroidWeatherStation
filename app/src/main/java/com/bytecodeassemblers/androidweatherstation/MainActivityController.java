@@ -14,8 +14,8 @@ import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMa
 public class MainActivityController {
 
     private MimageLoader imageLoader;
-    private double lat = 41.090923;
-    private double lon = 23.54132;
+    private double lat = 0;
+    private double lon = 0;
     private Activity activity;
 
     public double getLat() {
@@ -44,8 +44,6 @@ public class MainActivityController {
     private TextView openWeatherwindSpeedOnView;
     private TextView openWeathercityNameOnView;
     private NetworkImageView openWeathermyImage;
-    private String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
-
     //WeatherBit
     private WeatherBitMap weatherBitMap;
     private TextView weatherBitTempOnView;
@@ -53,7 +51,6 @@ public class MainActivityController {
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
-    private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
 //mainView
     private TextView generalTemp ;
 
@@ -61,18 +58,20 @@ public class MainActivityController {
 
     public MainActivityController(Activity activity){
         this.activity=activity;
+        InitializeComponent();
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
-        InitializeComponent();
 
     }
 
     public void OpenWeatherTask(){
+        String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
         new OpenWeatherTask().execute(OpenWeatherUrl);
 
     }
 
     public void WeatherBitTask(){
+        String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
         new WeatherBitTask().execute(WeatherBitUrl);
 
     }
