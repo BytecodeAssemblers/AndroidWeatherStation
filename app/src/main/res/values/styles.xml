@@ -7,4 +7,8 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
+    <style name="AppTheme.Toolbar" parent="AppTheme">
+        <item name="searchViewStyle">@color/searchViewColor</item>
+    </style>
 </resources>
