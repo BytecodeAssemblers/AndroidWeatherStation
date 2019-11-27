@@ -13,6 +13,8 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 
+import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
@@ -21,7 +23,8 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
-    private MainActivityController MainActivityController;
+    private MainActivityController mainActivityController;
+
     //private GetClientLocation getClientLocation;
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
@@ -32,7 +35,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-        MainActivityController = new MainActivityController(this);
+
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -44,6 +47,9 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
+
+        mainActivityController = new MainActivityController(this);
+        GetClientLocation clientLocation = new GetClientLocation(this);
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
