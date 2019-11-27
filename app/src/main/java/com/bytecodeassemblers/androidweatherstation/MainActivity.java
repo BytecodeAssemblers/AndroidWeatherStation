@@ -8,6 +8,8 @@ import android.view.View;
 import android.widget.Button;
 
 
+import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
@@ -16,7 +18,8 @@ import android.widget.Button;
 public class MainActivity extends Activity {
 
     private MainActivity mainView = this;
-    private MainActivityController MainActivityController;
+    private MainActivityController mainActivityController;
+
     //private GetClientLocation getClientLocation;
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
@@ -26,7 +29,8 @@ public class MainActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-        MainActivityController = new MainActivityController(this);
+        mainActivityController = new MainActivityController(this);
+        GetClientLocation clientLocation = new GetClientLocation(this);
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {

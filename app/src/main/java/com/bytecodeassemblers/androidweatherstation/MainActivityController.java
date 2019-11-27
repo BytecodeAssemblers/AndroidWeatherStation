@@ -18,6 +18,22 @@ public class MainActivityController {
     private double lon = 23.54132;
     private Activity activity;
 
+    public double getLat() {
+        return lat;
+    }
+
+    public void setLat(double lat) {
+        this.lat = lat;
+    }
+
+    public double getLon() {
+        return lon;
+    }
+
+    public void setLon(double lon) {
+        this.lon = lon;
+    }
+
     //openWeather
     private OpenWeatherMap openWeatherObject;
     private TextView openWeathertempOnView;
@@ -38,7 +54,8 @@ public class MainActivityController {
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
     private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
-
+//mainView
+    private TextView generalTemp ;
 
 
 
@@ -47,9 +64,19 @@ public class MainActivityController {
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
         InitializeComponent();
-        new OpenWeatherTask().execute(OpenWeatherUrl);
-        new WeatherBitTask().execute(WeatherBitUrl);
+
     }
+
+    public void OpenWeatherTask(){
+        new OpenWeatherTask().execute(OpenWeatherUrl);
+
+    }
+
+    public void WeatherBitTask(){
+        new WeatherBitTask().execute(WeatherBitUrl);
+
+    }
+
 
     public void InitializeComponent() {
 
@@ -72,6 +99,7 @@ public class MainActivityController {
         weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);
         weatherBitWindSpeedOnView = activity.findViewById(R.id.weatherbit_windspeed);
         weatherBitimageView = activity.findViewById(R.id.weatherbitImage);
+        generalTemp=activity.findViewById(R.id.temp);
 
     }
 
@@ -96,8 +124,11 @@ public class MainActivityController {
             openWeatherwindSpeedOnView.setText("Wind speed: "+weather.wind.getSpeed());
             openWeatherdescriptionOnView.setText("Description: "+weather.weather.getDescription());
             openWeathermyImage.setImageUrl(weather.weather.getImage(weather.weather.getIcon()),imageLoader.getmImageLoader());
+            generalTemp.setText(weather.main.getTemp() + "°C");
         }
     }
+
+
 
     private class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
 
