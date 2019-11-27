@@ -1,9 +1,12 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
@@ -12,10 +15,14 @@ import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLoc
 
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainActivity extends Activity {
 
+    private MainActivity mainView = this;
     private MainActivityController mainActivityController;
+
     //private GetClientLocation getClientLocation;
+    private WeatherHistoryActivity weatherHistoryActivity;
+    Button weatherHistoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +31,16 @@ public class MainActivity extends AppCompatActivity {
         //getClientLocation = new GetClientLocation(this);
         mainActivityController = new MainActivityController(this);
         GetClientLocation clientLocation = new GetClientLocation(this);
+
+        weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
+        weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                weatherHistoryActivity = new WeatherHistoryActivity(mainView);
+                Intent intent = new Intent(mainView, WeatherHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 

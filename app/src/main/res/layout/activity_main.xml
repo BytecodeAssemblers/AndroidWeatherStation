@@ -10,6 +10,7 @@
 
 
     <LinearLayout
+        android:id="@+id/historyActivityButton"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center|top"
@@ -32,6 +33,12 @@
             android:layout_gravity="top|center"
             android:text="@string/_4_november_2019"
             android:textSize="14sp" />
+
+        <Button
+            android:id="@+id/buttonHistoryActivity"
+            android:layout_width="100dp"
+            android:layout_height="35dp"
+            android:text="History" />
 
         <TextView
             android:id="@+id/temp"
