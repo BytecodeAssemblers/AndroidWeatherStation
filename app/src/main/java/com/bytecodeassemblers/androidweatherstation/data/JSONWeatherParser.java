@@ -1,8 +1,6 @@
 package com.bytecodeassemblers.androidweatherstation.data;
 
 
-
-import com.bytecodeassemblers.androidweatherstation.*;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherClouds;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherCoord;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMain;
@@ -19,15 +17,16 @@ import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitSy
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitWeather;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitWind;
 
+
 import org.json.JSONException;
 import org.json.JSONObject;
 
-public class JSONWeatherParser {
 
+public class JSONWeatherParser {
 
     public static OpenWeatherMap getOpenWeatherData(String data) {
 
-        OpenWeatherMap myOpenWeatherMap = new OpenWeatherMap();
+        OpenWeatherMap myOpenWeatherMap = new OpenWeatherMap(); // object composition
         try {
             JSONObject jsonObject = new JSONObject(data);
 
@@ -35,6 +34,7 @@ public class JSONWeatherParser {
             JSONObject windObject =   jsonObject.getJSONObject("wind");
             String deg = windObject.getString("deg");
             String speed = windObject.getString("speed");
+
             //set data on OpenWeatherWind class
             OpenWeatherWind weatherWind = new OpenWeatherWind();
             weatherWind.setDeg(deg);
@@ -62,7 +62,6 @@ public class JSONWeatherParser {
             weatherWeather.setDescription(description);
             weatherWeather.setIcon(icon);
 
-
             //read main JsonObject from OpenWeather Api json
             JSONObject mainObject = jsonObject.getJSONObject("main");
             String temp = mainObject.getString("temp");
@@ -77,7 +76,6 @@ public class JSONWeatherParser {
             weatherMain.setHumidity(humidity);
             weatherMain.setTempMin(tempMin);
             weatherMain.setTempMax(tempMax);
-
 
             //read clouds JsonObject from OpenWeather Api json
             JSONObject cloudsObject = jsonObject.getJSONObject("clouds");
@@ -132,6 +130,7 @@ public class JSONWeatherParser {
         }
         return null;
     }
+
     public static WeatherBitMap getWeatherBitData(String data) {
 
         WeatherBitMap weatherBitMap = new WeatherBitMap();
@@ -140,14 +139,14 @@ public class JSONWeatherParser {
             JSONObject dataObject = jsonObject.getJSONArray("data").getJSONObject(0);
             JSONObject weatherData = dataObject.getJSONObject("weather");
 
-            //Read WeatherBitSimpleData Data
+           // Read WeatherBitSimpleData Data
             String cityName = dataObject.getString("city_name");
             String icon = weatherData.getString("icon");
             String timezone = dataObject.getString("timezone");
 
 
 
-            //Set WeatherBitSimpleData Data
+           // Set WeatherBitSimpleData Data
             WeatherBitSimpleData weatherBitSimple = new WeatherBitSimpleData();
             weatherBitSimple.setCityName(cityName);
             weatherBitSimple.setIcon(icon);
@@ -208,12 +207,12 @@ public class JSONWeatherParser {
             weatherBitMap.sys = sys;
             weatherBitMap.wind=WBWind;
             weatherBitMap.weather =bitWeather;
-
-            return weatherBitMap;
+            return  weatherBitMap;
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
         return  null;
     }
+
+
 }

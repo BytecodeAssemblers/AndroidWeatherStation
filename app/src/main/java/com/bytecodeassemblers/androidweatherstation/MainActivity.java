@@ -1,38 +1,46 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import com.android.volley.toolbox.ImageLoader;
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.weather_bit.WeatherBitController;
-import com.bytecodeassemblers.androidweatherstation.open_weather.OpenWeatherController;
-//import com.bytecodeassemblers.androidweatherstation.weather_bit.WB_VolleySingleton;
-import com.bytecodeassemblers.androidweatherstation.weather_bit.WB_VolleySingleton;
-import com.bytecodeassemblers.androidweatherstation.weather_bit.WeatherBitController;
+
+//import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
 
-public class MainActivity extends AppCompatActivity {
 
-    private OpenWeatherController openWeatherController;
-    private WeatherBitController weatherBitController;
+public class MainActivity extends Activity {
 
-    private ImageLoader mImageLoader;
-    private GetClientLocation getClientLocation;
+    private MainActivity mainView = this;
+    private MainActivityController mainActivityController;
+
+    //private GetClientLocation getClientLocation;
+    private WeatherHistoryActivity weatherHistoryActivity;
+    Button weatherHistoryButton;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getClientLocation = new GetClientLocation(this);
-        weatherBitController = new WeatherBitController(this);
-        //openWeatherController = new OpenWeatherController(this);
-        //mImageLoader = WB_VolleySingleton.getInstance(this).getImageLoader();
+        //getClientLocation = new GetClientLocation(this);
+        mainActivityController = new MainActivityController(this);
+        GetClientLocation clientLocation = new GetClientLocation(this);
 
+        weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
+        weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                weatherHistoryActivity = new WeatherHistoryActivity(mainView);
+                Intent intent = new Intent(mainView, WeatherHistoryActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
