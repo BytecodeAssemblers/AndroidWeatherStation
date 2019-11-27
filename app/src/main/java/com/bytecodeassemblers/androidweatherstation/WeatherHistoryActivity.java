@@ -2,10 +2,20 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
 import android.os.Bundle;
 
+import com.android.volley.Request;
+import com.android.volley.RequestQueue;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonArrayRequest;
+import com.android.volley.toolbox.JsonObjectRequest;
+import com.android.volley.toolbox.Volley;
+import com.androidplot.Plot;
+import com.androidplot.PlotListener;
 import com.androidplot.util.PixelUtils;
 import com.androidplot.xy.CatmullRomInterpolator;
 import com.androidplot.xy.LineAndPointFormatter;
@@ -14,11 +24,17 @@ import com.androidplot.xy.XYGraphWidget;
 import com.androidplot.xy.XYPlot;
 import com.androidplot.xy.XYSeries;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.text.DateFormat;
 import java.text.FieldPosition;
 import java.text.Format;
+import java.text.ParseException;
 import java.text.ParsePosition;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
@@ -27,6 +43,8 @@ import java.util.GregorianCalendar;
 public class WeatherHistoryActivity extends AppCompatActivity {
 
     private MainActivity mainActivity;
+    private ArrayList<Date> dates = new ArrayList<>();
+    private ArrayList<Double> temperatures = new ArrayList<>();
     private XYPlot plot;
     private DatabaseApiSelect locationHistory = new DatabaseApiSelect();
     public WeatherHistoryActivity(){}
@@ -37,32 +55,62 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/");
     }
 
+    private void initializeData(JSONArray array) {
+        for(int i=0; i<array.length(); i++)
+        {
+            try {
+                dates.add(new SimpleDateFormat("yyyy-MM-dd").parse(array.getJSONObject(i).getString("Date")));
+                temperatures.add(Double.valueOf(array.getJSONObject(i).getString("Temperature")));
+            } catch (JSONException | ParseException e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_history);
 
         plot = findViewById(R.id.plot);
+        plot.setRenderMode(Plot.RenderMode.USE_MAIN_THREAD);
 
-        // create a couple arrays of y-values to plot:
-        final Date[] years = {
-                new GregorianCalendar(2001, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(2001, Calendar.JULY, 1).getTime(),
-                new GregorianCalendar(2002, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(2002, Calendar.JULY, 1).getTime(),
-                new GregorianCalendar(2003, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(2003, Calendar.JULY, 1).getTime(),
-                new GregorianCalendar(2004, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(2004, Calendar.JULY, 1).getTime(),
-                new GregorianCalendar(2005, Calendar.JANUARY, 1).getTime(),
-                new GregorianCalendar(2005, Calendar.JULY, 1).getTime()
-        };
-        Number[] series1Numbers = {1, 4, 2, 8, 4, 16, 8, 32, 16, 64};
+        RequestQueue queue = Volley.newRequestQueue(this);
+        JsonArrayRequest databaseRequest = new JsonArrayRequest(Request.Method.GET, "http://weatherassemble.hopto.org:8080/getweatherhistory.php?region=Serres,gr",null,
+            new Response.Listener<JSONArray>() {
+                @Override
+                public void onResponse(JSONArray response) {
+                    System.out.println("SUCCESS");
+                    initializeData(response);
+                    drawPlot();
+                    plot.redraw();
+                }
+            },
+            new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+                    System.out.println("ERROR On Select");
+                    System.out.println(error.getMessage());
+                    try {
+                        initializeData(new JSONArray("[{\"Temperature\":\"13.4\",\"Date\":\"2019-11-19\"},{\"Temperature\":\"13.2\",\"Date\":\"2019-11-20\"},{\"Temperature\":\"12.8\",\"Date\":\"2019-11-21\"},{\"Temperature\":\"13.3\",\"Date\":\"2019-11-22\"},{\"Temperature\":\"17.8\",\"Date\":\"2019-11-23\"},{\"Temperature\":\"17.4\",\"Date\":\"2019-11-24\"},{\"Temperature\":\"17.6\",\"Date\":\"2019-11-25\"}]"));
+                        drawPlot();
+                        plot.redraw();
+                    } catch (JSONException e) {
+                        e.printStackTrace();
+                    }
+                }
+            });
+        queue.add(databaseRequest);
+    }
+
+    private void drawPlot() {
+        final Date[] years = dates.toArray(new Date[dates.size()]);
+        Number[] series1Numbers = temperatures.toArray(new Double[temperatures.size()]);
 
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
         XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Sales of 2010");
+                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Serres");
 
         // create formatters to use for drawing a series using LineAndPointRenderer
         // and configure them from xml:
@@ -77,7 +125,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         plot.addSeries(series1, series1Format);
 
         plot.getGraph().getLineLabelStyle(XYGraphWidget.Edge.BOTTOM).setFormat(new Format() {
-            private final SimpleDateFormat dateFormat = new SimpleDateFormat("MMM yyyy");
+            private final SimpleDateFormat dateFormat = new SimpleDateFormat("yy-MM-dd");
             @Override
             public StringBuffer format(Object obj, StringBuffer toAppendTo, FieldPosition pos) {
                 int yearIndex = (int) Math.round(((Number) obj).doubleValue());
@@ -88,5 +136,6 @@ public class WeatherHistoryActivity extends AppCompatActivity {
                 return null;
             }
         });
+        plot.redraw();
     }
 }
