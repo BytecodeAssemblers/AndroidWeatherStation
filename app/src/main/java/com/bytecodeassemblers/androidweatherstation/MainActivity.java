@@ -48,7 +48,7 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        mainActivityController = new MainActivityController(this);
+        //mainActivityController = new MainActivityController(this);
         GetClientLocation clientLocation = new GetClientLocation(this);
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
