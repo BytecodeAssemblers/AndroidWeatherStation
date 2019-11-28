@@ -42,7 +42,7 @@ public class MainActivityController {
     }
 
 
-    private Common commonObject;
+
     private String accurateAddress;
     
 
@@ -75,25 +75,15 @@ public class MainActivityController {
     private String WeatherBitUrl;
 
 
-
-
     public MainActivityController(Activity activity){
         this.activity=activity;
         InitializeComponent();
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
-
-
     }
 
     public void OpenWeatherTask(){
         String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
-
-        commonObject = new Common();
-        OpenWeatherUrl = commonObject.openWeatherRequestLink();
-        WeatherBitUrl = commonObject.weatherBitRequestLink();
-        InitializeComponent();
-        accurateWeatherAddress();
         new OpenWeatherTask().execute(OpenWeatherUrl);
 
     }
@@ -101,21 +91,6 @@ public class MainActivityController {
     public void WeatherBitTask(){
         String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
         new WeatherBitTask().execute(WeatherBitUrl);
-
-    }
-
-
-
-
-    public void accurateWeatherAddress(){  //this method displays weather for specific location
-        List<Address> addressList = null;
-        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
-        try {
-            addressList = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()), Double.parseDouble(commonObject.getLongitude()), 1);
-            accurateAddress = addressList.get(0).getAddressLine(0);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
 
     }
 
