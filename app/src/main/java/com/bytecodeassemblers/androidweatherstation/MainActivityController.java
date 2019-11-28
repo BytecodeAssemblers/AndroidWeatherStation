@@ -1,6 +1,8 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
+import android.location.Address;
+import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
@@ -10,6 +12,10 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
 
+import java.io.IOException;
+import java.util.List;
+import java.util.Locale;
+
 
 public class MainActivityController {
 
@@ -17,6 +23,7 @@ public class MainActivityController {
     private double lat = 0;
     private double lon = 0;
     private Activity activity;
+
 
     public double getLat() {
         return lat;
@@ -34,6 +41,11 @@ public class MainActivityController {
         this.lon = lon;
     }
 
+
+    private Common commonObject;
+    private String accurateAddress;
+    
+
     //openWeather
     private OpenWeatherMap openWeatherObject;
     private TextView openWeathertempOnView;
@@ -44,6 +56,11 @@ public class MainActivityController {
     private TextView openWeatherwindSpeedOnView;
     private TextView openWeathercityNameOnView;
     private NetworkImageView openWeathermyImage;
+
+
+    private String OpenWeatherUrl;
+
+
     //WeatherBit
     private WeatherBitMap weatherBitMap;
     private TextView weatherBitTempOnView;
@@ -51,8 +68,12 @@ public class MainActivityController {
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
+
 //mainView
     private TextView generalTemp ;
+   // private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
+    private String WeatherBitUrl;
+
 
 
 
@@ -62,10 +83,17 @@ public class MainActivityController {
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
 
+
     }
 
     public void OpenWeatherTask(){
         String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
+
+        commonObject = new Common();
+        OpenWeatherUrl = commonObject.openWeatherRequestLink();
+        WeatherBitUrl = commonObject.weatherBitRequestLink();
+        InitializeComponent();
+        accurateWeatherAddress();
         new OpenWeatherTask().execute(OpenWeatherUrl);
 
     }
@@ -73,6 +101,21 @@ public class MainActivityController {
     public void WeatherBitTask(){
         String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
         new WeatherBitTask().execute(WeatherBitUrl);
+
+    }
+
+
+
+
+    public void accurateWeatherAddress(){  //this method displays weather for specific location
+        List<Address> addressList = null;
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
+        try {
+            addressList = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()), Double.parseDouble(commonObject.getLongitude()), 1);
+            accurateAddress = addressList.get(0).getAddressLine(0);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
 
     }
 
@@ -115,7 +158,7 @@ public class MainActivityController {
         @Override
         protected void onPostExecute(OpenWeatherMap weather) {
             super.onPostExecute(weather);
-            openWeathercityNameOnView.setText(weather.simple.getCityName());
+            openWeathercityNameOnView.setText(accurateAddress);
             openWeathertempOnView.setText("Temp: "+weather.main.getTemp());
             openWeathermaxTempOnView.setText("Temp max: "+weather.main.getTempMax());
             openWeatherminTempOnView.setText("Temp min: "+weather.main.getTempMin());

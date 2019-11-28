@@ -26,14 +26,20 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityController mainActivityController;
 
     //private GetClientLocation getClientLocation;
+
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
+
+    private DeviceLocation getLocation;
+
+    private MapActivityController mapController;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         //getClientLocation = new GetClientLocation(this);
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
@@ -60,6 +66,11 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+
+       // getClientLocation = new GetClientLocation(this);
+        getLocation = new DeviceLocation(this);
+        mapController = new MapActivityController(this);
+        MainActivityController = new MainActivityController(this);
 
     }
 
