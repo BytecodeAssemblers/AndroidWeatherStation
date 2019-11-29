@@ -30,6 +30,8 @@ public class MainActivity extends AppCompatActivity {
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
 
+    private MapActivityController mapActivityController;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -61,6 +63,7 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+        mapActivityController = new MapActivityController(this);
     }
 
 }
