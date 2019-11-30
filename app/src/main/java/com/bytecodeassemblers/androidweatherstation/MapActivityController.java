@@ -32,10 +32,10 @@ public class MapActivityController {
     }
 
     public void parseSearchView(){
-        selectedCoord = String.valueOf(searchView.getQuery());
-        String[] coords = selectedCoord.split(",");
-        commonObject.setLat(coords[0]);
-        commonObject.setLon(coords[1]);
+        selectedCoord = String.valueOf(searchView.getQuery()); //get text from SearchView
+        String[] coords = selectedCoord.split(",");  //separate coordinates
+        commonObject.setLat(coords[0]);  //set latitude
+        commonObject.setLon(coords[1]);  //set longitude
     }
 
 
@@ -49,8 +49,9 @@ public class MapActivityController {
         openMapActivityButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                openMapActivity();
                 parseSearchView();
+                MainActivityController mainActivityController = new MainActivityController(activity);
+                openMapActivity();
             }
         });
     }

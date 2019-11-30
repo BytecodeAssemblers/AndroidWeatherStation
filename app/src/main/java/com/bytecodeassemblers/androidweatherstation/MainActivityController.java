@@ -23,28 +23,8 @@ public class MainActivityController {
     private double lat = 0;
     private double lon = 0;
     private Activity activity;
+    private Common commonObject;
 
-
-    public double getLat() {
-        return lat;
-    }
-
-    public void setLat(double lat) {
-        this.lat = lat;
-    }
-
-    public double getLon() {
-        return lon;
-    }
-
-    public void setLon(double lon) {
-        this.lon = lon;
-    }
-
-
-
-    private String accurateAddress;
-    
 
     //openWeather
     private OpenWeatherMap openWeatherObject;
@@ -71,28 +51,22 @@ public class MainActivityController {
 
 //mainView
     private TextView generalTemp ;
-   // private String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
+
     private String WeatherBitUrl;
 
 
     public MainActivityController(Activity activity){
         this.activity=activity;
         InitializeComponent();
+        commonObject = new Common();
         openWeatherObject = new OpenWeatherMap();
         weatherBitMap = new WeatherBitMap();
-    }
-
-    public void OpenWeatherTask(){
-        String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
+        OpenWeatherUrl = commonObject.openWeatherRequestLink();
+        WeatherBitUrl = commonObject.weatherBitRequestLink();
         new OpenWeatherTask().execute(OpenWeatherUrl);
-
-    }
-
-    public void WeatherBitTask(){
-        String WeatherBitUrl = "https://api.weatherbit.io/v2.0/current?lat="+lat+"&lon="+lon+"&key=85166dfd6eae40128861ff9efb80ec65";
         new WeatherBitTask().execute(WeatherBitUrl);
-
     }
+
 
 
     public void InitializeComponent() {
@@ -133,7 +107,7 @@ public class MainActivityController {
         @Override
         protected void onPostExecute(OpenWeatherMap weather) {
             super.onPostExecute(weather);
-            openWeathercityNameOnView.setText(accurateAddress);
+            openWeathercityNameOnView.setText(weather.simple.getCityName());
             openWeathertempOnView.setText("Temp: "+weather.main.getTemp());
             openWeathermaxTempOnView.setText("Temp max: "+weather.main.getTempMax());
             openWeatherminTempOnView.setText("Temp min: "+weather.main.getTempMin());
@@ -151,8 +125,8 @@ public class MainActivityController {
 
         @Override
         protected WeatherBitMap doInBackground(String... strings) {
-            String data = ((new WeatherHttpClient()).getWeatherData(strings[0]));
-            weatherBitMap = JSONWeatherParser.getWeatherBitData(data);
+            String data = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from weatherBit using http request
+            weatherBitMap = JSONWeatherParser.getWeatherBitData(data);  //sends the response values into parse
             imageLoader.setImageLoader();
             return weatherBitMap;
         }

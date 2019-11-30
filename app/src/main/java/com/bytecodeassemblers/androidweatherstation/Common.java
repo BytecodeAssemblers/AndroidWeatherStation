@@ -1,7 +1,7 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 /**
-   This class takes device coordinates from DeviceLocation class.
+   This class takes device coordinates from GetClientLocation class at first run. It also takes coordinates from user input.
    It has two methods to create link for request in OpenWeather API and WeatherBit API
    this methods returns the API'S links for request.
  */
@@ -17,27 +17,29 @@ public class Common {
     public final String weatherBitAPI_KEY= "85166dfd6eae40128861ff9efb80ec65";
 
 
-    private static String latitude; //takes the device latitude
-    private static String longitude; //takes the device longitude
+    private static String latitude;
+    private static String longitude;
 
+    //returns updated openweather request link
     public  String openWeatherRequestLink(){
         StringBuilder builder = new StringBuilder(openWeather_API_LINK);
         builder.append(String.format("?lat="+latitude+"&lon="+longitude+"&APPID=%s&units=metric",openWeather_API_KEY));
         return builder.toString();
     }
 
+    //returns updated weatherBit request link
     public  String weatherBitRequestLink(){
         StringBuilder builder = new StringBuilder(weatherBitAPI_LINK);
         builder.append(String.format("?lat="+latitude+"&lon="+longitude+"&key=%s",weatherBitAPI_KEY));
         return builder.toString();
     }
 
-    //receive latitude from DeviceLocation class
+
     public void setLat(String lat) {
         this.latitude = lat;
     }
 
-    //receive longitude from DeviceLocation class
+
     public void setLon(String lon) {
         this.longitude = lon;
     }

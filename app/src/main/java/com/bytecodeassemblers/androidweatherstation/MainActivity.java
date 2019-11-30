@@ -23,7 +23,7 @@ import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLoc
 public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
-    private MainActivityController MainActivityController;
+    private MainActivityController mainActivityController;
 
     //private GetClientLocation getClientLocation;
 
@@ -38,7 +38,7 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-
+        GetClientLocation clientLocation = new GetClientLocation(this);
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -51,8 +51,9 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        //mainActivityController = new MainActivityController(this);
-        GetClientLocation clientLocation = new GetClientLocation(this);
+
+
+        mainActivityController = new MainActivityController(this);
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {

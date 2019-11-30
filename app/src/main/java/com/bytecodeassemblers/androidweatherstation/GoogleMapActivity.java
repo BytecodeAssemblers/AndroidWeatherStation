@@ -25,7 +25,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     private Common commonObject;
     private double lat;
     private double lon;
-    ArrayList<Marker> markersArray;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,10 +36,10 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-        markersArray = new ArrayList<Marker>();
+
         commonObject = new Common();
-        lat = Double.parseDouble(commonObject.getLatitude());
-        lon = Double.parseDouble(commonObject.getLongitude());
+        lat = Double.parseDouble(commonObject.getLatitude()); //get latitude from Common class
+        lon = Double.parseDouble(commonObject.getLongitude()); //get longtitude from common class
     }
     /**
      * Manipulates the map once available.
@@ -53,11 +54,12 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
 
+
         Geocoder geocoder= new Geocoder(this, Locale.getDefault());
 
         List<Address> addresses = null;
         try {
-            addresses = geocoder.getFromLocation(lat, lon, 1);
+            addresses = geocoder.getFromLocation(lat, lon, 1); //get specific address for latitude and longtitude given
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -67,9 +69,9 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         // Add a marker in current location
         String exactPosition =  addresses.get(0).getAddressLine(0);
 
-        LatLng sydney = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in "+exactPosition));
-        mMap.animateCamera(CameraUpdateFactory.newLatLng(sydney));
+        LatLng selectedPosition = new LatLng(lat, lon);
+        mMap.addMarker(new MarkerOptions().position(selectedPosition).title("Marker in "+exactPosition));
+        mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));
 
     }
 }
