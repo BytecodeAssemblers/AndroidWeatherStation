@@ -17,8 +17,8 @@ public class Common {
     public final String weatherBitAPI_KEY= "85166dfd6eae40128861ff9efb80ec65";
 
 
-    private static String latitude;
-    private static String longitude;
+    private static String latitude =null;
+    private static String longitude = null;
 
     //returns updated openweather request link
     public  String openWeatherRequestLink(){

@@ -1,12 +1,18 @@
 package com.bytecodeassemblers.androidweatherstation;
 
+import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import androidx.appcompat.app.AlertDialog;
+
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
@@ -15,6 +21,8 @@ import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMa
 import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
+
+import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 
 
 public class MainActivityController {
@@ -67,6 +75,11 @@ public class MainActivityController {
         new WeatherBitTask().execute(WeatherBitUrl);
     }
 
+
+//    public void OpenWeatherTask(){
+//        String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
+//        new OpenWeatherTask().execute(OpenWeatherUrl);
+//    }
 
 
     public void InitializeComponent() {
