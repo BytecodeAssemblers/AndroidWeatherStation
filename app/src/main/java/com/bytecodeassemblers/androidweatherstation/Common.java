@@ -1,11 +1,15 @@
 package com.bytecodeassemblers.androidweatherstation;
 
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.HashMap;
 /**
    This class takes device coordinates from GetClientLocation class at first run. It also takes coordinates from user input.
    It has two methods to create link for request in OpenWeather API and WeatherBit API
    this methods returns the API'S links for request.
  */
 public class Common {
+
 
     //OpenWeather call info
     public final String openWeather_API_LINK =  "http://api.openweathermap.org/data/2.5/weather";

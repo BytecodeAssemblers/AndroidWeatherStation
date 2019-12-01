@@ -26,8 +26,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     private double lat;
     private double lon;
 
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,10 +63,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         }
 
 
-
         // Add a marker in current location
         String exactPosition =  addresses.get(0).getAddressLine(0);
-
         LatLng selectedPosition = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(selectedPosition).title("Marker in "+exactPosition));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));

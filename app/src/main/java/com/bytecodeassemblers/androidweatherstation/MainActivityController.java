@@ -9,8 +9,11 @@ import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.SearchView;
+import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AlertDialog;
 
@@ -20,8 +23,11 @@ import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,6 +35,8 @@ import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 
 
 public class MainActivityController {
+
+
 
     private MimageLoader imageLoader;
     private double lat = 0;
@@ -69,6 +77,8 @@ public class MainActivityController {
 
     private String inputCoordinates;
 
+
+
     public MainActivityController(Activity activity){
         this.activity=activity;
         InitializeComponent();
@@ -82,11 +92,12 @@ public class MainActivityController {
     }
 
 
+
+
 //    public void OpenWeatherTask(){
 //        String  OpenWeatherUrl="http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322&units=metric";
 //        new OpenWeatherTask().execute(OpenWeatherUrl);
 //    }
-
 
 
 
@@ -113,7 +124,7 @@ public class MainActivityController {
         weatherBitimageView = activity.findViewById(R.id.weatherbitImage);
         generalTemp=activity.findViewById(R.id.temp);
 
-        
+
         searchView = activity.findViewById(R.id.searchView);
         searchView.setOnQueryTextListener(onSubmitQueryTextListener);
     }
@@ -131,17 +142,31 @@ public class MainActivityController {
             new WeatherBitTask().execute(WeatherBitUrl);
             return false;
         }
-
         @Override
         public boolean onQueryTextChange(String newText) {
             return false;
         }
     };
 
+
+        public String GetExactLocationAddress(){
+            Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
+            List<Address> addresses = null;
+            try {
+                addresses = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()),Double.parseDouble(commonObject.getLongitude()) , 1); //get specific address for latitude and longtitude given
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+            return addresses.get(0).getAddressLine(0);
+        }
+
+
+
+
     public void parseSearchView(){
         inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
         String[] coords = inputCoordinates.split(",");  //separate coordinates
-        commonObject.setLat(coords[0]);  //set latitude in common class to take values in GoogleMapActivity
+        commonObject.setLat(coords[0]);  //set latitude in common class
         commonObject.setLon(coords[1]);  //set longitude in common class
     }
 

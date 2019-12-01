@@ -73,13 +73,11 @@ public class GetClientLocation extends Activity  {
                 .isProviderEnabled(LocationManager.GPS_PROVIDER);
 
 
-
          //getting network status
         isNetworkEnabled = locationManager
                 .isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
         permissionRequest();
-
 
         //Check gps is enable or not
         if (getLocationFromGpsProvider()) {
