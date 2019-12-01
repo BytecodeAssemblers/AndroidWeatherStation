@@ -29,7 +29,7 @@ public class MainActivity extends AppCompatActivity {
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
 
-    private MapActivityController mapActivityController;
+
 
     private boolean isGPSEnabled = false;
     private LocationManager locationManager;
@@ -40,9 +40,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
-
-
-
 
 
 
@@ -71,7 +68,6 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
-        mapActivityController = new MapActivityController(this);
     }
 
 }

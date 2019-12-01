@@ -7,6 +7,9 @@ import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
+import android.view.View;
+import android.widget.Button;
+import android.widget.SearchView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AlertDialog;
@@ -73,6 +76,7 @@ public class MainActivityController {
         WeatherBitUrl = commonObject.weatherBitRequestLink();
         new OpenWeatherTask().execute(OpenWeatherUrl);
         new WeatherBitTask().execute(WeatherBitUrl);
+        buttonClick();
     }
 
 
@@ -81,6 +85,9 @@ public class MainActivityController {
 //        new OpenWeatherTask().execute(OpenWeatherUrl);
 //    }
 
+    Button openMapActivityButton;
+    private SearchView searchView;
+    private String selectedCoord;
 
     public void InitializeComponent() {
 
@@ -105,7 +112,42 @@ public class MainActivityController {
         weatherBitimageView = activity.findViewById(R.id.weatherbitImage);
         generalTemp=activity.findViewById(R.id.temp);
 
+
+        //Map components
+        openMapActivityButton = activity.findViewById(R.id.viewMap);
+        searchView = activity.findViewById(R.id.searchView);
+
     }
+
+
+    public void parseSearchView(){
+        selectedCoord = String.valueOf(searchView.getQuery()); //get text from SearchView
+        String[] coords = selectedCoord.split(",");  //separate coordinates
+        commonObject.setLat(coords[0]);  //set latitude
+        commonObject.setLon(coords[1]);  //set longitude
+    }
+
+    public void openMapActivity(){
+        Intent intent = new Intent(activity, GoogleMapActivity.class);
+        activity.startActivity(intent);
+    }
+
+
+    public  void  buttonClick(){
+        openMapActivityButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parseSearchView();
+                openMapActivity();
+                OpenWeatherUrl = commonObject.openWeatherRequestLink();
+                WeatherBitUrl = commonObject.weatherBitRequestLink();
+                new OpenWeatherTask().execute(OpenWeatherUrl);
+                new WeatherBitTask().execute(WeatherBitUrl);
+            }
+        });
+    }
+
+
 
 
     private class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
