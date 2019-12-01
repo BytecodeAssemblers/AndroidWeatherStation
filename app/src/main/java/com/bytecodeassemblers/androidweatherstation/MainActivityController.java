@@ -65,6 +65,9 @@ public class MainActivityController {
 
     private String WeatherBitUrl;
 
+    private SearchView searchView;
+
+    private String inputCoordinates;
 
     public MainActivityController(Activity activity){
         this.activity=activity;
@@ -76,7 +79,6 @@ public class MainActivityController {
         WeatherBitUrl = commonObject.weatherBitRequestLink();
         new OpenWeatherTask().execute(OpenWeatherUrl);
         new WeatherBitTask().execute(WeatherBitUrl);
-        buttonClick();
     }
 
 
@@ -85,9 +87,8 @@ public class MainActivityController {
 //        new OpenWeatherTask().execute(OpenWeatherUrl);
 //    }
 
-    Button openMapActivityButton;
-    private SearchView searchView;
-    private String selectedCoord;
+
+
 
     public void InitializeComponent() {
 
@@ -112,41 +113,42 @@ public class MainActivityController {
         weatherBitimageView = activity.findViewById(R.id.weatherbitImage);
         generalTemp=activity.findViewById(R.id.temp);
 
-
-        //Map components
-        openMapActivityButton = activity.findViewById(R.id.viewMap);
+        
         searchView = activity.findViewById(R.id.searchView);
-
+        searchView.setOnQueryTextListener(onSubmitQueryTextListener);
     }
 
 
+    //run query from search button in keyboard
+    private SearchView.OnQueryTextListener onSubmitQueryTextListener = new SearchView.OnQueryTextListener() {
+        @Override
+        public boolean onQueryTextSubmit(String query) {
+            parseSearchView();
+            openMapActivity();
+            OpenWeatherUrl = commonObject.openWeatherRequestLink();
+            WeatherBitUrl = commonObject.weatherBitRequestLink();
+            new OpenWeatherTask().execute(OpenWeatherUrl);
+            new WeatherBitTask().execute(WeatherBitUrl);
+            return false;
+        }
+
+        @Override
+        public boolean onQueryTextChange(String newText) {
+            return false;
+        }
+    };
+
     public void parseSearchView(){
-        selectedCoord = String.valueOf(searchView.getQuery()); //get text from SearchView
-        String[] coords = selectedCoord.split(",");  //separate coordinates
-        commonObject.setLat(coords[0]);  //set latitude
-        commonObject.setLon(coords[1]);  //set longitude
+        inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
+        String[] coords = inputCoordinates.split(",");  //separate coordinates
+        commonObject.setLat(coords[0]);  //set latitude in common class to take values in GoogleMapActivity
+        commonObject.setLon(coords[1]);  //set longitude in common class
     }
 
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
         activity.startActivity(intent);
     }
-
-
-    public  void  buttonClick(){
-        openMapActivityButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parseSearchView();
-                openMapActivity();
-                OpenWeatherUrl = commonObject.openWeatherRequestLink();
-                WeatherBitUrl = commonObject.weatherBitRequestLink();
-                new OpenWeatherTask().execute(OpenWeatherUrl);
-                new WeatherBitTask().execute(WeatherBitUrl);
-            }
-        });
-    }
-
 
 
 

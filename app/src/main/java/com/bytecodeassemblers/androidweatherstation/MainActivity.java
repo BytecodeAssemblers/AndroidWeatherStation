@@ -58,7 +58,6 @@ public class MainActivity extends AppCompatActivity {
 
         GetClientLocation clientLocation = new GetClientLocation(this);
 //        mainActivityController = new MainActivityController(this);
-
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override
