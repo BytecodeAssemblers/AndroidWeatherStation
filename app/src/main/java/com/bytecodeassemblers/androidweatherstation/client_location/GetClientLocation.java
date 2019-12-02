@@ -42,7 +42,7 @@ public class GetClientLocation extends Activity  {
     private LocationManager locationManager;
     private Location location;
     private Activity activity;
-    private Common commonObject;
+
 
     private double latitude;
     private double longitude;
@@ -54,11 +54,12 @@ public class GetClientLocation extends Activity  {
     private boolean isNetworkEnabled = false;
 
 
-
     public GetClientLocation(){
 
 
     }
+
+    MainActivityController  mainActivityController;
 
     @SuppressLint("MissingPermission")
     public  GetClientLocation(MainActivity activity) {
@@ -79,6 +80,8 @@ public class GetClientLocation extends Activity  {
 
         permissionRequest();
 
+        mainActivityController = new MainActivityController(activity);
+
         //Check gps is enable or not
         if (getLocationFromGpsProvider()) {
 
@@ -88,16 +91,20 @@ public class GetClientLocation extends Activity  {
 
             Toast.makeText(activity, "Coordinates from network provider: ", Toast.LENGTH_SHORT).show();
 
+            mainActivityController.setLatitude(latitude);
+            mainActivityController.setLongitude(longitude);
+
+            mainActivityController.ExecuteWeatherBitTask();
+            mainActivityController.ExecuteOpenWeatherTask();
+
         }
+
 
         LocationListener locationListener = new MyLocationListener();
         //GPS is already On then
         locationManager.requestLocationUpdates(
                 LocationManager.GPS_PROVIDER, 5000, 10, locationListener);
 
-        Common commonObject = new Common();
-        commonObject.setLat(String.valueOf(latitude));
-        commonObject.setLon(String.valueOf(longitude));
 
     }
 
@@ -169,10 +176,16 @@ public class GetClientLocation extends Activity  {
         public void onLocationChanged(Location loc) {
             if(loc!=null){
 
-               MainActivityController  mainActivityController = new MainActivityController(activity);
+
+                mainActivityController.setLatitude(loc.getLatitude());
+                mainActivityController.setLongitude(loc.getLongitude());
+
+                mainActivityController.ExecuteWeatherBitTask();
+                mainActivityController.ExecuteOpenWeatherTask();
 
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
+
                 Toast.makeText(activity,"Yor location changed: "+location.getLatitude()+" "+location.getLongitude(),Toast.LENGTH_SHORT).show();
             }
 

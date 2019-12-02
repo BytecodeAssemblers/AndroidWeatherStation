@@ -42,8 +42,6 @@ public class MainActivity extends AppCompatActivity {
         //getClientLocation = new GetClientLocation(this);
 
 
-
-
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
@@ -57,7 +55,11 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.start();
 
         GetClientLocation clientLocation = new GetClientLocation(this);
-//        mainActivityController = new MainActivityController(this);
+        //mainActivityController = new MainActivityController(this);
+
+
+
+
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
         weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
             @Override

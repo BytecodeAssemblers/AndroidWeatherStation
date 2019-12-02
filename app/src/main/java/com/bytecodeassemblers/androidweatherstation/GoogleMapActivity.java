@@ -26,6 +26,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     private double lat;
     private double lon;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -34,6 +36,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+
+
 
         commonObject = new Common();
         lat = Double.parseDouble(commonObject.getLatitude()); //get latitude from Common class
