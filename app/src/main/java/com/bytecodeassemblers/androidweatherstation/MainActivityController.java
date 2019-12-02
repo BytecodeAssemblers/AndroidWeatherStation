@@ -65,14 +65,18 @@ public class MainActivityController {
 
 
 
-
-
     public MainActivityController(Activity activity){
         this.activity=activity;
         commonObject = new Common();
         InitializeComponent();
     }
 
+
+    public void InitializeComponent() {
+        imageLoader = new MimageLoader(activity);
+        searchView = activity.findViewById(R.id.searchView);
+        searchView.setOnQueryTextListener(onSubmitQueryTextListener);
+    }
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
@@ -85,21 +89,14 @@ public class MainActivityController {
     }
 
 
-    public void InitializeComponent() {
-        imageLoader = new MimageLoader(activity);
-        searchView = activity.findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(onSubmitQueryTextListener);
-    }
-
-
     //run query from search button in keyboard
     private SearchView.OnQueryTextListener onSubmitQueryTextListener = new SearchView.OnQueryTextListener() {
         @Override
         public boolean onQueryTextSubmit(String query) {
             parseSearchView();
             openMapActivity();
-            ExecuteOpenWeatherTask();
             ExecuteWeatherBitTask();
+            ExecuteOpenWeatherTask();
             return true;
         }
         @Override
