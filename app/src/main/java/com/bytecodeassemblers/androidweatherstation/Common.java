@@ -4,7 +4,8 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
 /**
-   This class takes device coordinates from GetClientLocation class at first run. It also takes coordinates from user input.
+   This class takes device coordinates from MainActivityController class , takes coordinates from user input.
+   GoogleMapActivity class receive this coordinates to show location from the user input in map.
    It has two methods to create link for request in OpenWeather API and WeatherBit API
    this methods returns the API'S links for request.
  */

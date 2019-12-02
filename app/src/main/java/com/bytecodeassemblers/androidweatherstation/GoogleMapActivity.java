@@ -40,8 +40,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
 
 
         commonObject = new Common();
-        lat = Double.parseDouble(commonObject.getLatitude()); //get latitude from Common class
-        lon = Double.parseDouble(commonObject.getLongitude()); //get longtitude from common class
+        lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
+        lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
     }
     /**
      * Manipulates the map once available.
@@ -55,7 +55,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
-
 
         Geocoder geocoder= new Geocoder(this, Locale.getDefault());
 

@@ -41,7 +41,7 @@ public class MainActivityController {
 
     private MimageLoader imageLoader;
     private Activity activity;
-
+    private Common commonObject;
 
 
     private  double lat;
@@ -65,7 +65,7 @@ public class MainActivityController {
 
 
 
-    private Common commonObject;
+
 
     public MainActivityController(Activity activity){
         this.activity=activity;
@@ -107,6 +107,7 @@ public class MainActivityController {
             return false;
         }
     };
+
 
         public String GetExactLocationAddress(){
             Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
