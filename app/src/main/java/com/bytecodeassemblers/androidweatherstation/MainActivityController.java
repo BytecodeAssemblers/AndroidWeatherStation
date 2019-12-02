@@ -55,7 +55,7 @@ public class MainActivityController {
         lon = longitude;
     }
 
-
+    private LocationRepo locationRepo ;
 
 
 
@@ -126,6 +126,16 @@ public class MainActivityController {
 
          commonObject.setLat(coords[0]);  //set latitude in common class
          commonObject.setLon(coords[1]);  //set longitude in common class
+
+        String address = GetExactLocationAddress();
+
+        locationRepo = new LocationRepo();
+        LatLng latLng = new LatLng(lat,lon); // DOKIMI HASHMAP KAI LEITOURGIWN TOU
+        locationRepo = new LocationRepo();
+        locationRepo.addLocationReg(address,latLng);
+        Toast.makeText(activity,"" + locationRepo.getLocationRepo().keySet().toString(),Toast.LENGTH_LONG).show();
+
+        locationRepo.searchLocationReg(address);
     }
 
     public void openMapActivity(){
