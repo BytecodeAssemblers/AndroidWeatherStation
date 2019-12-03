@@ -31,6 +31,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
+import java.util.zip.CheckedInputStream;
 
 import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 
@@ -56,10 +57,10 @@ public class MainActivityController {
     }
 
 
+    boolean inputCheck;
 
 
-
-//mainView
+    //mainView
     private SearchView searchView;
     private String inputCoordinates;
 
@@ -94,9 +95,13 @@ public class MainActivityController {
         @Override
         public boolean onQueryTextSubmit(String query) {
             parseSearchView();
-            openMapActivity();
-            ExecuteWeatherBitTask();
+            if(inputCheck){
+                openMapActivity();
+                ExecuteWeatherBitTask();
+              //  String url = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322";
+              //  new OpenWeatherTask(activity,imageLoader).execute(url);
             ExecuteOpenWeatherTask();
+           }
             return true;
         }
         @Override
@@ -106,27 +111,38 @@ public class MainActivityController {
     };
 
 
-        public String GetExactLocationAddress(){
-            Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
-            List<Address> addresses = null;
-            try {
-                addresses = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()),Double.parseDouble(commonObject.getLongitude()) , 1); //get specific address for latitude and longtitude given
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return addresses.get(0).getAddressLine(0);
+    public String GetExactLocationAddress(Double latitude, Double longitude){
+        Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+                addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
+                 lat = addresses.get(0).getLatitude();
+                 lon = addresses.get(0).getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return addresses.get(0).getAddressLine(0);
+    }
 
 
     public void parseSearchView(){
-        inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-        String[] coords = inputCoordinates.split(",");  //separate coordinates
-        lat = Double.parseDouble(coords[0]);
-        lon = Double.parseDouble(coords[1]);
 
-         commonObject.setLat(coords[0]);  //set latitude in common class
-         commonObject.setLon(coords[1]);  //set longitude in common class
+        inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
+
+        try {
+            String[] coords = inputCoordinates.split(",");  //separate coordinates
+            GetExactLocationAddress(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
+           inputCheck = true;
+        }catch (Exception e){
+            Toast.makeText(activity,"Wrong Coordinates! Please split Latitude and Longitude using ','",Toast.LENGTH_LONG).show();
+            inputCheck = false;
+        }
+        //set longitude in common class
+       commonObject.setLat(String.valueOf(lat));  //set latitude in common class
+       commonObject.setLon(String.valueOf(lon));
     }
+
 
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
