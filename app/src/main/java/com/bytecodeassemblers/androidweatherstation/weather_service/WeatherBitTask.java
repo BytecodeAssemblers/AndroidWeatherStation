@@ -1,10 +1,12 @@
-package com.bytecodeassemblers.androidweatherstation;
+package com.bytecodeassemblers.androidweatherstation.weather_service;
 
 import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.MimageLoader;
+import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
