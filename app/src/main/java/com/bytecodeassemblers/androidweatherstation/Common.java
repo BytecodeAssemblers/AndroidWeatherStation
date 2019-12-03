@@ -34,6 +34,7 @@ public class Common {
     }
 
 
+
     //returns updated weatherBit request link
     public static String weatherBitRequestLink(double lat,double lon){
         StringBuilder builder = new StringBuilder(weatherBitAPI_LINK);

@@ -1,40 +1,25 @@
 package com.bytecodeassemblers.androidweatherstation;
 
-import android.annotation.SuppressLint;
 import android.app.Activity;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
-import android.view.View;
-import android.widget.Button;
-import android.widget.ListView;
 import android.widget.SearchView;
-import android.widget.SimpleAdapter;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AlertDialog;
-
-import com.android.volley.toolbox.ImageLoader;
-import com.android.volley.toolbox.NetworkImageView;
-import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
-import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
-import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
-import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
-import com.google.android.gms.maps.model.LatLng;
+import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
+import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+<<<<<<< HEAD
 import static android.app.Activity.RESULT_OK;
 import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 
+=======
+>>>>>>> 087a90d1be0b837323abda52c305a6ce92122481
 
 public class MainActivityController {
 
@@ -60,6 +45,12 @@ public class MainActivityController {
         return activity;
     }
 
+<<<<<<< HEAD
+=======
+    boolean inputCheck;
+
+
+>>>>>>> 087a90d1be0b837323abda52c305a6ce92122481
     //mainView
     private SearchView searchView;
     private String inputCoordinates;
@@ -107,16 +98,19 @@ public class MainActivityController {
     };
 
 
-        public String GetExactLocationAddress(){
-            Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
-            List<Address> addresses = null;
-            try {
-                addresses = geocoder.getFromLocation(Double.parseDouble(commonObject.getLatitude()),Double.parseDouble(commonObject.getLongitude()) , 1); //get specific address for latitude and longtitude given
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
-            return addresses.get(0).getAddressLine(0);
+    public String GetExactLocationAddress(Double latitude, Double longitude){
+        Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
+        List<Address> addresses = null;
+        try {
+                addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
+                 lat = addresses.get(0).getLatitude();
+                 lon = addresses.get(0).getLongitude();
+
+        } catch (IOException e) {
+            e.printStackTrace();
         }
+        return addresses.get(0).getAddressLine(0);
+    }
 
 
     public void parseSearchView(){
@@ -128,6 +122,7 @@ public class MainActivityController {
          commonObject.setLat(String.valueOf(this.lat));  //set latitude in common class
          commonObject.setLon(String.valueOf(this.lon));  //set longitude in common class
     }
+
 
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
