@@ -37,8 +37,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
         commonObject = new Common();
         lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
         lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
@@ -69,7 +67,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         // Add a marker in current location
         String exactPosition =  addresses.get(0).getAddressLine(0);
         LatLng selectedPosition = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(selectedPosition).title("Marker in "+exactPosition));
+        mMap.addMarker(new MarkerOptions().position(selectedPosition).title(exactPosition));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));
 
     }

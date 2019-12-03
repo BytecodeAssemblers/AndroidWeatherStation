@@ -77,9 +77,8 @@ public class MainActivityController {
             if(inputCheck){
                 openMapActivity();
                 ExecuteWeatherBitTask();
-              //  String url = "http://api.openweathermap.org/data/2.5/weather?lat="+lat+"&lon="+lon+"&APPID=ee6892eaa4ce0be1a8eac7817898d322";
-              //  new OpenWeatherTask(activity,imageLoader).execute(url);
-            ExecuteOpenWeatherTask();
+                ExecuteOpenWeatherTask();
+                searchView.setQuery("",false); //clear searchView after request
            }
             return true;
         }
@@ -108,11 +107,10 @@ public class MainActivityController {
     public void parseSearchView(){
 
         inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-
         try {
             String[] coords = inputCoordinates.split(",");  //separate coordinates
             GetExactLocationAddress(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
-           inputCheck = true;
+            inputCheck = true;
         }catch (Exception e){
             Toast.makeText(activity,"Wrong Coordinates! Please split Latitude and Longitude using ','",Toast.LENGTH_LONG).show();
             inputCheck = false;

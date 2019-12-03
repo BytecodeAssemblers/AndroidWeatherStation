@@ -85,11 +85,9 @@ public class GetClientLocation extends Activity  {
         //Check gps is enable or not
         if (getLocationFromGpsProvider()) {
 
-            Toast.makeText(activity, "Coordinates from GPS provider: ", Toast.LENGTH_SHORT).show();
 
         } else if (getLocationFromNetworkProvider()) {
 
-            Toast.makeText(activity, "Coordinates from network provider: ", Toast.LENGTH_SHORT).show();
 
             mainActivityController.setLatitude(latitude);
             mainActivityController.setLongitude(longitude);
@@ -98,7 +96,6 @@ public class GetClientLocation extends Activity  {
             mainActivityController.ExecuteOpenWeatherTask();
 
         }
-
 
         LocationListener locationListener = new MyLocationListener();
         //GPS is already On then
@@ -186,7 +183,6 @@ public class GetClientLocation extends Activity  {
                 latitude = location.getLatitude();
                 longitude = location.getLongitude();
 
-                Toast.makeText(activity,"Yor location changed: "+location.getLatitude()+" "+location.getLongitude(),Toast.LENGTH_SHORT).show();
             }
 
         }
