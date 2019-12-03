@@ -3,6 +3,7 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.View;
@@ -54,10 +55,9 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        GetClientLocation clientLocation = new GetClientLocation(this);
-        //mainActivityController = new MainActivityController(this);
 
-
+        mainActivityController = new MainActivityController(this);
+        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
         weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
@@ -69,6 +69,20 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
             }
         });
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                this.mainActivityController.setLatitude(data.getDoubleExtra("lat", 48.08));
+                this.mainActivityController.setLongitude(data.getDoubleExtra("lon", 23.78));
+
+                this.mainActivityController.ExecuteOpenWeatherTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
+            }
+        }
     }
 
 }

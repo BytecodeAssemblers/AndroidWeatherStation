@@ -2,9 +2,11 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -72,5 +74,25 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         mMap.addMarker(new MarkerOptions().position(selectedPosition).title("Marker in "+exactPosition));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));
 
+        float zoomLevel = 5.0f; //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoomLevel));
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                Toast.makeText(
+                        GoogleMapActivity.this,
+                        "Lat : " + latLng.latitude + " , "
+                                + "Long : " + latLng.longitude,
+                        Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent();
+                intent.putExtra("lat", latLng.latitude);
+                intent.putExtra("lon", latLng.longitude);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 }

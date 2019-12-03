@@ -32,6 +32,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
+import static android.app.Activity.RESULT_OK;
 import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
 
 
@@ -55,11 +56,11 @@ public class MainActivityController {
         lon = longitude;
     }
 
+    public Activity getActivity() {
+        return activity;
+    }
 
-
-
-
-//mainView
+    //mainView
     private SearchView searchView;
     private String inputCoordinates;
 
@@ -95,8 +96,8 @@ public class MainActivityController {
         public boolean onQueryTextSubmit(String query) {
             parseSearchView();
             openMapActivity();
-            ExecuteWeatherBitTask();
-            ExecuteOpenWeatherTask();
+            //ExecuteWeatherBitTask();
+            //ExecuteOpenWeatherTask();
             return true;
         }
         @Override
@@ -119,18 +120,20 @@ public class MainActivityController {
 
 
     public void parseSearchView(){
-        inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-        String[] coords = inputCoordinates.split(",");  //separate coordinates
-        lat = Double.parseDouble(coords[0]);
-        lon = Double.parseDouble(coords[1]);
+        //inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
+        //String[] coords = inputCoordinates.split(",");  //separate coordinates
+        //lat = Double.parseDouble(coords[0]);
+        //lon = Double.parseDouble(coords[1]);
 
-         commonObject.setLat(coords[0]);  //set latitude in common class
-         commonObject.setLon(coords[1]);  //set longitude in common class
+         commonObject.setLat(String.valueOf(this.lat));  //set latitude in common class
+         commonObject.setLon(String.valueOf(this.lon));  //set longitude in common class
     }
 
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,1 );
+
     }
+
 
 }
