@@ -14,12 +14,6 @@ import java.io.IOException;
 import java.util.List;
 import java.util.Locale;
 
-<<<<<<< HEAD
-import static android.app.Activity.RESULT_OK;
-import static android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS;
-
-=======
->>>>>>> 087a90d1be0b837323abda52c305a6ce92122481
 
 public class MainActivityController {
 
@@ -45,12 +39,8 @@ public class MainActivityController {
         return activity;
     }
 
-<<<<<<< HEAD
-=======
     boolean inputCheck;
 
-
->>>>>>> 087a90d1be0b837323abda52c305a6ce92122481
     //mainView
     private SearchView searchView;
     private String inputCoordinates;
