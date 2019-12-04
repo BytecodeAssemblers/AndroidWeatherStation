@@ -18,6 +18,11 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
 
@@ -44,10 +49,12 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         //getClientLocation = new GetClientLocation(this);
+        TextView textView = findViewById(R.id.updated_at);
+        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
+        textView.setText(strDate);
 
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
-
 
 
 
@@ -60,12 +67,9 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-
         mainActivityController = new MainActivityController(this);
 
         GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
-
-
 
 
     }
@@ -92,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:
-
+                intent = new Intent(mainView, AdvancedDetailsActivity.class);
+                startActivity(intent);
                 return true;
             case R.id.about:
 
