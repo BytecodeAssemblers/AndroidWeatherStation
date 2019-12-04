@@ -18,4 +18,6 @@
     <string name="descriiption">descriiption</string>
     <string name="wind_speed">wind_speed</string>
     <string name="description">description</string>
+    <string name="title_activity_map">Map</string>
+    <string name="title_activity_google_map">Map</string>
 </resources>
