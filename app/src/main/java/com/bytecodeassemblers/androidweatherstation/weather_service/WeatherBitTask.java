@@ -21,6 +21,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     //WeatherBit
     private WeatherBitMap weatherBitMap;
     private TextView weatherBitTempOnView;
+    private TextView weatherBitCityOnView2;
     private TextView weatherBitCityOnView;
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
@@ -40,6 +41,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     protected void onPreExecute() {
         super.onPreExecute();
         //WeatherBit Textview Initialization
+        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbit_city2);
         weatherBitTempOnView = activity.findViewById(R.id.weatherbit_temp);
         weatherBitCityOnView = activity.findViewById(R.id.weatherbit_city);
         weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);
@@ -58,6 +60,8 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     @Override
     protected void onPostExecute(WeatherBitMap weatherBitMap) {
         super.onPostExecute(weatherBitMap);
+        weatherBitCityOnView2.setText(""+weatherBitMap.simple.getCityName());
+
         weatherBitTempOnView.setText("Temp: "+weatherBitMap.main.getTemp());
         weatherBitCityOnView.setText("City: "+weatherBitMap.simple.getCityName());
         weatherBitDescriptionOnView.setText("Description: "+weatherBitMap.weather.getDescription());
