@@ -20,13 +20,13 @@
         android:textAppearance="@style/AlertDialog.AppCompat.Light"
         android:textColor="@color/secondaryTextColor"
         android:textFontWeight="400"
-        android:textSize="30sp"
+        android:textSize="26sp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.047"
+        app:layout_constraintHorizontal_bias="0.45"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.246" />
+        app:layout_constraintVertical_bias="0.309" />
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/app_bar"
@@ -51,7 +51,7 @@
         android:layout_width="280dp"
         android:layout_height="43dp"
         android:layout_gravity="top|center"
-        android:layout_marginBottom="44dp"
+        android:layout_marginTop="80dp"
         android:fontFamily="sans-serif-light"
         android:text="@string/_4_november_2019"
         android:textAlignment="center"
@@ -59,177 +59,10 @@
         android:textFontWeight="600"
         android:textSize="24sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toTopOf="@+id/guideline2"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.587"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <TextView
-        android:id="@+id/weatherbit_temp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintBottom_toTopOf="@+id/weatherbit_city"
-        app:layout_constraintStart_toStartOf="@+id/weatherbit_city" />
-
-    <TextView
-
-        android:id="@+id/weatherbit_city"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="58dp"
-        android:layout_marginEnd="119dp"
-        android:fontFamily="@font/aldrich"
-        android:text="cityName"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-    <TextView
-
-        android:id="@+id/weatherbit_description"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="13dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintBottom_toTopOf="@+id/weatherbit_windspeed"
-        app:layout_constraintStart_toStartOf="@+id/weatherbit_windspeed" />
-
-    <TextView
-
-        android:id="@+id/weatherbit_windspeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="45dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintStart_toStartOf="@+id/weatherbit_city"
-        app:layout_constraintTop_toBottomOf="@+id/weatherbit_city" />
-
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/weatherbitImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="7dp"
-        android:layout_marginEnd="132dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/openWeatherImage"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherDescription" />
-
-    <TextView
-        android:id="@+id/openWeatherDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="14dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/description"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
+        app:layout_constraintHorizontal_bias="0.496"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherWindSpeed" />
-
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/openWeatherImage"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="10dp"
-        android:layout_marginEnd="165dp"
-        android:layout_marginBottom="6dp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/weatherbitImage"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherDescription" />
-
-    <TextView
-        android:id="@+id/openWeatherWindSpeed"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="11dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/wind_speed"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherHumidity" />
-
-    <TextView
-        android:id="@+id/openWeatherMaxTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="8dp"
-        android:text="@string/max_temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherTemp" />
-
-    <TextView
-        android:id="@+id/openWeatherMinTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/min_temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintEnd_toEndOf="@+id/openWeatherTemp"
-        app:layout_constraintStart_toEndOf="@+id/openWeatherTemp"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherMaxTemp" />
-
-    <TextView
-        android:id="@+id/openWeatherTemp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="27dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/temp"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-    <TextView
-        android:id="@+id/openWeatherHumidity"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="13dp"
-        android:fontFamily="@font/aldrich"
-        android:text="@string/humidity"
-        android:textAlignment="center"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="400"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/openWeatherMinTemp" />
+        app:layout_constraintTop_toBottomOf="@+id/app_bar" />
 
     <TextView
         android:id="@+id/temp"
@@ -241,39 +74,12 @@
         android:textAlignment="center"
         android:textColor="@color/primaryTextColor"
         android:textFontWeight="600"
-        android:textSize="24sp"
-        app:layout_constraintBottom_toTopOf="@+id/guideline3"
+        android:textSize="30sp"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.858"
+        app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline2"
-        app:layout_constraintVertical_bias="0.109" />
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="13dp"
-        android:layout_marginTop="42dp"
-        android:fontFamily="@font/chewy"
-        android:text="OpenWeatherMap"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="600"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
-
-    <TextView
-        android:id="@+id/textView2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="36dp"
-        android:fontFamily="@font/chewy"
-        android:text="Weather Bit"
-        android:textColor="@color/secondaryTextColor"
-        android:textFontWeight="600"
-        app:layout_constraintEnd_toEndOf="@+id/weatherbit_temp"
-        app:layout_constraintStart_toEndOf="@+id/weatherbit_temp"
-        app:layout_constraintTop_toTopOf="@+id/guideline4" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <androidx.constraintlayout.widget.Guideline
         android:id="@+id/guideline"
@@ -281,27 +87,6 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         app:layout_constraintGuide_begin="52dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline2"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="155dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_begin="300dp" />
-
-    <androidx.constraintlayout.widget.Guideline
-        android:id="@+id/guideline4"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        app:layout_constraintGuide_end="320dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
