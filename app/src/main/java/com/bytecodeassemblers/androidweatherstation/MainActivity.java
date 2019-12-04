@@ -87,8 +87,8 @@ public class MainActivity extends AppCompatActivity {
             case R.id.weatherdiagram:
                 TextView cityTextView =  findViewById(R.id.weatherbit_city2);
                 String cityName = cityTextView.getText().toString();
-                weatherHistoryActivity = new WeatherHistoryActivity(mainView, cityName);
                 intent = new Intent(mainView, WeatherHistoryActivity.class);
+                intent.putExtra("cityName", cityName);
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:

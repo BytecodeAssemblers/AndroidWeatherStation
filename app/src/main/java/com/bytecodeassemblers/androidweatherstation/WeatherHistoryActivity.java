@@ -2,6 +2,7 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -47,23 +48,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     private ArrayList<Double> temperatures = new ArrayList<>();
     private XYPlot plot;
     private DatabaseApiSelect locationHistory = new DatabaseApiSelect();
-    public WeatherHistoryActivity(){}
     private String cityName;
-
-    public WeatherHistoryActivity(MainActivity mainActivity, String cityName)
-    {
-        this.mainActivity = mainActivity;
-        this.locationHistory.setContext(this.mainActivity);
-        this.cityName = cityName;
-        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/getweatherhistory.php?region="+cityName);
-    }
-
-    public WeatherHistoryActivity(MainActivity mainActivity)
-    {
-        this.mainActivity = mainActivity;
-        this.locationHistory.setContext(this.mainActivity);
-        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/");
-    }
 
     private void initializeData(JSONArray array) {
         for(int i=0; i<array.length(); i++)
@@ -81,6 +66,12 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_history);
+
+        Intent intent = getIntent();
+        String cityName = intent.getStringExtra("cityName");
+        this.cityName = cityName;
+        this.locationHistory.setContext(this.mainActivity);
+        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/getweatherhistory.php?region="+cityName);
 
         plot = findViewById(R.id.plot);
         plot.setRenderMode(Plot.RenderMode.USE_MAIN_THREAD);
