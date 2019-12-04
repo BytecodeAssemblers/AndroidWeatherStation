@@ -48,6 +48,16 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     private XYPlot plot;
     private DatabaseApiSelect locationHistory = new DatabaseApiSelect();
     public WeatherHistoryActivity(){}
+    private String cityName;
+
+    public WeatherHistoryActivity(MainActivity mainActivity, String cityName)
+    {
+        this.mainActivity = mainActivity;
+        this.locationHistory.setContext(this.mainActivity);
+        this.cityName = cityName;
+        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/getweatherhistory.php?region="+cityName);
+    }
+
     public WeatherHistoryActivity(MainActivity mainActivity)
     {
         this.mainActivity = mainActivity;
@@ -110,7 +120,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
         XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Serres");
+                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, cityName);
 
         // create formatters to use for drawing a series using LineAndPointRenderer
         // and configure them from xml:

@@ -10,6 +10,7 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -84,8 +85,10 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.weatherdiagram:
-                weatherHistoryActivity = new WeatherHistoryActivity(mainView);
-                 intent = new Intent(mainView, WeatherHistoryActivity.class);
+                TextView cityTextView =  findViewById(R.id.weatherbit_city2);
+                String cityName = cityTextView.getText().toString();
+                weatherHistoryActivity = new WeatherHistoryActivity(mainView, cityName);
+                intent = new Intent(mainView, WeatherHistoryActivity.class);
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:

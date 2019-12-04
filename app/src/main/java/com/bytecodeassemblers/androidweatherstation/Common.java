@@ -22,6 +22,8 @@ public class Common {
     public static final String weatherBitAPI_KEY= "85166dfd6eae40128861ff9efb80ec65";
 
 
+
+
     private static String latitude = null;
     private static String longitude = null;
 
