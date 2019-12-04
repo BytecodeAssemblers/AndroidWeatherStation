@@ -56,8 +56,7 @@ public class MainActivityController {
 
     public void InitializeComponent() {
         imageLoader = new MimageLoader(activity);
-        searchView = activity.findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(onSubmitQueryTextListener);
+
     }
 
     public void ExecuteOpenWeatherTask(){

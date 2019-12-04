@@ -40,8 +40,8 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         mapFragment.getMapAsync(this);
 
         commonObject = new Common();
-        lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
-        lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
+      //lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
+      // lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
     }
     /**
      * Manipulates the map once available.
@@ -67,13 +67,13 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
 
 
         // Add a marker in current location
-        String exactPosition =  addresses.get(0).getAddressLine(0);
+        /*String exactPosition =  addresses.get(0).getAddressLine(0);
         LatLng selectedPosition = new LatLng(lat, lon);
         mMap.addMarker(new MarkerOptions().position(selectedPosition).title(exactPosition));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));
 
         float zoomLevel = 5.0f; //This goes up to 21
-        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoomLevel));
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoomLevel));*/
 
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override

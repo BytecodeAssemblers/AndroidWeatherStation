@@ -6,6 +6,8 @@ import android.graphics.drawable.AnimationDrawable;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
@@ -45,9 +47,7 @@ public class MainActivity extends AppCompatActivity {
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+
 
 
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -55,20 +55,53 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
 
         mainActivityController = new MainActivityController(this);
+
         GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
-        weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
-        weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+           getMenuInflater().inflate(R.menu.main_menu, menu);
+           return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+ Intent intent ;
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+
+                return true;
+            case R.id.weatherdiagram:
                 weatherHistoryActivity = new WeatherHistoryActivity(mainView);
-                Intent intent = new Intent(mainView, WeatherHistoryActivity.class);
+                 intent = new Intent(mainView, WeatherHistoryActivity.class);
                 startActivity(intent);
-            }
-        });
+                return true;
+            case R.id.advanceddetails:
+
+                return true;
+            case R.id.about:
+
+                return true;
+            case R.id.location:
+                mainActivityController.parseSearchView();
+                mainActivityController.openMapActivity();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override

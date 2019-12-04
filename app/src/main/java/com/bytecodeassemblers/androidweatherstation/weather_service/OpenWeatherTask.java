@@ -42,7 +42,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
     protected void onPreExecute() {
         super.onPreExecute();
         //OpenWeather TextView Initialization
-        openWeathercityNameOnView = activity.findViewById(R.id.address);
+       // openWeathercityNameOnView = activity.findViewById(R.id.address);
         openWeathertempOnView = activity.findViewById(R.id.openWeatherTemp);
         openWeathermaxTempOnView = activity.findViewById(R.id.openWeatherMaxTemp);
         openWeatherminTempOnView = activity.findViewById(R.id.openWeatherMinTemp);
