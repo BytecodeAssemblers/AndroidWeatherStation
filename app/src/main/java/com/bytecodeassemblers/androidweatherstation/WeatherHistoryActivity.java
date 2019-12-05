@@ -2,6 +2,7 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.DashPathEffect;
@@ -47,13 +48,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     private ArrayList<Double> temperatures = new ArrayList<>();
     private XYPlot plot;
     private DatabaseApiSelect locationHistory = new DatabaseApiSelect();
-    public WeatherHistoryActivity(){}
-    public WeatherHistoryActivity(MainActivity mainActivity)
-    {
-        this.mainActivity = mainActivity;
-        this.locationHistory.setContext(this.mainActivity);
-        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/");
-    }
+    private String cityName;
 
     private void initializeData(JSONArray array) {
         for(int i=0; i<array.length(); i++)
@@ -71,6 +66,12 @@ public class WeatherHistoryActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_weather_history);
+
+        Intent intent = getIntent();
+        String cityName = intent.getStringExtra("cityName");
+        this.cityName = cityName;
+        this.locationHistory.setContext(this.mainActivity);
+        this.locationHistory.setDatabaseSelectEndpoint("http://weatherassemble.hopto.org:8080/getweatherhistory.php?region="+cityName);
 
         plot = findViewById(R.id.plot);
         plot.setRenderMode(Plot.RenderMode.USE_MAIN_THREAD);
@@ -110,7 +111,7 @@ public class WeatherHistoryActivity extends AppCompatActivity {
         // turn the above arrays into XYSeries':
         // (Y_VALS_ONLY means use the element index as the x value)
         XYSeries series1 = new SimpleXYSeries(
-                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, "Serres");
+                Arrays.asList(series1Numbers), SimpleXYSeries.ArrayFormat.Y_VALS_ONLY, cityName);
 
         // create formatters to use for drawing a series using LineAndPointRenderer
         // and configure them from xml:

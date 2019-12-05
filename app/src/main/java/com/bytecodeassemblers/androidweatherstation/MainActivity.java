@@ -3,10 +3,14 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
+import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -44,9 +48,7 @@ public class MainActivity extends AppCompatActivity {
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
-        setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
+
 
 
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
@@ -54,19 +56,69 @@ public class MainActivity extends AppCompatActivity {
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        GetClientLocation clientLocation = new GetClientLocation(this);
-        //mainActivityController = new MainActivityController(this);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
 
 
-        weatherHistoryButton = findViewById(R.id.buttonHistoryActivity);
-        weatherHistoryButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                weatherHistoryActivity = new WeatherHistoryActivity(mainView);
-                Intent intent = new Intent(mainView, WeatherHistoryActivity.class);
+        mainActivityController = new MainActivityController(this);
+
+        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
+
+
+
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu){
+           getMenuInflater().inflate(R.menu.main_menu, menu);
+           return true;
+    }
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+ Intent intent ;
+        //respond to menu item selection
+        switch (item.getItemId()) {
+            case R.id.settings:
+
+                return true;
+            case R.id.weatherdiagram:
+                TextView cityTextView =  findViewById(R.id.weatherbit_city2);
+                String cityName = cityTextView.getText().toString();
+                intent = new Intent(mainView, WeatherHistoryActivity.class);
+                intent.putExtra("cityName", cityName);
                 startActivity(intent);
+                return true;
+            case R.id.advanceddetails:
+
+                return true;
+            case R.id.about:
+
+                return true;
+            case R.id.location:
+                mainActivityController.parseSearchView();
+                mainActivityController.openMapActivity();
+
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == 1) {
+            if (resultCode == RESULT_OK) {
+                this.mainActivityController.setLatitude(data.getDoubleExtra("lat", 48.08));
+                this.mainActivityController.setLongitude(data.getDoubleExtra("lon", 23.78));
+
+                this.mainActivityController.ExecuteOpenWeatherTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
             }
-        });
+        }
     }
 
 }

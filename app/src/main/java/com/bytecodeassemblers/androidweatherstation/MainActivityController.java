@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;
@@ -36,6 +37,12 @@ public class MainActivityController {
     }
 
 
+    private LocationRepo locationRepo ;
+
+    public Activity getActivity() {
+        return activity;
+    }
+
     boolean inputCheck;
 
 
@@ -43,7 +50,7 @@ public class MainActivityController {
     private SearchView searchView;
     private String inputCoordinates;
 
-
+  private LocationRepo locationInventory = new LocationRepo();
 
     public MainActivityController(Activity activity){
         this.activity=activity;
@@ -54,8 +61,6 @@ public class MainActivityController {
 
     public void InitializeComponent() {
         imageLoader = new MimageLoader(activity);
-        searchView = activity.findViewById(R.id.searchView);
-        searchView.setOnQueryTextListener(onSubmitQueryTextListener);
     }
 
     public void ExecuteOpenWeatherTask(){
@@ -66,6 +71,9 @@ public class MainActivityController {
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);
         new WeatherBitTask(activity,imageLoader).execute(url);
+
+        LatLng latLng = new LatLng(lat,lon);
+        locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
     }
 
 
@@ -74,12 +82,9 @@ public class MainActivityController {
         @Override
         public boolean onQueryTextSubmit(String query) {
             parseSearchView();
-            if(inputCheck){
-                openMapActivity();
-                ExecuteWeatherBitTask();
-                ExecuteOpenWeatherTask();
-                searchView.setQuery("",false); //clear searchView after request
-           }
+            openMapActivity();
+            //ExecuteWeatherBitTask();
+            //ExecuteOpenWeatherTask();
             return true;
         }
         @Override
@@ -89,11 +94,11 @@ public class MainActivityController {
     };
 
 
-    public String GetExactLocationAddress(Double latitude, Double longitude){
+    public String GetExactLocationAddress(){
         Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
         List<Address> addresses = null;
         try {
-                addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
+                addresses = geocoder.getFromLocation(lat,lon , 1);  //get specific address for latitude and longtitude given
                  lat = addresses.get(0).getLatitude();
                  lon = addresses.get(0).getLongitude();
 
@@ -105,25 +110,22 @@ public class MainActivityController {
 
 
     public void parseSearchView(){
+        //inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
+        //String[] coords = inputCoordinates.split(",");  //separate coordinates
+        //lat = Double.parseDouble(coords[0]);
+        //lon = Double.parseDouble(coords[1]);
 
-        inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-        try {
-            String[] coords = inputCoordinates.split(",");  //separate coordinates
-            GetExactLocationAddress(Double.parseDouble(coords[0]), Double.parseDouble(coords[1]));
-            inputCheck = true;
-        }catch (Exception e){
-            Toast.makeText(activity,"Wrong Coordinates! Please split Latitude and Longitude using ','",Toast.LENGTH_LONG).show();
-            inputCheck = false;
-        }
-        //set longitude in common class
-       commonObject.setLat(String.valueOf(lat));  //set latitude in common class
-       commonObject.setLon(String.valueOf(lon));
+
+         commonObject.setLat(String.valueOf(this.lat));  //set latitude in common class
+         commonObject.setLon(String.valueOf(this.lon));  //set longitude in common class
+
     }
 
 
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,1 );
     }
+
 
 }
