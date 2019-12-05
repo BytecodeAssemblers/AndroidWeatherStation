@@ -23,15 +23,10 @@ public class LocationRepo {
     }
 
     public LatLng searchLocationReg(String string){
-
         LatLng latLng = null ;
         if (locationRepo.containsKey(string)){
             latLng = locationRepo.get(string);
         }
         return latLng;
     }
-
-
-
-
 }

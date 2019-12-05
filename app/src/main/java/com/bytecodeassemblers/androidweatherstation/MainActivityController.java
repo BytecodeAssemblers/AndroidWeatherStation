@@ -9,6 +9,7 @@ import android.widget.Toast;
 
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
+import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
 import java.util.List;
@@ -49,7 +50,7 @@ public class MainActivityController {
     private SearchView searchView;
     private String inputCoordinates;
 
-
+  private LocationRepo locationInventory = new LocationRepo();
 
     public MainActivityController(Activity activity){
         this.activity=activity;
@@ -60,7 +61,6 @@ public class MainActivityController {
 
     public void InitializeComponent() {
         imageLoader = new MimageLoader(activity);
-
     }
 
     public void ExecuteOpenWeatherTask(){
@@ -71,6 +71,9 @@ public class MainActivityController {
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);
         new WeatherBitTask(activity,imageLoader).execute(url);
+
+        LatLng latLng = new LatLng(lat,lon);
+        locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
     }
 
 
@@ -91,11 +94,11 @@ public class MainActivityController {
     };
 
 
-    public String GetExactLocationAddress(Double latitude, Double longitude){
+    public String GetExactLocationAddress(){
         Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
         List<Address> addresses = null;
         try {
-                addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
+                addresses = geocoder.getFromLocation(lat,lon , 1);  //get specific address for latitude and longtitude given
                  lat = addresses.get(0).getLatitude();
                  lon = addresses.get(0).getLongitude();
 
@@ -122,7 +125,6 @@ public class MainActivityController {
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
         activity.startActivityForResult(intent,1 );
-
     }
 
 
