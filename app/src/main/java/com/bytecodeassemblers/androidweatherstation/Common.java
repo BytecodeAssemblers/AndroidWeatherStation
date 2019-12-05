@@ -22,6 +22,8 @@ public class Common {
     public static final String weatherBitAPI_KEY= "85166dfd6eae40128861ff9efb80ec65";
 
 
+
+
     private static String latitude = null;
     private static String longitude = null;
 
@@ -32,6 +34,7 @@ public class Common {
         builder.append(String.format("?lat="+lat+"&lon="+lon+"&APPID=%s&units=metric",openWeather_API_KEY));
         return builder.toString();
     }
+
 
 
     //returns updated weatherBit request link

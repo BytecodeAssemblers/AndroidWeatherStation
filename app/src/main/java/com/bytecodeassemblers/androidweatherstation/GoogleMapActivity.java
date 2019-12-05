@@ -2,9 +2,11 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.fragment.app.FragmentActivity;
 
+import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.Bundle;
+import android.widget.Toast;
 
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
@@ -37,11 +39,9 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
 
-
-
         commonObject = new Common();
-        lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
-        lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
+      //lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
+      // lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
     }
     /**
      * Manipulates the map once available.
@@ -67,10 +67,30 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
 
 
         // Add a marker in current location
-        String exactPosition =  addresses.get(0).getAddressLine(0);
+        /*String exactPosition =  addresses.get(0).getAddressLine(0);
         LatLng selectedPosition = new LatLng(lat, lon);
-        mMap.addMarker(new MarkerOptions().position(selectedPosition).title("Marker in "+exactPosition));
+        mMap.addMarker(new MarkerOptions().position(selectedPosition).title(exactPosition));
         mMap.animateCamera(CameraUpdateFactory.newLatLng(selectedPosition));
 
+        float zoomLevel = 5.0f; //This goes up to 21
+        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(selectedPosition, zoomLevel));*/
+
+        mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
+            @Override
+            public void onMapClick(LatLng latLng) {
+
+                Toast.makeText(
+                        GoogleMapActivity.this,
+                        "Lat : " + latLng.latitude + " , "
+                                + "Long : " + latLng.longitude,
+                        Toast.LENGTH_LONG).show();
+
+                Intent intent = new Intent();
+                intent.putExtra("lat", latLng.latitude);
+                intent.putExtra("lon", latLng.longitude);
+                setResult(RESULT_OK, intent);
+                finish();
+            }
+        });
     }
 }
