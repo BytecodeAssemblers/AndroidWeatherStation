@@ -17,6 +17,8 @@ public class LocationRepo {
 
 
     private Activity activity;
+    private static HashMap<String, LatLng> locationInventory = new HashMap<>();
+
 
     public LocationRepo(Activity activity){
         this.activity = activity;
@@ -24,37 +26,31 @@ public class LocationRepo {
 
 
     public void addLocationReg(String string, LatLng latLng) {
-        locationRepo.put(string, latLng);
-        saveMap(locationRepo);
+        locationInventory.put(string, latLng);
+        saveMap(locationInventory);
     }
 
 
     public static void setLocationRepo(HashMap<String, LatLng> locationRepo) {
-        LocationRepo.locationRepo = locationRepo;
+        LocationRepo.locationInventory = locationRepo;
     }
-
-
-    static HashMap<String, LatLng> locationRepo = new HashMap<String, LatLng>();
 
 
     public  HashMap<String, LatLng> getLocationRepo() {
-
-        return new HashMap<String, LatLng>(locationRepo);
+        return new HashMap<String, LatLng>(locationInventory);
     }
-
-
 
 
     public LatLng searchLocationReg(String string){
         LatLng latLng = null ;
-        if (locationRepo.containsKey(string)){
-            latLng = locationRepo.get(string);
+        if (locationInventory.containsKey(string)){
+            latLng = locationInventory.get(string);
         }
         return latLng;
     }
 
 
-     public void loadMap() {  //set LocationRepo's hashmap from Saved Shared Preferences
+     public HashMap<String, LatLng> loadMap() {  //set LocationRepo's hashmap from Saved Shared Preferences
         SharedPreferences prefs = activity.getSharedPreferences("MyVariables", activity.MODE_PRIVATE);
         Gson gson = new Gson();
         HashMap<String, LatLng> hashmap = new HashMap<String, LatLng>();
@@ -63,7 +59,9 @@ public class LocationRepo {
         }.getType();
         hashmap = gson.fromJson(storedHashMapString, type);
         setLocationRepo(hashmap);
+        return  hashmap;
     }
+
 
     public void saveMap(HashMap<String,LatLng> inputMap){  //save hashmap in shared preferences
         Gson gson = new Gson();
@@ -76,6 +74,4 @@ public class LocationRepo {
             editor.commit();
         }
     }
-
-
 }

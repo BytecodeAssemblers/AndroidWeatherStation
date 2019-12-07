@@ -29,7 +29,7 @@ import java.util.Locale;
 
 public class MainActivityController {
 
-   private LocationRepo locationInventory;
+   private LocationRepo locationRepo;
 
    private MimageLoader imageLoader;
    private Activity activity;
@@ -55,7 +55,7 @@ public class MainActivityController {
 
     public MainActivityController(MainActivity activity){
         this.activity=activity;
-        locationInventory  = new LocationRepo(activity);
+        locationRepo  = new LocationRepo(activity);
         InitializeComponent();
     }
 
@@ -73,13 +73,12 @@ public class MainActivityController {
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);
         new WeatherBitTask(activity,imageLoader).execute(url);
-
     }
 
 
     public void savedLocation(){
         LatLng latLng = new LatLng(lat,lon);
-        locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
+        locationRepo.addLocationReg(GetExactLocationAddress(),latLng);
     }
 
 
@@ -105,9 +104,8 @@ public class MainActivityController {
 
 
     public void openListViewActivity(){
-        locationInventory.loadMap();
         Intent intent = new Intent(this.activity, ListViewActivity.class);
-        intent.putExtra("map",locationInventory.getLocationRepo());
+        intent.putExtra("map",locationRepo.loadMap());
         activity.startActivityForResult(intent,2);
     }
 
