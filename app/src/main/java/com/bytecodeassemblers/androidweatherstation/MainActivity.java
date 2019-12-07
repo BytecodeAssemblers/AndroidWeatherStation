@@ -72,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityController = new MainActivityController(this);
 
-        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
+       GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
     }
@@ -123,7 +123,7 @@ public class MainActivity extends AppCompatActivity {
                 this.mainActivityController.setLongitude(data.getDoubleExtra("lon", 23.78));
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
-                this.mainActivityController.ExecuteWeatherBitTask();
+                //this.mainActivityController.ExecuteWeatherBitTask();
 
                 this.mainActivityController.savedLocation();
 
@@ -136,7 +136,7 @@ public class MainActivity extends AppCompatActivity {
                 this.mainActivityController.setLongitude(data.getDoubleExtra("longitude", 23.78));
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
-                this.mainActivityController.ExecuteWeatherBitTask();
+            //    this.mainActivityController.ExecuteWeatherBitTask();
 
             }
 
