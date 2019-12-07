@@ -123,11 +123,9 @@ public class MainActivity extends AppCompatActivity {
                 this.mainActivityController.setLongitude(data.getDoubleExtra("lon", 23.78));
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
-                //this.mainActivityController.ExecuteWeatherBitTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
 
                 this.mainActivityController.savedLocation();
-
-
             }
         }else if(requestCode == 2){
             if (resultCode == RESULT_OK) {
@@ -136,7 +134,7 @@ public class MainActivity extends AppCompatActivity {
                 this.mainActivityController.setLongitude(data.getDoubleExtra("longitude", 23.78));
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
-            //    this.mainActivityController.ExecuteWeatherBitTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
 
             }
 

@@ -62,7 +62,7 @@ public class ListViewActivity extends AppCompatActivity {
 
             }
         });
-        
+
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {  //Delete item from listview and update the changes (runs on longclick of an item)
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {

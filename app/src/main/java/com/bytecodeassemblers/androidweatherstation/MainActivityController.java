@@ -35,7 +35,6 @@ public class MainActivityController {
    private Activity activity;
 
 
-
     private  double lat;
     private  double lon;
 
@@ -56,7 +55,7 @@ public class MainActivityController {
 
     public MainActivityController(MainActivity activity){
         this.activity=activity;
-        locationInventory  = new LocationRepo();
+        locationInventory  = new LocationRepo(activity);
         InitializeComponent();
     }
 
@@ -81,7 +80,6 @@ public class MainActivityController {
     public void savedLocation(){
         LatLng latLng = new LatLng(lat,lon);
         locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
-        saveMap(locationInventory.getLocationRepo());
     }
 
 
@@ -106,40 +104,11 @@ public class MainActivityController {
     }
 
 
-
     public void openListViewActivity(){
-       loadMap();
+        locationInventory.loadMap();
         Intent intent = new Intent(this.activity, ListViewActivity.class);
         intent.putExtra("map",locationInventory.getLocationRepo());
         activity.startActivityForResult(intent,2);
-    }
-
-
-
-
-        public void saveMap(HashMap<String,LatLng> inputMap){  //save hashmap in shared preferences
-        Gson gson = new Gson();
-        SharedPreferences pSharedPref = activity.getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
-        if (pSharedPref != null){
-            JSONObject jsonObject = new JSONObject(inputMap);
-            String jsonString = gson.toJson(inputMap);
-            SharedPreferences.Editor editor = pSharedPref.edit();
-            editor.remove("My_map").commit();
-            editor.putString("My_map", jsonString);
-            editor.commit();
-        }
-    }
-
-    private void loadMap() {  //set LocationRepo's hashmap from Saved Shared Preferences
-
-        SharedPreferences prefs = activity.getSharedPreferences("MyVariables", activity.MODE_PRIVATE);
-        Gson gson = new Gson();
-        HashMap<String, LatLng> hashmap = new HashMap<String, LatLng>();
-        String storedHashMapString = prefs.getString("My_map", "oopsDintWork");
-        java.lang.reflect.Type type = new TypeToken<HashMap<String, LatLng>>() {
-        }.getType();
-        hashmap = gson.fromJson(storedHashMapString, type);
-        LocationRepo.setLocationRepo(hashmap);
     }
 
 }

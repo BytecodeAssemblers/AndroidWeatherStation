@@ -16,9 +16,16 @@ import java.util.HashMap;
 public class LocationRepo {
 
 
+    private Activity activity;
+
+    public LocationRepo(Activity activity){
+        this.activity = activity;
+    }
+
 
     public void addLocationReg(String string, LatLng latLng) {
         locationRepo.put(string, latLng);
+        saveMap(locationRepo);
     }
 
 
@@ -46,6 +53,29 @@ public class LocationRepo {
         return latLng;
     }
 
+
+     public void loadMap() {  //set LocationRepo's hashmap from Saved Shared Preferences
+        SharedPreferences prefs = activity.getSharedPreferences("MyVariables", activity.MODE_PRIVATE);
+        Gson gson = new Gson();
+        HashMap<String, LatLng> hashmap = new HashMap<String, LatLng>();
+        String storedHashMapString = prefs.getString("My_map", "oopsDintWork");
+        java.lang.reflect.Type type = new TypeToken<HashMap<String, LatLng>>() {
+        }.getType();
+        hashmap = gson.fromJson(storedHashMapString, type);
+        setLocationRepo(hashmap);
+    }
+
+    public void saveMap(HashMap<String,LatLng> inputMap){  //save hashmap in shared preferences
+        Gson gson = new Gson();
+        SharedPreferences pSharedPref = activity.getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
+        if (pSharedPref != null){
+            String jsonString = gson.toJson(inputMap);
+            SharedPreferences.Editor editor = pSharedPref.edit();
+            editor.remove("My_map").commit();
+            editor.putString("My_map", jsonString);
+            editor.commit();
+        }
+    }
 
 
 }
