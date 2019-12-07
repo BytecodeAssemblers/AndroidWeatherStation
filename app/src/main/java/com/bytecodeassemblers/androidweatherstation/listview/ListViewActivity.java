@@ -1,16 +1,20 @@
 package com.bytecodeassemblers.androidweatherstation.listview;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bytecodeassemblers.androidweatherstation.Common;
+import com.bytecodeassemblers.androidweatherstation.LocationRepo;
 import com.bytecodeassemblers.androidweatherstation.MainActivity;
 import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
@@ -27,7 +31,7 @@ public class ListViewActivity extends AppCompatActivity {
 
     private ListView list;
     private ListViewAdapter myAdapter;
-
+    private HashMap<String, LatLng> locationInventory;
 
 
     @Override
@@ -36,15 +40,15 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_view);
 
         Intent intent = getIntent();
-        HashMap<String, LatLng> locationInventory = (HashMap<String, LatLng>) intent.getSerializableExtra("map");
+        locationInventory = (HashMap<String, LatLng>) intent.getSerializableExtra("map");  //get hashmap LocationRepo from MainActivityController
 
-        myAdapter = new ListViewAdapter(locationInventory);
+        myAdapter = new ListViewAdapter(locationInventory);  // pass hashmap to Adapter
 
           list = findViewById(R.id.listView);
           list.setAdapter(myAdapter);
 
 
-        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {    // execute the apis requests with selected items lat and lot.
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
@@ -60,6 +64,24 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
 
+
+        list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {  //Delete item from listview and update the changes (runs on longclick of an item)
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
+
+                new AlertDialog.Builder(ListViewActivity.this).setTitle("Are you sure?")
+                        .setMessage("Do you want to delete this item?").setPositiveButton("yes", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        locationInventory.remove(myAdapter.getItem(position).getKey());
+                        myAdapter = new ListViewAdapter(locationInventory);
+                        list.setAdapter(myAdapter);
+                        LocationRepo.setLocationRepo(locationInventory);
+                    }
+                }).setNegativeButton("No",null).show();
+                return true;
+            }
+        });
 
     }
 }

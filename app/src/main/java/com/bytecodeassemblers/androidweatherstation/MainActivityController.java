@@ -24,10 +24,10 @@ import java.util.Locale;
 
 public class MainActivityController {
 
-    HashMap<String,LatLng> locationInventory = new HashMap<>();
+   private LocationRepo locationInventory = new LocationRepo();
 
-    private MimageLoader imageLoader;
-    private Activity activity;
+   private MimageLoader imageLoader;
+   private Activity activity;
 
 
 
@@ -74,7 +74,7 @@ public class MainActivityController {
 
     public void savedLocation(){
         LatLng latLng = new LatLng(lat,lon);
-        locationInventory.put(GetExactLocationAddress(),latLng);
+        locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
     }
 
 
@@ -99,9 +99,10 @@ public class MainActivityController {
     }
 
 
+
     public void openListViewActivity(){
         Intent intent = new Intent(this.activity, ListViewActivity.class);
-        intent.putExtra("map",locationInventory);
+        intent.putExtra("map",locationInventory.getLocationRepo());
         activity.startActivityForResult(intent,2);
     }
 
