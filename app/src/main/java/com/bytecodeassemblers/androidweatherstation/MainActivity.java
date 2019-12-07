@@ -1,23 +1,26 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 
+import android.app.Activity;
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
+
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
+import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
+import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.Serializable;
@@ -69,7 +72,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityController = new MainActivityController(this);
 
-        // GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
+        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
     }
@@ -121,7 +124,24 @@ public class MainActivity extends AppCompatActivity {
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
                 this.mainActivityController.ExecuteWeatherBitTask();
+
+                this.mainActivityController.savedLocation();
+
+
             }
+        }else if(requestCode == 2){
+            if (resultCode == RESULT_OK) {
+
+                this.mainActivityController.setLatitude(data.getDoubleExtra("latitude", 48.08));
+                this.mainActivityController.setLongitude(data.getDoubleExtra("longitude", 23.78));
+
+                this.mainActivityController.ExecuteOpenWeatherTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
+
+            }
+
         }
     }
+
+
 }

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.MainActivity;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -28,7 +29,8 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     private NetworkImageView weatherBitimageView;
 
 
-    public WeatherBitTask(Activity activity,MimageLoader image){
+
+    public WeatherBitTask(Activity activity, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
         weatherBitMap = new WeatherBitMap();
@@ -54,6 +56,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
         imageLoader.setImageLoader();
         return weatherBitMap;
     }
+
 
     @Override
     protected void onPostExecute(WeatherBitMap weatherBitMap) {

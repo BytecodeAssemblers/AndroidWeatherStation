@@ -28,7 +28,7 @@ public class MainActivityController {
 
     private MimageLoader imageLoader;
     private Activity activity;
-    private Common commonObject;
+
 
 
     private  double lat;
@@ -47,18 +47,10 @@ public class MainActivityController {
         return activity;
     }
 
-    boolean inputCheck;
 
 
-    //mainView
-    private SearchView searchView;
-    private String inputCoordinates;
-
-
-
-    public MainActivityController(Activity activity){
+    public MainActivityController(MainActivity activity){
         this.activity=activity;
-        commonObject = new Common();
         InitializeComponent();
     }
 
@@ -72,13 +64,19 @@ public class MainActivityController {
         new OpenWeatherTask(activity,imageLoader).execute(url);
     }
 
+
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);
         new WeatherBitTask(activity,imageLoader).execute(url);
 
+    }
+
+
+    public void savedLocation(){
         LatLng latLng = new LatLng(lat,lon);
         locationInventory.put(GetExactLocationAddress(),latLng);
     }
+
 
     public String GetExactLocationAddress(){
         Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
@@ -102,9 +100,9 @@ public class MainActivityController {
 
 
     public void openListViewActivity(){
-        Intent intent = new Intent(activity, ListViewActivity.class);
+        Intent intent = new Intent(this.activity, ListViewActivity.class);
         intent.putExtra("map",locationInventory);
-        activity.startActivity(intent);
+        activity.startActivityForResult(intent,2);
     }
 
 }

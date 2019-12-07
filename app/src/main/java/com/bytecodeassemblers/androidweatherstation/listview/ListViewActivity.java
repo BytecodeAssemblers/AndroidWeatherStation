@@ -8,7 +8,11 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bytecodeassemblers.androidweatherstation.Common;
+import com.bytecodeassemblers.androidweatherstation.MainActivity;
+import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
@@ -16,16 +20,13 @@ import com.google.android.gms.maps.model.LatLng;
 
 import java.util.HashMap;
 
-public class ListViewActivity extends Activity {
+public class ListViewActivity extends AppCompatActivity {
 
     private static final String TAG="ListViewActivity";
 
 
     private ListView list;
     private ListViewAdapter myAdapter;
-    private MimageLoader imageLoader;
-
-   final Activity activity = this;
 
 
 
@@ -34,13 +35,10 @@ public class ListViewActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list_view);
 
-
-        imageLoader = new MimageLoader(this);
-
         Intent intent = getIntent();
-        HashMap<String, LatLng> hashMap = (HashMap<String, LatLng>) intent.getSerializableExtra("map");
+        HashMap<String, LatLng> locationInventory = (HashMap<String, LatLng>) intent.getSerializableExtra("map");
 
-        myAdapter = new ListViewAdapter(hashMap);
+        myAdapter = new ListViewAdapter(locationInventory);
 
           list = findViewById(R.id.listView);
           list.setAdapter(myAdapter);
@@ -53,9 +51,11 @@ public class ListViewActivity extends Activity {
                 double lat = myAdapter.getItem(position).getValue().latitude;
                 double lon = myAdapter.getItem(position).getValue().longitude;
 
-
-                Log.d(TAG,"lat: "+lat+" lon: "+lon);
-                new WeatherBitTask(activity,imageLoader).execute(Common.weatherBitRequestLink(lat,lon));
+                Intent intent = new Intent(ListViewActivity.this, MainActivity.class);
+                intent.putExtra("latitude",lat);
+                intent.putExtra("longitude",lon);
+                setResult(RESULT_OK, intent);
+                finish();
 
             }
         });
