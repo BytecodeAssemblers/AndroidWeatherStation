@@ -1,24 +1,30 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Parcelable;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 import com.google.android.gms.maps.model.LatLng;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivityController {
 
-
+    HashMap<String,LatLng> locationInventory = new HashMap<>();
 
     private MimageLoader imageLoader;
     private Activity activity;
@@ -37,8 +43,6 @@ public class MainActivityController {
     }
 
 
-    private LocationRepo locationRepo ;
-
     public Activity getActivity() {
         return activity;
     }
@@ -50,7 +54,7 @@ public class MainActivityController {
     private SearchView searchView;
     private String inputCoordinates;
 
-  private LocationRepo locationInventory = new LocationRepo();
+
 
     public MainActivityController(Activity activity){
         this.activity=activity;
@@ -73,26 +77,8 @@ public class MainActivityController {
         new WeatherBitTask(activity,imageLoader).execute(url);
 
         LatLng latLng = new LatLng(lat,lon);
-        locationInventory.addLocationReg(GetExactLocationAddress(),latLng);
+        locationInventory.put(GetExactLocationAddress(),latLng);
     }
-
-
-    //run query from search button in keyboard
-    private SearchView.OnQueryTextListener onSubmitQueryTextListener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            parseSearchView();
-            openMapActivity();
-            //ExecuteWeatherBitTask();
-            //ExecuteOpenWeatherTask();
-            return true;
-        }
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            return false;
-        }
-    };
-
 
     public String GetExactLocationAddress(){
         Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
@@ -109,23 +95,16 @@ public class MainActivityController {
     }
 
 
-    public void parseSearchView(){
-        //inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-        //String[] coords = inputCoordinates.split(",");  //separate coordinates
-        //lat = Double.parseDouble(coords[0]);
-        //lon = Double.parseDouble(coords[1]);
-
-
-         commonObject.setLat(String.valueOf(this.lat));  //set latitude in common class
-         commonObject.setLon(String.valueOf(this.lon));  //set longitude in common class
-
-    }
-
-
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
         activity.startActivityForResult(intent,1 );
     }
 
+
+    public void openListViewActivity(){
+        Intent intent = new Intent(activity, ListViewActivity.class);
+        intent.putExtra("map",locationInventory);
+        activity.startActivity(intent);
+    }
 
 }

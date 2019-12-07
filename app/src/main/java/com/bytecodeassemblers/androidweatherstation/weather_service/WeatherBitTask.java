@@ -28,8 +28,6 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     private NetworkImageView weatherBitimageView;
 
 
-
-
     public WeatherBitTask(Activity activity,MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
@@ -61,7 +59,6 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     protected void onPostExecute(WeatherBitMap weatherBitMap) {
         super.onPostExecute(weatherBitMap);
         weatherBitCityOnView2.setText(""+weatherBitMap.simple.getCityName());
-
         weatherBitTempOnView.setText("Temp: "+weatherBitMap.main.getTemp());
         weatherBitCityOnView.setText("City: "+weatherBitMap.simple.getCityName());
         weatherBitDescriptionOnView.setText("Description: "+weatherBitMap.weather.getDescription());

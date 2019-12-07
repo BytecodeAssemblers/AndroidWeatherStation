@@ -10,9 +10,14 @@ public class LocationRepo {
 
     HashMap<String, LatLng> locationRepo = new HashMap<String, LatLng>();
 
+
+
+
     public HashMap<String, LatLng> getLocationRepo() {
         return new HashMap<String, LatLng>(locationRepo);
     }
+
+
 
     public void addLocationReg(String string, LatLng latLng) {
         locationRepo.put(string, latLng);

@@ -17,6 +17,11 @@ import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.io.Serializable;
+import java.util.HashMap;
 
 //import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
@@ -37,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
     private boolean isGPSEnabled = false;
     private LocationManager locationManager;
+
 
 
     @Override
@@ -63,9 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityController = new MainActivityController(this);
 
-        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
-
-
+        // GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
     }
@@ -95,10 +99,10 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.about:
+                mainActivityController.openListViewActivity();
 
                 return true;
             case R.id.location:
-                mainActivityController.parseSearchView();
                 mainActivityController.openMapActivity();
 
                 return true;
@@ -120,5 +124,4 @@ public class MainActivity extends AppCompatActivity {
             }
         }
     }
-
 }

@@ -1,0 +1,65 @@
+package com.bytecodeassemblers.androidweatherstation.listview;
+
+import android.app.Activity;
+import android.content.Intent;
+import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ListView;
+
+import com.bytecodeassemblers.androidweatherstation.Common;
+import com.bytecodeassemblers.androidweatherstation.MimageLoader;
+import com.bytecodeassemblers.androidweatherstation.R;
+import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
+import com.google.android.gms.maps.model.LatLng;
+
+import java.util.HashMap;
+
+public class ListViewActivity extends Activity {
+
+    private static final String TAG="ListViewActivity";
+
+
+    private ListView list;
+    private ListViewAdapter myAdapter;
+    private MimageLoader imageLoader;
+
+   final Activity activity = this;
+
+
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_list_view);
+
+
+        imageLoader = new MimageLoader(this);
+
+        Intent intent = getIntent();
+        HashMap<String, LatLng> hashMap = (HashMap<String, LatLng>) intent.getSerializableExtra("map");
+
+        myAdapter = new ListViewAdapter(hashMap);
+
+          list = findViewById(R.id.listView);
+          list.setAdapter(myAdapter);
+
+
+        list.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                double lat = myAdapter.getItem(position).getValue().latitude;
+                double lon = myAdapter.getItem(position).getValue().longitude;
+
+
+                Log.d(TAG,"lat: "+lat+" lon: "+lon);
+                new WeatherBitTask(activity,imageLoader).execute(Common.weatherBitRequestLink(lat,lon));
+
+            }
+        });
+
+
+    }
+}
