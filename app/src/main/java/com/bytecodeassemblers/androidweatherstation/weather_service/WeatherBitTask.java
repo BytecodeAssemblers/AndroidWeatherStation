@@ -90,14 +90,13 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
             weatherPayload.put("date",strDate);
             weatherPayload.put("description",weatherBitModel.getDescription());
 
-            
-
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
-
-
+        insertWeather.setPayload(weatherPayload);
+        insertWeather.setContext(activity);
+        insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
+        insertWeather.executeInsert();
 
 
     }
