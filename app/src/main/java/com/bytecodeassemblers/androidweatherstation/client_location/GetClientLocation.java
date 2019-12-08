@@ -50,7 +50,7 @@ public class GetClientLocation extends Activity  {
         else if(isNetworkEnabled)
             locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300000, 100, locationListener);
         else
-            Toast.makeText(activity,"Yor location won't be acounter for",Toast.LENGTH_SHORT).show();
+            Toast.makeText(activity,"Yor location won't be accounted for",Toast.LENGTH_SHORT).show();
 
     }
 
