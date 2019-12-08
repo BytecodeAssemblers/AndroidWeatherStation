@@ -38,8 +38,6 @@ public class MainActivity extends AppCompatActivity {
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
 
-
-
     private boolean isGPSEnabled = false;
     private LocationManager locationManager;
 

@@ -61,12 +61,12 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
         weatherBitCityOnView2.setText(""+ weatherBitModel.getCityName());
-
-        weatherBitTempOnView.setText("Temp: "+ weatherBitModel.getTemp());
-        weatherBitCityOnView.setText("City: "+ weatherBitModel.getCityName());
-        weatherBitDescriptionOnView.setText("Description: "+ weatherBitModel.getDescription());
-        weatherBitWindSpeedOnView.setText("Wind speed: "+ weatherBitModel.getSpeed());
-        weatherBitimageView.setImageUrl(weatherBitModel.getImage(weatherBitModel.getIcon()),imageLoader.getmImageLoader());
+//
+//        weatherBitTempOnView.setText("Temp: "+ weatherBitModel.getTemp());
+//        weatherBitCityOnView.setText("City: "+ weatherBitModel.getCityName());
+//        weatherBitDescriptionOnView.setText("Description: "+ weatherBitModel.getDescription());
+//        weatherBitWindSpeedOnView.setText("Wind speed: "+ weatherBitModel.getSpeed());
+//        weatherBitimageView.setImageUrl(weatherBitModel.getImage(weatherBitModel.getIcon()),imageLoader.getmImageLoader());
     }
 
 }
