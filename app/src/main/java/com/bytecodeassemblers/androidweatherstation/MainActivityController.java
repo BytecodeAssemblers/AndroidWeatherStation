@@ -7,6 +7,8 @@ import android.location.Geocoder;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 
@@ -16,8 +18,25 @@ import java.util.Locale;
 
 
 public class MainActivityController {
+/**/
+    private OpenWeatherModel openWeatherModel;
+    private WeatherBitModel weatherBitModel;
 
+    public OpenWeatherModel getOpenWeatherModel() {
+        return openWeatherModel;
+    }
 
+    public void setOpenWeatherModel(OpenWeatherModel openWeatherModel) {
+        this.openWeatherModel = openWeatherModel;
+    }
+
+    public WeatherBitModel getWeatherBitModel() {
+        return weatherBitModel;
+    }
+
+    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
+        this.weatherBitModel = weatherBitModel;
+    }
 
     private MimageLoader imageLoader;
     private Activity activity;
@@ -61,8 +80,10 @@ public class MainActivityController {
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        new OpenWeatherTask(activity,imageLoader).execute(url);
+        new OpenWeatherTask(activity,this,imageLoader).execute(url);
     }
+
+
 
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);

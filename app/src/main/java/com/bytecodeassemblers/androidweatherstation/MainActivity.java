@@ -3,12 +3,10 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -18,22 +16,21 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
 
-//import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-
-
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
+
     private MainActivityController mainActivityController;
 
-    //private GetClientLocation getClientLocation;
+    private GetClientLocation getClientLocation;
 
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
-
-
 
     private boolean isGPSEnabled = false;
     private LocationManager locationManager;
@@ -43,13 +40,12 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getClientLocation = new GetClientLocation(this);
+        TextView textView = findViewById(R.id.updated_at);
+        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
+        textView.setText(strDate);
 
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
-
-
-
 
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
@@ -60,10 +56,7 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-
         mainActivityController = new MainActivityController(this);
-
-        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
 
 
 
@@ -85,18 +78,48 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.weatherdiagram:
-                TextView cityTextView =  findViewById(R.id.weatherbit_city2);
+                TextView cityTextView =  findViewById(R.id.weatherbitMainActivityCityName);
                 String cityName = cityTextView.getText().toString();
                 intent = new Intent(mainView, WeatherHistoryActivity.class);
                 intent.putExtra("cityName", cityName);
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:
+                intent = new Intent(mainView, AdvancedDetailsActivity.class);
+                /*OpenWeather Data Send To Advanced Details*/
+                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
+                intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
+                intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
+                /*WeatherBit Data Send To Advanced Details*/
+                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
+
+                startActivity(intent);
 
                 return true;
             case R.id.about:
 
                 return true;
+
+
+            case R.id.enableGps:
+
+                 if(!item.isChecked()){
+                     item.setChecked(true);
+                     getClientLocation = new GetClientLocation(mainActivityController,this);
+
+                 }else
+                 {
+                     item.setChecked(false);
+                     getClientLocation = null;
+                 }
+                return true;
+
             case R.id.location:
                 mainActivityController.parseSearchView();
                 mainActivityController.openMapActivity();
