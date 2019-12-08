@@ -95,7 +95,15 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.advanceddetails:
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
+                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
+                intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
+                intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
+
                 startActivity(intent);
+
                 return true;
             case R.id.about:
 

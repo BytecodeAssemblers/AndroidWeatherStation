@@ -13,13 +13,14 @@ public class JSONWeatherParser {
 
         OpenWeatherModel myOpenWeatherModel = new OpenWeatherModel(); // object composition
         try {
+            System.out.println(data);
             //Read data from response JSON
             JSONObject jsonObject = new JSONObject(data);
             JSONObject mainObject = jsonObject.getJSONObject("main");
             JSONObject weatherObject = jsonObject.getJSONArray("weather").getJSONObject(0);
             JSONObject windObject =   jsonObject.getJSONObject("wind");
 
-            String deg = windObject.getString("deg");
+           // String deg = windObject.getString("deg");
             String speed = windObject.getString("speed");
             String temp = mainObject.getString("temp");
             String pressure = mainObject.getString("pressure");
@@ -32,7 +33,7 @@ public class JSONWeatherParser {
             //Populate the model object with the data
             myOpenWeatherModel.setDescription(description);
             myOpenWeatherModel.setIcon(icon);
-            myOpenWeatherModel.setDeg(deg);
+           // myOpenWeatherModel.setDeg(deg);
             myOpenWeatherModel.setTempMin(tempMin);
             myOpenWeatherModel.setTempMax(tempMax);
             myOpenWeatherModel.setPressure(pressure);
@@ -53,7 +54,7 @@ public class JSONWeatherParser {
 
         WeatherBitModel weatherBitModel = new WeatherBitModel();
         try {
-
+            System.out.println(data);
             //Read data from response JSON
             JSONObject jsonObject = new JSONObject(data);
             JSONObject dataObject = jsonObject.getJSONArray("data").getJSONObject(0);

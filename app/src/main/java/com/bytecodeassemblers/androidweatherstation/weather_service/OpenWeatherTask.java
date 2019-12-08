@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -12,6 +13,8 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 
 public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
+
+    private MainActivityController mainActivityController;
 
     private MimageLoader imageLoader;
     private OpenWeatherModel openWeatherObject;
@@ -30,10 +33,12 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 
    private Activity activity;
 
-    public OpenWeatherTask(Activity activity,MimageLoader image){
+    public OpenWeatherTask(Activity activity,MainActivityController mainActivityController,MimageLoader image){
+        this.mainActivityController = mainActivityController;
         this.activity=activity;
         this.imageLoader = image;
         openWeatherObject = new OpenWeatherModel();
+
     }
 
 
@@ -73,5 +78,6 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 //        openWeatherdescriptionOnView.setText("Description: "+ openWeatherModel.getDescription());
 //        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
         generalTemp.setText(openWeatherModel.getTemp() + "°C");
+         this.mainActivityController.setOpenWeatherModel(openWeatherModel);
     }
 }
