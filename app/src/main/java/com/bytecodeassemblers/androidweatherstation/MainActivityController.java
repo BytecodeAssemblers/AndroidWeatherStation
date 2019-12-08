@@ -108,5 +108,4 @@ public class MainActivityController {
         intent.putExtra("map",locationRepo.loadMap());
         activity.startActivityForResult(intent,2);
     }
-
 }

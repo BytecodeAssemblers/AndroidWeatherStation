@@ -90,7 +90,6 @@ public class ListViewActivity extends AppCompatActivity {
         Gson gson = new Gson();
         SharedPreferences pSharedPref = getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
         if (pSharedPref != null){
-            JSONObject jsonObject = new JSONObject(inputMap);
             String jsonString = gson.toJson(inputMap);
             SharedPreferences.Editor editor = pSharedPref.edit();
             editor.remove("My_map").commit();
