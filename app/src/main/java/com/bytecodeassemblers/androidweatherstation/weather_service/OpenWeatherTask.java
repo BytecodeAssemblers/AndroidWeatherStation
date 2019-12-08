@@ -4,18 +4,17 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.NetworkImageView;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
-import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherMap;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 
-public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
+public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 
     private MimageLoader imageLoader;
-    private OpenWeatherMap openWeatherObject;
+    private OpenWeatherModel openWeatherObject;
 
     private TextView openWeathertempOnView;
     private TextView openWeathermaxTempOnView;
@@ -34,7 +33,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
     public OpenWeatherTask(Activity activity,MimageLoader image){
         this.activity=activity;
         this.imageLoader = image;
-        openWeatherObject = new OpenWeatherMap();
+        openWeatherObject = new OpenWeatherModel();
     }
 
 
@@ -55,7 +54,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
 
 
     @Override
-    protected OpenWeatherMap doInBackground(String... strings) {
+    protected OpenWeatherModel doInBackground(String... strings) {
         String responseData = ((new WeatherHttpClient()).getWeatherData(strings[0]));
         openWeatherObject = JSONWeatherParser.getOpenWeatherData(responseData);
         imageLoader.setImageLoader();
@@ -63,16 +62,16 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherMap> {
     }
 
     @Override
-    protected void onPostExecute(OpenWeatherMap openWeatherMap) {
-        super.onPostExecute(openWeatherMap);
-        //openWeathercityNameOnView.setText(openWeatherMap.simple.getCityName());
-        openWeathertempOnView.setText("Temp: "+openWeatherMap.main.getTemp());
-        openWeathermaxTempOnView.setText("Temp max: "+openWeatherMap.main.getTempMax());
-        openWeatherminTempOnView.setText("Temp min: "+openWeatherMap.main.getTempMin());
-        openWeatherhumidityOnView.setText("Humidity: "+openWeatherMap.main.getHumidity());
-        openWeatherwindSpeedOnView.setText("Wind speed: "+openWeatherMap.wind.getSpeed());
-        openWeatherdescriptionOnView.setText("Description: "+openWeatherMap.weather.getDescription());
-        openWeathermyImage.setImageUrl(openWeatherMap.weather.getImage(openWeatherMap.weather.getIcon()),imageLoader.getmImageLoader());
-        generalTemp.setText(openWeatherMap.main.getTemp() + "°C");
+    protected void onPostExecute(OpenWeatherModel openWeatherModel) {
+        super.onPostExecute(openWeatherModel);
+        //openWeathercityNameOnView.setText(openWeatherModel.simple.getCityName());
+        openWeathertempOnView.setText("Temp: "+ openWeatherModel.getTemp());
+        openWeathermaxTempOnView.setText("Temp max: "+ openWeatherModel.getTempMax());
+        openWeatherminTempOnView.setText("Temp min: "+ openWeatherModel.getTempMin());
+        openWeatherhumidityOnView.setText("Humidity: "+ openWeatherModel.getHumidity());
+        openWeatherwindSpeedOnView.setText("Wind speed: "+ openWeatherModel.getSpeed());
+        openWeatherdescriptionOnView.setText("Description: "+ openWeatherModel.getDescription());
+        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
+        generalTemp.setText(openWeatherModel.getTemp() + "°C");
     }
 }

@@ -9,9 +9,9 @@ import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
-import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 
-public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
+public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
 
     private Activity activity;
@@ -19,7 +19,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
 
 
     //WeatherBit
-    private WeatherBitMap weatherBitMap;
+    private WeatherBitModel weatherBitModel;
     private TextView weatherBitTempOnView;
     private TextView weatherBitCityOnView2;
     private TextView weatherBitCityOnView;
@@ -33,7 +33,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     public WeatherBitTask(Activity activity,MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
-        weatherBitMap = new WeatherBitMap();
+        weatherBitModel = new WeatherBitModel();
     }
 
 
@@ -50,23 +50,23 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     }
 
     @Override
-    protected WeatherBitMap doInBackground(String... strings) {
+    protected WeatherBitModel doInBackground(String... strings) {
         String data = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from weatherBit using http request
-        weatherBitMap = JSONWeatherParser.getWeatherBitData(data);  //sends the response values into parse
+        weatherBitModel = JSONWeatherParser.getWeatherBitData(data);  //sends the response values into parse
         imageLoader.setImageLoader();
-        return weatherBitMap;
+        return weatherBitModel;
     }
 
     @Override
-    protected void onPostExecute(WeatherBitMap weatherBitMap) {
-        super.onPostExecute(weatherBitMap);
-        weatherBitCityOnView2.setText(""+weatherBitMap.simple.getCityName());
+    protected void onPostExecute(WeatherBitModel weatherBitModel) {
+        super.onPostExecute(weatherBitModel);
+        weatherBitCityOnView2.setText(""+ weatherBitModel.getCityName());
 
-        weatherBitTempOnView.setText("Temp: "+weatherBitMap.main.getTemp());
-        weatherBitCityOnView.setText("City: "+weatherBitMap.simple.getCityName());
-        weatherBitDescriptionOnView.setText("Description: "+weatherBitMap.weather.getDescription());
-        weatherBitWindSpeedOnView.setText("Wind speed: "+weatherBitMap.wind.getSpeed());
-        weatherBitimageView.setImageUrl(weatherBitMap.simple.getImage(weatherBitMap.simple.getIcon()),imageLoader.getmImageLoader());
+        weatherBitTempOnView.setText("Temp: "+ weatherBitModel.getTemp());
+        weatherBitCityOnView.setText("City: "+ weatherBitModel.getCityName());
+        weatherBitDescriptionOnView.setText("Description: "+ weatherBitModel.getDescription());
+        weatherBitWindSpeedOnView.setText("Wind speed: "+ weatherBitModel.getSpeed());
+        weatherBitimageView.setImageUrl(weatherBitModel.getImage(weatherBitModel.getIcon()),imageLoader.getmImageLoader());
     }
 
 }

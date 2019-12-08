@@ -177,7 +177,6 @@ public class GetClientLocation extends Activity  {
 
            //   mainActivityController.ExecuteWeatherBitTask();
              //   mainActivityController.ExecuteOpenWeatherTask();
-                mainActivityController.ExecuteWeatherBitTaskSimple();
 
                 Toast.makeText(activity,"Yor location changed: "+location.getLatitude()+" "+location.getLongitude(),Toast.LENGTH_SHORT).show();
                 latitude = location.getLatitude();

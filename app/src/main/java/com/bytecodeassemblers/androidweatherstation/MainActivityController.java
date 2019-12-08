@@ -9,7 +9,6 @@ import android.widget.Toast;
 
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
-import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTaskSimple;
 
 import java.io.IOException;
 import java.util.List;
@@ -65,11 +64,6 @@ public class MainActivityController {
         new OpenWeatherTask(activity,imageLoader).execute(url);
     }
 
-    public void ExecuteWeatherBitTaskSimple(){
-
-        String url = Common.weatherBitRequestLink(lat,lon);
-        new WeatherBitTaskSimple(activity,imageLoader).execute(url);
-    }
 
 
     public void ExecuteWeatherBitTask(){
