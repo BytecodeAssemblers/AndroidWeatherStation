@@ -12,11 +12,11 @@ import android.widget.SearchView;
 import android.widget.Toast;
 
 import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
-import com.google.gson.reflect.TypeToken;
 
 import org.json.JSONObject;
 
@@ -28,12 +28,29 @@ import java.util.Locale;
 
 
 public class MainActivityController {
+/**/
+    private OpenWeatherModel openWeatherModel;
+    private WeatherBitModel weatherBitModel;
 
    private LocationRepo locationRepo;
 
    private MimageLoader imageLoader;
    private Activity activity;
+    public OpenWeatherModel getOpenWeatherModel() {
+        return openWeatherModel;
+    }
 
+    public void setOpenWeatherModel(OpenWeatherModel openWeatherModel) {
+        this.openWeatherModel = openWeatherModel;
+    }
+
+    public WeatherBitModel getWeatherBitModel() {
+        return weatherBitModel;
+    }
+
+    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
+        this.weatherBitModel = weatherBitModel;
+    }
 
     private  double lat;
     private  double lon;
@@ -66,9 +83,8 @@ public class MainActivityController {
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        new OpenWeatherTask(activity,imageLoader).execute(url);
+        new OpenWeatherTask(activity,this,imageLoader).execute(url);
     }
-
 
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);

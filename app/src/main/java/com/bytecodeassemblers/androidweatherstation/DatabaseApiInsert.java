@@ -22,7 +22,7 @@ public class DatabaseApiInsert {
 
     private JSONObject payload;
 
-    /////////////////////////////
+
 
 
     public RequestQueue getQueue() {
@@ -57,11 +57,14 @@ public class DatabaseApiInsert {
         this.payload = payload;
     }
 
-    ///////////////////////////////
+
 
     public void executeInsert(){                            //this function inserts data from the api calls that are implemented
 
         // Instantiate the RequestQueue.
+
+
+
         Queue = Volley.newRequestQueue(context );
 
 

@@ -80,6 +80,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                                 + "Long : " + latLng.longitude,
                         Toast.LENGTH_LONG).show();
 
+
                 Intent intent = new Intent();
                 intent.putExtra("lat", latLng.latitude);
                 intent.putExtra("lon", latLng.longitude);

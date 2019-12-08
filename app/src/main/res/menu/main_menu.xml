@@ -28,9 +28,20 @@
          />
 
     <item
+        android:id="@+id/enableGps"
+        android:checkable="true"
+        android:checked="false"
+        android:enabled="true"
+        android:title="Enable Gps"
+        app:showAsAction="never" />
+
+
+    <item
         android:id="@+id/about"
         android:title="About"
         app:showAsAction="never" />
+
+
 
 
 </menu>
