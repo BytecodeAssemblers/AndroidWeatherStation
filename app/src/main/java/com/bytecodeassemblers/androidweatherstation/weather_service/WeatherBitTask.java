@@ -41,7 +41,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     protected void onPreExecute() {
         super.onPreExecute();
         //WeatherBit Textview Initialization
-        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbit_city2);
+        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbitMainActivityCityName);
         weatherBitTempOnView = activity.findViewById(R.id.weatherbit_temp);
         weatherBitCityOnView = activity.findViewById(R.id.weatherbit_city);
         weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);

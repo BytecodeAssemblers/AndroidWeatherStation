@@ -3,12 +3,10 @@ package com.bytecodeassemblers.androidweatherstation;
 
 import android.content.Intent;
 import android.graphics.drawable.AnimationDrawable;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
@@ -87,7 +85,7 @@ public class MainActivity extends AppCompatActivity {
 
                 return true;
             case R.id.weatherdiagram:
-                TextView cityTextView =  findViewById(R.id.weatherbit_city2);
+                TextView cityTextView =  findViewById(R.id.weatherbitMainActivityCityName);
                 String cityName = cityTextView.getText().toString();
                 intent = new Intent(mainView, WeatherHistoryActivity.class);
                 intent.putExtra("cityName", cityName);
@@ -95,12 +93,18 @@ public class MainActivity extends AppCompatActivity {
                 return true;
             case R.id.advanceddetails:
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
+                /*OpenWeather Data Send To Advanced Details*/
                 intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp());
                 intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin());
                 intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax());
                 intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
                 intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
                 intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
+                /*WeatherBit Data Send To Advanced Details*/
+                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
 
                 startActivity(intent);
 

@@ -57,10 +57,9 @@
         android:id="@+id/divider"
         android:layout_width="1dp"
         android:layout_height="729dp"
-        android:layout_marginStart="21dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toStartOf="@+id/openWeather"
-        app:layout_constraintStart_toEndOf="@+id/weatherbitImage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView

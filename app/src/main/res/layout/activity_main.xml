@@ -11,7 +11,7 @@
 
     <TextView
 
-        android:id="@+id/weatherbit_city2"
+        android:id="@+id/weatherbitMainActivityCityName"
         android:layout_width="191dp"
         android:layout_height="65dp"
         android:fontFamily="@font/aldrich"

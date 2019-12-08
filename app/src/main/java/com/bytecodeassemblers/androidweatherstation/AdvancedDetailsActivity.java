@@ -75,7 +75,20 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           openWeatherHumidity.setText(openWeatherSetHumidity);
 
           /*--WeatherBit Initializer--*/
+         weatherbit_city = findViewById(R.id.weatherbit_city);
+         weatherbit_description = findViewById(R.id.weatherbit_description);
+         weatherbit_windspeed=findViewById(R.id.weatherbit_windspeed);
+         weatherbit_temperature=findViewById(R.id.weatherbit_temp);
 
+        String weatherbitCityName  = intent.getStringExtra("weatherbit_city");
+        String weatherbitTemperature  = intent.getStringExtra("weatherbit_temperature");
+        String weatherbitDescription = intent.getStringExtra("weatherbit_description");
+        String weatherbitWindspeed =  intent.getStringExtra("weatherbit_windSpeed");
+
+        weatherbit_city.setText(weatherbitCityName);
+        weatherbit_description.setText(weatherbitDescription);
+        weatherbit_windspeed.setText(weatherbitWindspeed);
+        weatherbit_temperature.setText(weatherbitTemperature);
 
 
 
