@@ -24,6 +24,7 @@ import java.util.Date;
 public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
+
     private MainActivityController mainActivityController;
 
     private GetClientLocation getClientLocation;
@@ -39,7 +40,6 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        getClientLocation = new GetClientLocation();
         TextView textView = findViewById(R.id.updated_at);
         Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
         textView.setText(strDate);
@@ -58,7 +58,7 @@ public class MainActivity extends AppCompatActivity {
 
         mainActivityController = new MainActivityController(this);
 
-        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
+
 
 
     }
@@ -105,6 +105,18 @@ public class MainActivity extends AppCompatActivity {
             case R.id.about:
 
                 return true;
+
+
+            case R.id.enableGps:
+
+                 if(item.isChecked()){
+                     getClientLocation = new GetClientLocation(mainActivityController,this);
+                 }else
+                 {
+                     getClientLocation = null;
+                 }
+                return true;
+
             case R.id.location:
                 mainActivityController.parseSearchView();
                 mainActivityController.openMapActivity();
