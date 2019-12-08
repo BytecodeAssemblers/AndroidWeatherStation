@@ -4,12 +4,22 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
@@ -57,16 +67,39 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         return weatherBitModel;
     }
 
+
+
+
+
     @Override
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
+
         weatherBitCityOnView2.setText(""+ weatherBitModel.getCityName());
-//
-//        weatherBitTempOnView.setText("Temp: "+ weatherBitModel.getTemp());
-//        weatherBitCityOnView.setText("City: "+ weatherBitModel.getCityName());
-//        weatherBitDescriptionOnView.setText("Description: "+ weatherBitModel.getDescription());
-//        weatherBitWindSpeedOnView.setText("Wind speed: "+ weatherBitModel.getSpeed());
-//        weatherBitimageView.setImageUrl(weatherBitModel.getImage(weatherBitModel.getIcon()),imageLoader.getmImageLoader());
+
+        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String strDate = dateFormat.format(date);
+
+
+        DatabaseApiInsert insertWeather = new DatabaseApiInsert();
+        JSONObject weatherPayload = new JSONObject();
+        try {
+            weatherPayload.put("region",weatherBitModel.getCityName());
+            weatherPayload.put("temperature",weatherBitModel.getTemp());
+            weatherPayload.put("date",strDate);
+            weatherPayload.put("description",weatherBitModel.getDescription());
+
+            
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+
+
     }
 
 }
