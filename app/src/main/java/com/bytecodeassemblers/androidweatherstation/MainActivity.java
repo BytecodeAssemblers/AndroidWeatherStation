@@ -109,10 +109,13 @@ public class MainActivity extends AppCompatActivity {
 
             case R.id.enableGps:
 
-                 if(item.isChecked()){
+                 if(!item.isChecked()){
+                     item.setChecked(true);
                      getClientLocation = new GetClientLocation(mainActivityController,this);
+
                  }else
                  {
+                     item.setChecked(false);
                      getClientLocation = null;
                  }
                 return true;
