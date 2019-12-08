@@ -2,14 +2,10 @@ package com.bytecodeassemblers.androidweatherstation.data;
 
 
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
-import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherSimpleData;
-import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherWind;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
-
 
 import org.json.JSONException;
 import org.json.JSONObject;
-
 
 public class JSONWeatherParser {
 
@@ -17,10 +13,12 @@ public class JSONWeatherParser {
 
         OpenWeatherModel myOpenWeatherModel = new OpenWeatherModel(); // object composition
         try {
+            //Read data from response JSON
             JSONObject jsonObject = new JSONObject(data);
             JSONObject mainObject = jsonObject.getJSONObject("main");
             JSONObject weatherObject = jsonObject.getJSONArray("weather").getJSONObject(0);
             JSONObject windObject =   jsonObject.getJSONObject("wind");
+
             String deg = windObject.getString("deg");
             String speed = windObject.getString("speed");
             String temp = mainObject.getString("temp");
@@ -31,7 +29,16 @@ public class JSONWeatherParser {
             String description = weatherObject.getString("description");
             String icon = weatherObject.getString("icon");
 
-            myOpenWeatherModel.set
+            //Populate the model object with the data
+            myOpenWeatherModel.setDescription(description);
+            myOpenWeatherModel.setIcon(icon);
+            myOpenWeatherModel.setDeg(deg);
+            myOpenWeatherModel.setTempMin(tempMin);
+            myOpenWeatherModel.setTempMax(tempMax);
+            myOpenWeatherModel.setPressure(pressure);
+            myOpenWeatherModel.setTemp(temp);
+            myOpenWeatherModel.setSpeed(speed);
+            myOpenWeatherModel.setHumidity(humidity);
 
         } catch (JSONException e) {
             e.printStackTrace();
@@ -73,6 +80,4 @@ public class JSONWeatherParser {
         //AGAIN?!?!?!
         return weatherBitModel;
     }
-
-
 }
