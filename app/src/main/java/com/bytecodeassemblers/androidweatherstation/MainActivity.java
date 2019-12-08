@@ -21,17 +21,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 
-//import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-
-
-
-
 public class MainActivity extends AppCompatActivity {
 
     private MainActivity mainView = this;
     private MainActivityController mainActivityController;
 
-    //private GetClientLocation getClientLocation;
+    private GetClientLocation getClientLocation;
 
     private WeatherHistoryActivity weatherHistoryActivity;
     Button weatherHistoryButton;
@@ -44,15 +39,13 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getClientLocation = new GetClientLocation(this);
+        getClientLocation = new GetClientLocation();
         TextView textView = findViewById(R.id.updated_at);
         Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
         textView.setText(strDate);
 
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
-
-
 
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
