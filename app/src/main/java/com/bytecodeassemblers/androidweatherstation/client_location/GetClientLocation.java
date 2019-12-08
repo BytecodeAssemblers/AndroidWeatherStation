@@ -1,5 +1,6 @@
 package com.bytecodeassemblers.androidweatherstation.client_location;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -46,9 +47,9 @@ public class GetClientLocation extends Activity  {
         LocationListener locationListener = new MyLocationListener();
         //GPS is already On then
         if(isGPSEnabled)
-            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 30000000, 10000, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.GPS_PROVIDER, 300000, 100, locationListener);
         else if(isNetworkEnabled)
-            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 30000000, 10000, locationListener);
+            locationManager.requestLocationUpdates(LocationManager.NETWORK_PROVIDER, 300000, 100, locationListener);
         else
             Toast.makeText(activity,"Your location won't be accounted for",Toast.LENGTH_SHORT).show();
 
