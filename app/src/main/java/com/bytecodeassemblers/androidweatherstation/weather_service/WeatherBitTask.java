@@ -4,14 +4,25 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+
+import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
-import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitMap;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 
-public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
+
+public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
 
     private Activity activity;
@@ -19,7 +30,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
 
 
     //WeatherBit
-    private WeatherBitMap weatherBitMap;
+    private WeatherBitModel weatherBitModel;
     private TextView weatherBitTempOnView;
     private TextView weatherBitCityOnView2;
     private TextView weatherBitCityOnView;
@@ -29,11 +40,10 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
 
 
 
-
-    public WeatherBitTask(Activity activity,MimageLoader image){
+    public WeatherBitTask(Activity activity, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
-        weatherBitMap = new WeatherBitMap();
+        weatherBitModel = new WeatherBitModel();
     }
 
 
@@ -41,7 +51,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     protected void onPreExecute() {
         super.onPreExecute();
         //WeatherBit Textview Initialization
-        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbit_city2);
+        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbitMainActivityCityName);
         weatherBitTempOnView = activity.findViewById(R.id.weatherbit_temp);
         weatherBitCityOnView = activity.findViewById(R.id.weatherbit_city);
         weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);
@@ -50,23 +60,40 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitMap> {
     }
 
     @Override
-    protected WeatherBitMap doInBackground(String... strings) {
+    protected WeatherBitModel doInBackground(String... strings) {
         String data = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from weatherBit using http request
-        weatherBitMap = JSONWeatherParser.getWeatherBitData(data);  //sends the response values into parse
+        weatherBitModel = JSONWeatherParser.getWeatherBitData(data);  //sends the response values into parse
         imageLoader.setImageLoader();
-        return weatherBitMap;
+        return weatherBitModel;
     }
 
     @Override
-    protected void onPostExecute(WeatherBitMap weatherBitMap) {
-        super.onPostExecute(weatherBitMap);
-        weatherBitCityOnView2.setText(""+weatherBitMap.simple.getCityName());
+    protected void onPostExecute(WeatherBitModel weatherBitModel) {
+        super.onPostExecute(weatherBitModel);
 
-        weatherBitTempOnView.setText("Temp: "+weatherBitMap.main.getTemp());
-        weatherBitCityOnView.setText("City: "+weatherBitMap.simple.getCityName());
-        weatherBitDescriptionOnView.setText("Description: "+weatherBitMap.weather.getDescription());
-        weatherBitWindSpeedOnView.setText("Wind speed: "+weatherBitMap.wind.getSpeed());
-        weatherBitimageView.setImageUrl(weatherBitMap.simple.getImage(weatherBitMap.simple.getIcon()),imageLoader.getmImageLoader());
+        weatherBitCityOnView2.setText(""+ weatherBitModel.getCityName());
+
+        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+
+        String strDate = dateFormat.format(date);
+
+
+        DatabaseApiInsert insertWeather = new DatabaseApiInsert();
+        JSONObject weatherPayload = new JSONObject();
+        try {
+            weatherPayload.put("region",weatherBitModel.getCityName());
+            weatherPayload.put("temperature",weatherBitModel.getTemp());
+            weatherPayload.put("date",strDate);
+            weatherPayload.put("description",weatherBitModel.getDescription());
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+        insertWeather.setPayload(weatherPayload);
+        insertWeather.setContext(activity);
+        insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
+        insertWeather.executeInsert();
+
     }
 
 }

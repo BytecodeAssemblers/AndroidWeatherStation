@@ -1,104 +1,138 @@
 package com.bytecodeassemblers.androidweatherstation;
 
-
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
-import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.core.content.ContextCompat;
+
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
+import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
+import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
+import com.google.android.gms.maps.model.LatLng;
 
-//import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
+import java.io.Serializable;
+import java.util.HashMap;
 
-
-
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 public class MainActivity extends AppCompatActivity {
+
+    private static final String[] LOCATION_PERMS={
+            Manifest.permission.ACCESS_FINE_LOCATION
+    };
+    private static final int INITIAL_REQUEST=1337;
+    private static final int LOCATION_REQUEST=INITIAL_REQUEST+3;
 
     private MainActivity mainView = this;
     private MainActivityController mainActivityController;
 
-    //private GetClientLocation getClientLocation;
-
+    private GetClientLocation getClientLocation;
+    Menu optionsMenu;
     private WeatherHistoryActivity weatherHistoryActivity;
-    Button weatherHistoryButton;
-
-
-
-    private boolean isGPSEnabled = false;
-    private LocationManager locationManager;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //getClientLocation = new GetClientLocation(this);
-
+        TextView textView = findViewById(R.id.updated_at);
+        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
+        textView.setText(strDate);
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
-
-
-
 
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
         animationDrawable.start();
 
-        Toolbar toolbar = (Toolbar) findViewById(R.id.app_bar);
+        Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
 
-
         mainActivityController = new MainActivityController(this);
-
-        GetClientLocation clientLocation = new GetClientLocation(mainActivityController, this);
-
-
-
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
            getMenuInflater().inflate(R.menu.main_menu, menu);
+           optionsMenu = menu;
            return true;
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
- Intent intent ;
+        Intent intent ;
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.settings:
-
                 return true;
             case R.id.weatherdiagram:
-                TextView cityTextView =  findViewById(R.id.weatherbit_city2);
+                TextView cityTextView =  findViewById(R.id.weatherbitMainActivityCityName);
                 String cityName = cityTextView.getText().toString();
                 intent = new Intent(mainView, WeatherHistoryActivity.class);
                 intent.putExtra("cityName", cityName);
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:
+                intent = new Intent(mainView, AdvancedDetailsActivity.class);
+                /*OpenWeather Data Send To Advanced Details*/
+                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
+                intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
+                intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
+                /*WeatherBit Data Send To Advanced Details*/
+                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp());
+                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin());
+                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
 
+                startActivity(intent);
                 return true;
             case R.id.about:
+                mainActivityController.openListViewActivity();
 
                 return true;
+            case R.id.enableGps:
+                boolean permissions = this.checkSelfPermission(android.Manifest.permission.ACCESS_FINE_LOCATION) ==
+                        PackageManager.PERMISSION_GRANTED &&
+                        ContextCompat.checkSelfPermission(this, android.Manifest.permission.ACCESS_COARSE_LOCATION) ==
+                                PackageManager.PERMISSION_GRANTED;
+
+                 if(!item.isChecked()){
+                     if(!permissions){
+                         requestPermissions(LOCATION_PERMS, LOCATION_REQUEST);
+                     } else {
+                         item.setChecked(true);
+                         getClientLocation = new GetClientLocation(mainActivityController, mainView);
+                     }
+                 }else
+                 {
+                     item.setChecked(false);
+                     getClientLocation = null;
+                 }
+                return true;
+
             case R.id.location:
-                mainActivityController.parseSearchView();
                 mainActivityController.openMapActivity();
 
                 return true;
@@ -117,8 +151,37 @@ public class MainActivity extends AppCompatActivity {
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
                 this.mainActivityController.ExecuteWeatherBitTask();
+
+                this.mainActivityController.savedLocation();
             }
+        }else if(requestCode == 2){
+            if (resultCode == RESULT_OK) {
+
+                this.mainActivityController.setLatitude(data.getDoubleExtra("latitude", 48.08));
+                this.mainActivityController.setLongitude(data.getDoubleExtra("longitude", 23.78));
+
+                this.mainActivityController.ExecuteOpenWeatherTask();
+                this.mainActivityController.ExecuteWeatherBitTask();
+
+            }
+
         }
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        switch(requestCode) {
+            case LOCATION_REQUEST:
+                if (PackageManager.PERMISSION_GRANTED==checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION)) {
+                    optionsMenu.getItem(4).setChecked(true);
+                    getClientLocation = new GetClientLocation(mainActivityController, mainView);
+                }
+                else
+                {
+                    optionsMenu.getItem(4).setChecked(false);
+                    getClientLocation = null;
+                }
+                break;
+        }
+    }
 }

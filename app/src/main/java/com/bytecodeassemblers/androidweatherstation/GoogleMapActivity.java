@@ -24,7 +24,6 @@ import java.util.Locale;
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private Common commonObject;
     private double lat;
     private double lon;
 
@@ -38,10 +37,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
-
-        commonObject = new Common();
-      //lat = Double.parseDouble(commonObject.getLatitude()); //takes latitude from user input
-      // lon = Double.parseDouble(commonObject.getLongitude()); //takes longitude from user input
     }
     /**
      * Manipulates the map once available.
@@ -84,6 +79,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                         "Lat : " + latLng.latitude + " , "
                                 + "Long : " + latLng.longitude,
                         Toast.LENGTH_LONG).show();
+
 
                 Intent intent = new Intent();
                 intent.putExtra("lat", latLng.latitude);

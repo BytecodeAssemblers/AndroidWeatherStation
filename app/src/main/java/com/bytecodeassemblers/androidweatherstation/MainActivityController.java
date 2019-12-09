@@ -1,28 +1,57 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
+import android.os.Parcelable;
 import android.widget.SearchView;
 import android.widget.Toast;
 
+import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
+import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
+import com.google.android.gms.maps.model.LatLng;
+
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.IOException;
+import java.io.Serializable;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
 
 public class MainActivityController {
+/**/
+    private OpenWeatherModel openWeatherModel;
+    private WeatherBitModel weatherBitModel;
 
+   private LocationRepo locationRepo;
 
+   private MimageLoader imageLoader;
+   private Activity activity;
+    public OpenWeatherModel getOpenWeatherModel() {
+        return openWeatherModel;
+    }
 
-    private MimageLoader imageLoader;
-    private Activity activity;
-    private Common commonObject;
+    public void setOpenWeatherModel(OpenWeatherModel openWeatherModel) {
+        this.openWeatherModel = openWeatherModel;
+    }
 
+    public WeatherBitModel getWeatherBitModel() {
+        return weatherBitModel;
+    }
+
+    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
+        this.weatherBitModel = weatherBitModel;
+    }
 
     private  double lat;
     private  double lon;
@@ -35,33 +64,27 @@ public class MainActivityController {
         lon = longitude;
     }
 
+
     public Activity getActivity() {
         return activity;
     }
 
-    boolean inputCheck;
-
-    //mainView
-    private SearchView searchView;
-    private String inputCoordinates;
 
 
-
-    public MainActivityController(Activity activity){
+    public MainActivityController(MainActivity activity){
         this.activity=activity;
-        commonObject = new Common();
+        locationRepo  = new LocationRepo(activity);
         InitializeComponent();
     }
 
 
     public void InitializeComponent() {
         imageLoader = new MimageLoader(activity);
-
     }
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        new OpenWeatherTask(activity,imageLoader).execute(url);
+        new OpenWeatherTask(activity,this,imageLoader).execute(url);
     }
 
     public void ExecuteWeatherBitTask(){
@@ -70,28 +93,24 @@ public class MainActivityController {
     }
 
 
-    //run query from search button in keyboard
-    private SearchView.OnQueryTextListener onSubmitQueryTextListener = new SearchView.OnQueryTextListener() {
-        @Override
-        public boolean onQueryTextSubmit(String query) {
-            parseSearchView();
-            openMapActivity();
-            //ExecuteWeatherBitTask();
-            //ExecuteOpenWeatherTask();
-            return true;
+    public void savedLocation(){
+        try {
+            JSONObject latLong = new JSONObject();
+            latLong.put("cityName", GetExactLocationAddress());
+            latLong.put("lat", lat);
+            latLong.put("lon", lon);
+            locationRepo.addLocationReg(latLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
         }
-        @Override
-        public boolean onQueryTextChange(String newText) {
-            return false;
-        }
-    };
+    }
 
 
-    public String GetExactLocationAddress(Double latitude, Double longitude){
+    public String GetExactLocationAddress(){
         Geocoder geocoder= new Geocoder(activity, Locale.getDefault());
         List<Address> addresses = null;
         try {
-                addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
+                addresses = geocoder.getFromLocation(lat,lon , 1);  //get specific address for latitude and longtitude given
                  lat = addresses.get(0).getLatitude();
                  lon = addresses.get(0).getLongitude();
 
@@ -102,22 +121,15 @@ public class MainActivityController {
     }
 
 
-    public void parseSearchView(){
-        //inputCoordinates = String.valueOf(searchView.getQuery()); //get text from SearchView
-        //String[] coords = inputCoordinates.split(",");  //separate coordinates
-        //lat = Double.parseDouble(coords[0]);
-        //lon = Double.parseDouble(coords[1]);
-
-         commonObject.setLat(String.valueOf(this.lat));  //set latitude in common class
-         commonObject.setLon(String.valueOf(this.lon));  //set longitude in common class
-    }
-
-
     public void openMapActivity(){
         Intent intent = new Intent(activity, GoogleMapActivity.class);
         activity.startActivityForResult(intent,1 );
-
     }
 
 
+    public void openListViewActivity(){
+        Intent intent = new Intent(this.activity, ListViewActivity.class);
+        intent.putExtra("map",locationRepo.loadMap().toString());
+        activity.startActivityForResult(intent,2);
+    }
 }
