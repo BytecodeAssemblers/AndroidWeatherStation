@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
+
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
@@ -39,8 +40,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
 
 
-
-    public WeatherBitTask(Activity activity,MimageLoader image){
+    public WeatherBitTask(Activity activity, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
         weatherBitModel = new WeatherBitModel();
@@ -66,10 +66,6 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         imageLoader.setImageLoader();
         return weatherBitModel;
     }
-
-
-
-
 
     @Override
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
@@ -97,7 +93,6 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.setContext(activity);
         insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
         insertWeather.executeInsert();
-
 
     }
 

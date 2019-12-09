@@ -15,7 +15,6 @@
         android:layout_width="191dp"
         android:layout_height="65dp"
         android:fontFamily="@font/aldrich"
-        android:text="cityName"
         android:textAlignment="center"
         android:textAppearance="@style/AlertDialog.AppCompat.Light"
         android:textColor="@color/secondaryTextColor"
@@ -45,6 +44,12 @@
 
     </androidx.appcompat.widget.Toolbar>
 
+
+<!--    <androidx.recyclerview.widget.RecyclerView-->
+<!--        android:id="@+id/recycler_view"-->
+<!--        android:layout_width="match_parent"-->
+<!--        android:layout_height="match_parent" />-->
+    
 
     <TextView
         android:id="@+id/updated_at"
