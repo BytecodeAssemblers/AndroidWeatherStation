@@ -18,6 +18,7 @@ import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherT
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
@@ -93,8 +94,15 @@ public class MainActivityController {
 
 
     public void savedLocation(){
-        LatLng latLng = new LatLng(lat,lon);
-        locationRepo.addLocationReg(GetExactLocationAddress(),latLng);
+        try {
+            JSONObject latLong = new JSONObject();
+            latLong.put("cityName", GetExactLocationAddress());
+            latLong.put("lat", lat);
+            latLong.put("lon", lon);
+            locationRepo.addLocationReg(latLong);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -121,7 +129,7 @@ public class MainActivityController {
 
     public void openListViewActivity(){
         Intent intent = new Intent(this.activity, ListViewActivity.class);
-        intent.putExtra("map",locationRepo.loadMap());
+        intent.putExtra("map",locationRepo.loadMap().toString());
         activity.startActivityForResult(intent,2);
     }
 }

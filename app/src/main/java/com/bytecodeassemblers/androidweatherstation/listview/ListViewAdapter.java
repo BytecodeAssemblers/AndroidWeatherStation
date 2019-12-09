@@ -9,16 +9,26 @@ import android.widget.TextView;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.google.android.gms.maps.model.LatLng;
 
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.util.ArrayList;
 import java.util.Map;
 
 public class ListViewAdapter extends BaseAdapter {
 
-    private final ArrayList mData;
+    private final ArrayList<JSONObject> mData;
 
-    public ListViewAdapter(Map<String, LatLng> map) {
-        mData = new ArrayList();
-        mData.addAll(map.entrySet());
+     public ListViewAdapter(JSONArray map) {
+        mData = new ArrayList<>();
+        for(int i=0; i<map.length(); i++) {
+            try {
+                mData.add(map.getJSONObject(i));
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+        }
     }
 
     @Override
@@ -27,8 +37,8 @@ public class ListViewAdapter extends BaseAdapter {
     }
 
     @Override
-    public Map.Entry<String, LatLng> getItem(int position) {
-        return (Map.Entry) mData.get(position);
+    public JSONObject getItem(int position) {
+        return mData.get(position);
     }
 
     @Override
@@ -47,14 +57,21 @@ public class ListViewAdapter extends BaseAdapter {
             result = convertView;
         }
 
-        Map.Entry<String, LatLng> item = getItem(position);
+        JSONObject item = getItem(position);
 
         // TODO replace findViewById by ViewHolder
         TextView titles= result.findViewById(R.id.title);
         TextView desriptions = result.findViewById(R.id.description);
 
-        titles.setText(item.getKey());
-        desriptions.setText(String.valueOf(item.getValue()));
+        try {
+            titles.setText(item.getString("cityName"));
+            desriptions.setText("Latitude: ");
+            desriptions.append(String.valueOf(item.getDouble("lat")));
+            desriptions.append("\nLongitude: ");
+            desriptions.append(String.valueOf(item.getDouble("lon")));
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         return result;
     }

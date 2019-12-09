@@ -9,19 +9,16 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.bytecodeassemblers.androidweatherstation.LocationRepo;
 import com.bytecodeassemblers.androidweatherstation.MainActivity;
 import com.bytecodeassemblers.androidweatherstation.R;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.gson.Gson;
 
+import org.json.JSONArray;
+import org.json.JSONException;
 import org.json.JSONObject;
-
-import java.util.HashMap;
 
 public class ListViewActivity extends AppCompatActivity {
 
@@ -30,7 +27,7 @@ public class ListViewActivity extends AppCompatActivity {
 
     private ListView list;
     private ListViewAdapter myAdapter;
-    private HashMap<String, LatLng> locationInventory;
+    private JSONArray locationInventory;
 
 
     @Override
@@ -39,7 +36,11 @@ public class ListViewActivity extends AppCompatActivity {
         setContentView(R.layout.activity_list_view);
 
         Intent intent = getIntent();
-       locationInventory = (HashMap<String, LatLng>) intent.getSerializableExtra("map");  //get hashmap LocationRepo from MainActivityController
+        try {
+            locationInventory = new JSONArray(intent.getStringExtra("map"));  //get hashmap LocationRepo from MainActivityController
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
         myAdapter = new ListViewAdapter(locationInventory);// pass hashmap to Adapter
 
@@ -51,8 +52,14 @@ public class ListViewActivity extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                double lat = myAdapter.getItem(position).getValue().latitude;
-                double lon = myAdapter.getItem(position).getValue().longitude;
+                double lat = 0;
+                double lon = 0;
+                try {
+                    lat = myAdapter.getItem(position).getDouble("lat");
+                    lon = myAdapter.getItem(position).getDouble("lon");
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
 
                 Intent intent = new Intent(ListViewActivity.this, MainActivity.class);
                 intent.putExtra("latitude",lat);
@@ -71,7 +78,7 @@ public class ListViewActivity extends AppCompatActivity {
                         .setMessage("Do you want to delete this item?").setPositiveButton("yes", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
-                        locationInventory.remove(myAdapter.getItem(position).getKey());
+                        locationInventory.remove(position);
                         myAdapter = new ListViewAdapter(locationInventory);
                         list.setAdapter(myAdapter);
 
@@ -86,14 +93,12 @@ public class ListViewActivity extends AppCompatActivity {
 
     }
 
-    public void saveMap(HashMap<String,LatLng> inputMap){  //save hashmap in shared preferences
-        Gson gson = new Gson();
-        SharedPreferences pSharedPref = getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
+    public void saveMap(JSONArray inputMap){  //save hashmap in shared preferences
+        SharedPreferences pSharedPref = getApplicationContext().getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
         if (pSharedPref != null){
-            String jsonString = gson.toJson(inputMap);
             SharedPreferences.Editor editor = pSharedPref.edit();
             editor.remove("My_map").commit();
-            editor.putString("My_map", jsonString);
+            editor.putString("My_map", inputMap.toString());
             editor.commit();
         }
     }
