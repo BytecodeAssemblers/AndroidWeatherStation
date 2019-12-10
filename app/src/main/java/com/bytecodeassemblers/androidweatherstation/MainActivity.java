@@ -8,6 +8,7 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -22,6 +23,7 @@ import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
 import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.io.Serializable;
 import java.util.HashMap;
@@ -51,6 +53,24 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        /*--This is a message, that informs a user how to use the app the first time--*/
+        View parentLayout = findViewById(android.R.id.content);
+
+       final Snackbar snackbar = Snackbar.make(parentLayout,"Please, Choose a location from the map or check Enable Gps from the Menu",Snackbar.LENGTH_LONG);
+
+              snackbar.setAction("Close", new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view){
+
+                        snackbar.dismiss();
+                    }
+                        })
+                .setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark))
+        .show();
+              /*--End of Message--*/
+
+
         TextView textView = findViewById(R.id.updated_at);
         Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
         textView.setText(strDate);

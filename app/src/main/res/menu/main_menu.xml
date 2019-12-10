@@ -34,6 +34,16 @@
         android:enabled="true"
         android:title="Enable Gps"
         app:showAsAction="never" />
+<item
+    android:id = "@+id/enableSearch"
+    android:title="enableSearch"
+    android:icon="@drawable/ic_magnifier_glass"
+    app:showAsAction="always"
+    />
+
+
+
+
 
 
     <item
