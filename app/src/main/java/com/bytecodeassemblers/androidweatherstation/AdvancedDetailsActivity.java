@@ -89,21 +89,6 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
         weatherbit_description.setText(weatherbitDescription);
         weatherbit_windspeed.setText(weatherbitWindspeed);
         weatherbit_temperature.setText(weatherbitTemperature);
-       /*
-       if(weatherbit_description.getText().toString().contains("scattered cloud"))
-       {
-
-       }else if (weatherbit_description.getText().toString().contains("snow")){
-
-       }else if (weatherbit_description.getText().toString().contains("rain")){
-
-       }else if (weatherbit_description.getText().toString().contains("light rain")){
-
-       }else{
-
-       }*/
-
-
 
 
 

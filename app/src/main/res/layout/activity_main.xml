@@ -40,8 +40,6 @@
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
         app:titleMargin="0dp">
 
-
-
     </androidx.appcompat.widget.Toolbar>
 
 
