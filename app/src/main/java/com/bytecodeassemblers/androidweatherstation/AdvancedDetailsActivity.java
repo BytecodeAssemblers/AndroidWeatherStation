@@ -92,13 +92,5 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
 
 
 
-
-
-
-
-
-
-
-
     }
 }
