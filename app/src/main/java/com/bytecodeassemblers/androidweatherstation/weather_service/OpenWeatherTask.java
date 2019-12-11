@@ -26,6 +26,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
     private TextView openWeatherdescriptionOnView;
     private TextView openWeatherwindSpeedOnView;
     private TextView openWeathercityNameOnView;
+    private TextView openWeatherMainActivityDescription;
     private NetworkImageView openWeathermyImage;
 
     //mainView
@@ -47,6 +48,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
         super.onPreExecute();
         //OpenWeather TextView Initialization
        // openWeathercityNameOnView = activity.findViewById(R.id.address);
+        openWeatherMainActivityDescription= activity.findViewById(R.id.mainActivityWeatherDescription);
         openWeathertempOnView = activity.findViewById(R.id.openWeatherTemp);
         openWeathermaxTempOnView = activity.findViewById(R.id.openWeatherMaxTemp);
         openWeatherminTempOnView = activity.findViewById(R.id.openWeatherMinTemp);
@@ -77,6 +79,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 //        openWeatherwindSpeedOnView.setText("Wind speed: "+ openWeatherModel.getSpeed());
 //        openWeatherdescriptionOnView.setText("Description: "+ openWeatherModel.getDescription());
 //        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
+        openWeatherMainActivityDescription.setText(""+ openWeatherModel.getDescription());
         generalTemp.setText(openWeatherModel.getTemp() + "°C");
          this.mainActivityController.setOpenWeatherModel(openWeatherModel);
     }

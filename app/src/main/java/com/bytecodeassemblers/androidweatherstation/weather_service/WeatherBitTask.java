@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.os.AsyncTask;
 import android.widget.TextView;
 
-import com.android.volley.toolbox.JsonObjectRequest;
 import com.android.volley.toolbox.NetworkImageView;
 
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
@@ -32,11 +31,12 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     //WeatherBit
     private WeatherBitModel weatherBitModel;
     private TextView weatherBitTempOnView;
-    private TextView weatherBitCityOnView2;
+    private TextView weatherBitCityOnMainActivityView;
     private TextView weatherBitCityOnView;
     private TextView weatherBitDescriptionOnView;
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
+
 
 
 
@@ -51,7 +51,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     protected void onPreExecute() {
         super.onPreExecute();
         //WeatherBit Textview Initialization
-        weatherBitCityOnView2 = activity.findViewById(R.id.weatherbitMainActivityCityName);
+        weatherBitCityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
         weatherBitTempOnView = activity.findViewById(R.id.weatherbit_temp);
         weatherBitCityOnView = activity.findViewById(R.id.weatherbit_city);
         weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);
@@ -71,7 +71,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
 
-        weatherBitCityOnView2.setText(""+ weatherBitModel.getCityName());
+        weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
 
         Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 

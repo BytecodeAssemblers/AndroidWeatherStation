@@ -20,4 +20,6 @@
     <string name="description">description</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_google_map">Map</string>
+    <string name="currentLocation">currentLocation</string>
+    <string name="currentWeatherDescription">currentWeatherDescription</string>
 </resources>

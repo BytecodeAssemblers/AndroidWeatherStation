@@ -68,15 +68,17 @@ public class MainActivity extends AppCompatActivity {
                         })
                 .setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark))
         .show();
+
               /*--End of Message--*/
 
 
         TextView textView = findViewById(R.id.updated_at);
-        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");   String strDate = dateFormat.format(date);
-        textView.setText(strDate);
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
+        String fetchDate = dateFormat.format(date);
+        textView.setText(fetchDate);
 
         ConstraintLayout constraintLayout = findViewById(R.id.layout);
-
         AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
         animationDrawable.setEnterFadeDuration(2000);
         animationDrawable.setExitFadeDuration(4000);
@@ -85,6 +87,7 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.app_bar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
+
 
         mainActivityController = new MainActivityController(this);
 
@@ -114,16 +117,16 @@ public class MainActivity extends AppCompatActivity {
             case R.id.advanceddetails:
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
                 /*OpenWeather Data Send To Advanced Details*/
-                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp());
-                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin());
-                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C");
+                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
+                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
                 intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
                 intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
                 intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
                 /*WeatherBit Data Send To Advanced Details*/
-                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp());
-                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin());
-                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax());
+                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
+                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
+                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
                 intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
 
                 startActivity(intent);
