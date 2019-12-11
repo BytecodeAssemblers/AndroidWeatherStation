@@ -38,7 +38,7 @@
 
     <item
         android:id="@+id/about"
-        android:title="About"
+        android:title="My Places"
         app:showAsAction="never" />
 
 

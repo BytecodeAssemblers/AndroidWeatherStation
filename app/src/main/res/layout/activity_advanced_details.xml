@@ -4,7 +4,80 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/gradientlist"
     tools:context=".AdvancedDetailsActivity">
+
+    <TextView
+        android:id="@+id/accompanyWeatherBitDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="36dp"
+        android:text="Description :"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyWeatherBitWindSpeed" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Description"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyOpenweatherWindspeed" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherWindspeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Windspeed"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyOpenweatherHumidity" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherHumidity"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="28dp"
+        android:text="Huditity Level"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyOpenweatherMinTemperature" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherMinTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="MinimumTemp:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyOpenweatherMaxTemperature" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherMaxTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="MaximumTemp:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyOpenweatherMainTemperature" />
 
     <com.android.volley.toolbox.NetworkImageView
         android:id="@+id/weatherbitImage"
@@ -12,10 +85,9 @@
         android:layout_height="59dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginTop="240dp"
+        android:layout_marginTop="268dp"
+        android:layout_marginEnd="72dp"
         app:layout_constraintEnd_toStartOf="@+id/divider"
-        app:layout_constraintHorizontal_bias="0.511"
-        app:layout_constraintStart_toEndOf="@+id/weatherbit_temp"
         app:layout_constraintTop_toBottomOf="@+id/weatherBit" />
 
     <com.android.volley.toolbox.NetworkImageView
@@ -24,32 +96,34 @@
         android:layout_height="64dp"
         android:layout_alignParentTop="true"
         android:layout_alignParentBottom="true"
-        android:layout_marginStart="108dp"
-        android:layout_marginTop="336dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="380dp"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toBottomOf="@+id/openWeather" />
 
     <TextView
         android:id="@+id/openWeather"
-        android:layout_width="185dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/chewy"
         android:text="Open Weather API Information"
         android:textAlignment="center"
         android:textColor="@color/secondaryTextColor"
         android:textFontWeight="600"
+        android:textSize="16dp"
         app:layout_constraintStart_toEndOf="@+id/divider"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/weatherBit"
-        android:layout_width="185dp"
-        android:layout_height="31dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:fontFamily="@font/chewy"
         android:text="Weather Bit API Information"
         android:textAlignment="center"
         android:textColor="@color/secondaryTextColor"
         android:textFontWeight="600"
+        android:textSize="16dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,31 +140,43 @@
         android:id="@+id/weatherbit_temp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="12dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherBit" />
+        app:layout_constraintStart_toEndOf="@+id/accompanyWeatherBitWindSpeed"
+        app:layout_constraintTop_toBottomOf="@+id/weatherbit_windspeed" />
 
     <TextView
         android:id="@+id/weatherbit_city"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherbit_temp" />
+        app:layout_constraintStart_toEndOf="@+id/accompanyWeatherBitTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/weatherBit" />
 
     <TextView
         android:id="@+id/weatherbit_description"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginStart="40dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
+        app:layout_constraintStart_toEndOf="@+id/accompanyWeatherBitDescription"
+        app:layout_constraintTop_toBottomOf="@+id/weatherbit_temp" />
+
+    <TextView
+        android:id="@+id/accompanyWeatherBitWindSpeed"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="36dp"
+        android:text="MaximumTemp:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherbit_city" />
+        app:layout_constraintTop_toBottomOf="@+id/accompanyWeatherBitMinTemperature" />
 
     <TextView
         android:id="@+id/weatherbit_windspeed"
@@ -99,57 +185,57 @@
         android:layout_marginStart="16dp"
         android:layout_marginTop="36dp"
         android:text="@string/textview"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/weatherbit_description" />
+        app:layout_constraintStart_toEndOf="@+id/accompanyWeatherBitMinTemperature"
+        app:layout_constraintTop_toBottomOf="@+id/weatherbit_city" />
 
     <TextView
         android:id="@+id/openWeatherTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        android:layout_marginStart="36dp"
+        android:layout_marginTop="36dp"
+        android:text="@string/currentTemperatureInCelsius"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherMainTemperature"
         app:layout_constraintTop_toBottomOf="@+id/openWeather" />
 
     <TextView
         android:id="@+id/openWeatherMaxTemp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
+        android:layout_marginStart="14dp"
         android:layout_marginTop="36dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        android:text="@string/currentTemperatureInCelsius"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherMaxTemperature"
         app:layout_constraintTop_toBottomOf="@+id/openWeatherTemp" />
 
     <TextView
         android:id="@+id/openWeatherDescription"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherDescription"
         app:layout_constraintTop_toBottomOf="@+id/openWeatherWindSpeed" />
 
     <TextView
         android:id="@+id/openWeatherWindSpeed"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherWindspeed"
         app:layout_constraintTop_toBottomOf="@+id/openWeatherHumidity" />
 
     <TextView
         android:id="@+id/openWeatherHumidity"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
         android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherHumidity"
         app:layout_constraintTop_toBottomOf="@+id/openWeatherMinTemp" />
 
     <TextView
@@ -157,9 +243,45 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="24dp"
-        android:layout_marginTop="36dp"
-        android:text="TextView"
-        app:layout_constraintStart_toEndOf="@+id/divider"
+        android:layout_marginTop="40dp"
+        android:text="@string/currentTemperatureInCelsius"
+        app:layout_constraintStart_toEndOf="@+id/accompanyOpenweatherMinTemperature"
         app:layout_constraintTop_toBottomOf="@+id/openWeatherMaxTemp" />
+
+    <TextView
+        android:id="@+id/accompanyOpenweatherMainTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="36dp"
+        android:text="Temperature:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toEndOf="@+id/divider"
+        app:layout_constraintTop_toBottomOf="@+id/openWeather" />
+
+    <TextView
+        android:id="@+id/accompanyWeatherBitMinTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="36dp"
+        android:text="MinimumTemp:"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/accompanyWeatherBitTemperature" />
+
+    <TextView
+        android:id="@+id/accompanyWeatherBitTemperature"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="11dp"
+        android:layout_marginTop="36dp"
+        android:text="Temperature :"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weatherBit" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
