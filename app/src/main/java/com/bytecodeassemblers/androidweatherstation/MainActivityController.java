@@ -28,41 +28,13 @@ public class MainActivityController {
     private OpenWeatherModel openWeatherModel;
     private WeatherBitModel weatherBitModel;
 
-   private LocationRepo locationRepo;
-   private MainActivityStateManager mainActivityStateManager;
-   private MimageLoader imageLoader;
-   private Activity activity;
-    public OpenWeatherModel getOpenWeatherModel() {
-        return openWeatherModel;
-    }
-
-    public void setOpenWeatherModel(OpenWeatherModel openWeatherModel) {
-        this.openWeatherModel = openWeatherModel;
-    }
-
-    public WeatherBitModel getWeatherBitModel() {
-        return weatherBitModel;
-    }
-
-    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
-        this.weatherBitModel = weatherBitModel;
-    }
+    private LocationRepo locationRepo;
+    private MainActivityStateManager mainActivityStateManager;
+    private MimageLoader imageLoader;
+    private Activity activity;
 
     private  double lat;
     private  double lon;
-
-    public  void setLatitude(double latitude){
-        lat = latitude;
-    }
-
-    public  void setLongitude(double longitude){
-        lon = longitude;
-    }
-
-
-    public Activity getActivity() {
-        return activity;
-    }
 
     private TextView openWeatherMainActivityDescription;
     private TextView generalTemp;
@@ -79,7 +51,6 @@ public class MainActivityController {
         setUiFromSharedPref();
     }
 
-
     public void InitializeComponent() {
         imageLoader = new MimageLoader(activity);
         cityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
@@ -89,18 +60,22 @@ public class MainActivityController {
     }
 
     public void setUiFromSharedPref(){
-        if(mainActivityStateManager.checkStatus()){
-            String[] result =  mainActivityStateManager.loadActivityState().split("-,");
-            cityOnMainActivityView.setText(result[0]);
-            openWeatherMainActivityDescription.setText(""+ result[1]);
-            generalTemp.setText(result[2]);
-            openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
+        try{
+            if(mainActivityStateManager.checkStatus()){
+                String[] result =  mainActivityStateManager.loadActivityState().split("-,");
+                cityOnMainActivityView.setText(result[0]);
+                openWeatherMainActivityDescription.setText(""+ result[1]);
+                generalTemp.setText(result[2]);
+                openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
+            }
+        }catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
         }
+
     }
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        //new OpenWeatherTask(activity,this,imageLoader).execute(url);
         new OpenWeatherTask().execute(url);
     }
 
@@ -169,4 +144,29 @@ public class MainActivityController {
             mainActivityStateManager.saveActivityState(cityOnMainActivityView,openWeatherMainActivityDescription,generalTemp,imageUrl);
         }
     }
+
+    public OpenWeatherModel getOpenWeatherModel() {
+        return openWeatherModel;
+    }
+
+    public WeatherBitModel getWeatherBitModel() {
+        return weatherBitModel;
+    }
+
+    public Activity getActivity() {
+        return activity;
+    }
+
+    public  void setLatitude(double latitude){
+        lat = latitude;
+    }
+
+    public  void setLongitude(double longitude){
+        lon = longitude;
+    }
+
+    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
+        this.weatherBitModel = weatherBitModel;
+    }
+
 }

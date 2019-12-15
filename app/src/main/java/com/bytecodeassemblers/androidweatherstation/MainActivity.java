@@ -109,7 +109,7 @@ advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(th
                 return true;
             case R.id.advanceddetails:
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
- if(advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
+                if(advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
 
                     if(this.mainActivityController.getOpenWeatherModel()!=null){
                         advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());  //save AdvancedActivity State
@@ -118,18 +118,18 @@ advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(th
                     setSavedAdvancedData(intent);  //set data to Advanced Activity
                 }else{    				 //if there is not saved data...
                 /*OpenWeather Data Send To Advanced Details*/
-                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C");
-                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
-                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
-                intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
-                intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
-                intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
-                /*WeatherBit Data Send To Advanced Details*/
-                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
-                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
-                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
-                intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
-advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());  //save AdvancedDetailsActivity dATA
+                    intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C");
+                    intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
+                    intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
+                    intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
+                    intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
+                    intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
+                    /*WeatherBit Data Send To Advanced Details*/
+                    intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
+                    intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
+                    intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
+                    intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
+                    advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());  //save AdvancedDetailsActivity dATA
                 }
                 startActivity(intent);
                 return true;
@@ -220,16 +220,20 @@ advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());  //
     public void setSavedAdvancedData(Intent intent){    //send saved values to AdvancedDetailsActivity 
         String[] result =  advancedDetailsActivityStateManager.loadAdvancedDetailsActivityState().split(",");
         /*OpenWeather Data Send To Advanced Details*/
-        intent.putExtra("Main_Temp",result[0]);
-        intent.putExtra("Minimum_Temp",result[1]);
-        intent.putExtra("Maximum_Temp",result[2]);
-        intent.putExtra("Description",result[3]);
-        intent.putExtra("WindSpeed",result[4]);
-        intent.putExtra("Humidity",result[5]);
-        /*WeatherBit Data Send To Advanced Details*/
-        intent.putExtra("weatherbit_city",result[6]); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
-        intent.putExtra("weatherbit_temperature",result[2]); //max temp
-        intent.putExtra("weatherbit_windSpeed",result[1]);  //min temp
-        intent.putExtra("weatherbit_description",result[7]);
+        try {
+            intent.putExtra("Main_Temp", result[0]);
+            intent.putExtra("Minimum_Temp", result[1]);
+            intent.putExtra("Maximum_Temp", result[2]);
+            intent.putExtra("Description", result[3]);
+            intent.putExtra("WindSpeed", result[4]);
+            intent.putExtra("Humidity", result[5]);
+            /*WeatherBit Data Send To Advanced Details*/
+            intent.putExtra("weatherbit_city", result[6]); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
+            intent.putExtra("weatherbit_temperature", result[2]); //max temp
+            intent.putExtra("weatherbit_windSpeed", result[1]);  //min temp
+            intent.putExtra("weatherbit_description", result[7]);
+        }catch (ArrayIndexOutOfBoundsException e){
+            e.printStackTrace();
+        }
     }
 }

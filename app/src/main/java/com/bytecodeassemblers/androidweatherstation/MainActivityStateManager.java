@@ -6,13 +6,10 @@ import android.widget.TextView;
 
 public class MainActivityStateManager {
 
-    private static final String DESCRIPTION = "description";
-    private static final String TEMPERATURE = "temp";
 
     private static final String PREFS_NAME ="MainActivityState";
 
     private static SharedPreferences mainActivityStatePrefs;
-
 
     private String loadActivityValues;
 
@@ -28,7 +25,7 @@ public class MainActivityStateManager {
     }
 
     public String loadActivityState(){
-        loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","fuckThisShit");
+        loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","oopsDintWork");
         return  loadActivityValues;
     }
 
