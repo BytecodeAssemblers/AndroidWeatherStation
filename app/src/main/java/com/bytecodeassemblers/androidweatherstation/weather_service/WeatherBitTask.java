@@ -7,6 +7,7 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
+import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -30,27 +31,24 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
     //WeatherBit
     private WeatherBitModel weatherBitModel;
-    private TextView weatherBitTempOnView;
     private TextView weatherBitCityOnMainActivityView;
-    private TextView weatherBitCityOnView;
-    private TextView weatherBitDescriptionOnView;
-    private TextView weatherBitWindSpeedOnView;
-    private NetworkImageView weatherBitimageView;
 
-private MainActivityController mainActivitycontroller;
+
+    private MainActivityController mainActivitycontroller;
 
 
     public WeatherBitTask(Activity activity,MainActivityController mainActivitycontroller, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
         weatherBitModel = new WeatherBitModel();
-	this.mainActivitycontroller = mainActivitycontroller, ;
+	    this.mainActivitycontroller = mainActivitycontroller ;
     }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
+       // weatherBitCityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
     }
 
     @Override
@@ -65,7 +63,7 @@ private MainActivityController mainActivitycontroller;
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
 
-        weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
+      //  weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
 
         Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 
@@ -88,7 +86,7 @@ private MainActivityController mainActivitycontroller;
         insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
         insertWeather.executeInsert();
 
-	mainActivitycontroller.setWeatherBitModel(weatherBitModel);
+	   mainActivitycontroller.setWeatherBitModel(weatherBitModel);
     }
 
 }
