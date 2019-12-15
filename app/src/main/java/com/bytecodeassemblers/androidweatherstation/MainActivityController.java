@@ -1,17 +1,11 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
-import android.os.Parcelable;
-import android.widget.SearchView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -19,16 +13,12 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
-import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
-import com.google.android.gms.maps.model.LatLng;
 
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
-import java.io.Serializable;
-import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 

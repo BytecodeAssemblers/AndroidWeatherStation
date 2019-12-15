@@ -4,13 +4,11 @@ import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.graphics.drawable.AnimationDrawable;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -19,14 +17,7 @@ import androidx.core.content.ContextCompat;
 
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
-import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
-import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.io.Serializable;
-import java.util.HashMap;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
