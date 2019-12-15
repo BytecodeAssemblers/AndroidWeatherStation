@@ -122,6 +122,18 @@
         app:layout_constraintStart_toEndOf="@+id/accompanyMainActivityWeatherDescription"
         app:layout_constraintTop_toTopOf="@+id/guideline4" />
 
+    <com.android.volley.toolbox.NetworkImageView
+        android:id="@+id/openWeatherImage"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="28dp"
+        app:layout_constraintEnd_toStartOf="@+id/guideline3"
+        app:layout_constraintHorizontal_bias="0.811"
+        app:layout_constraintStart_toStartOf="@+id/guideline2"
+        app:layout_constraintTop_toBottomOf="@+id/mainActivityWeatherDescription" />
+
     <TextView
         android:id="@+id/accompanyMainActivityWeatherDescription"
         android:layout_width="wrap_content"
