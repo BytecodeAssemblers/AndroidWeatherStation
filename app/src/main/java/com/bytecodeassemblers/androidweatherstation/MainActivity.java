@@ -3,30 +3,19 @@ package com.bytecodeassemblers.androidweatherstation;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
-import android.location.LocationManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
-import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
-import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
-import com.google.android.gms.maps.model.LatLng;
 import com.google.android.material.snackbar.Snackbar;
-
-import java.io.Serializable;
-import java.util.HashMap;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -66,7 +55,7 @@ public class MainActivity extends AppCompatActivity {
                         snackbar.dismiss();
                     }
                         })
-                .setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark))
+                .setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark))
         .show();
 
               /*--End of Message--*/
@@ -77,19 +66,11 @@ public class MainActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
         String fetchDate = dateFormat.format(date);
         textView.setText(fetchDate);
-
-        ConstraintLayout constraintLayout = findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
-        Toolbar toolbar = findViewById(R.id.app_bar);
+        Toolbar toolbar = findViewById(R.id.advancedDetailsToolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle(null);
-
-
         mainActivityController = new MainActivityController(this);
+
 
     }
 
@@ -131,7 +112,7 @@ public class MainActivity extends AppCompatActivity {
 
                 startActivity(intent);
                 return true;
-            case R.id.about:
+            case R.id.myPlaces:
                 mainActivityController.openListViewActivity();
 
                 return true;

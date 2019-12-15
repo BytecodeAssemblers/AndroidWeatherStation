@@ -1,15 +1,19 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
-public class AdvancedDetailsActivity extends AppCompatActivity {
+import java.util.Objects;
 
+public class AdvancedDetailsActivity extends AppCompatActivity {
+    private Button upButton;
 
     TextView openWeatherTemperature;
       TextView openWeatherMaxTemperature;
@@ -25,30 +29,22 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           TextView weatherbit_temperature;
             NetworkImageView weatherbitImage;
 
-
-
     MainActivityController mainActivityController;
-
     public AdvancedDetailsActivity(){
-
     }
-
-
     public AdvancedDetailsActivity(MainActivityController mainActivityController){
-
         this.mainActivityController = mainActivityController;
           //this.mainActivityController.ExecuteOpenWeatherTask();
           // this.mainActivityController.ExecuteWeatherBitTask();
-
-
-
-
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_details);
+        Toolbar advancedDetailsToolbar = findViewById(R.id.advancedDetailsToolbar);
+        setSupportActionBar(advancedDetailsToolbar);
+      //  Objects.requireNonNull(getSupportActionBar()).setTitle("Advanced Details");
+       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
          /*--OpenWeather Initializer--*/
 
@@ -58,7 +54,6 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           openWeatherWindSpeed = findViewById(R.id.openWeatherWindSpeed);
           openWeatherHumidity = findViewById(R.id.openWeatherHumidity);
           openWeatherDescription = findViewById(R.id.openWeatherDescription);
-
 
           String openWeatherMainTemperature = intent.getStringExtra("Main_Temp");
           String openWeatherMinimumTemperature = intent.getStringExtra("Minimum_Temp");

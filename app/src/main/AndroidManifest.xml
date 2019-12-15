@@ -34,7 +34,8 @@
         android:usesCleartextTraffic="true">
 
         <activity android:name=".listview.ListViewActivity"></activity>
-        <activity android:name=".AdvancedDetailsActivity"></activity>
+        <activity android:name=".AdvancedDetailsActivity"
+            android:parentActivityName=".MainActivity"></activity>
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").
