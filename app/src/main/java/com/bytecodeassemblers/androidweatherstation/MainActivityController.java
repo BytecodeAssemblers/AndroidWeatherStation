@@ -6,6 +6,7 @@ import android.location.Address;
 import android.location.Geocoder;
 import android.os.AsyncTask;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -120,9 +121,14 @@ public class MainActivityController {
 
 
     public void openListViewActivity(){
-        Intent intent = new Intent(this.activity, ListViewActivity.class);
-        intent.putExtra("map",locationRepo.loadMap().toString());
-        activity.startActivityForResult(intent,2);
+        try {
+            Intent intent = new Intent(this.activity, ListViewActivity.class);
+            intent.putExtra("map",locationRepo.loadMap().toString());
+            activity.startActivityForResult(intent,2);
+        }catch (NullPointerException e){
+            e.printStackTrace();
+            Toast.makeText(activity,"Please, Choose a location from the map",Toast.LENGTH_LONG).show();
+        }
     }
 
     private class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
