@@ -28,13 +28,5 @@ public class MainActivityStateManager {
         loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","oopsDintWork");
         return  loadActivityValues;
     }
-
-    public boolean checkStatus(){
-        if(loadActivityState()!=null){
-            return  true;
-        }else{
-            return false;
-        }
-    }
-
+    
 }

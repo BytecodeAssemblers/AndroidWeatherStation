@@ -62,17 +62,14 @@ public class MainActivityController {
 
     public void setUiFromSharedPref(){
         try{
-            if(mainActivityStateManager.checkStatus()){
-                String[] result =  mainActivityStateManager.loadActivityState().split("-,");
-                cityOnMainActivityView.setText(result[0]);
-                openWeatherMainActivityDescription.setText(""+ result[1]);
-                generalTemp.setText(result[2]);
-                openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
-            }
+           String[] result =  mainActivityStateManager.loadActivityState().split("-,");
+            cityOnMainActivityView.setText(result[0]);
+            openWeatherMainActivityDescription.setText(""+ result[1]);
+            generalTemp.setText(result[2]);
+            openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
         }catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
         }
-
     }
 
     public void ExecuteOpenWeatherTask(){
