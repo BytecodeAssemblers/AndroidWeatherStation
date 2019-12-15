@@ -37,26 +37,20 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     private TextView weatherBitWindSpeedOnView;
     private NetworkImageView weatherBitimageView;
 
+private MainActivityController mainActivitycontroller;
 
 
-
-    public WeatherBitTask(Activity activity, MimageLoader image){
+    public WeatherBitTask(Activity activity,MainActivityController mainActivitycontroller, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
         weatherBitModel = new WeatherBitModel();
+	this.mainActivitycontroller = mainActivitycontroller, ;
     }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-        //WeatherBit Textview Initialization
-        weatherBitCityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
-        weatherBitTempOnView = activity.findViewById(R.id.weatherbit_temp);
-        weatherBitCityOnView = activity.findViewById(R.id.weatherbit_city);
-        weatherBitDescriptionOnView = activity.findViewById(R.id.weatherbit_description);
-        weatherBitWindSpeedOnView = activity.findViewById(R.id.weatherbit_windspeed);
-        weatherBitimageView = activity.findViewById(R.id.weatherbitImage);
     }
 
     @Override
@@ -94,6 +88,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
         insertWeather.executeInsert();
 
+	mainActivitycontroller.setWeatherBitModel(weatherBitModel);
     }
 
 }

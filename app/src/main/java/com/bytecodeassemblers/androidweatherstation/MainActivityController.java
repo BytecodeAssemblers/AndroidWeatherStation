@@ -106,7 +106,7 @@ public class MainActivityController {
 
     public void ExecuteWeatherBitTask(){
         String url = Common.weatherBitRequestLink(lat,lon);
-        new WeatherBitTask(activity,imageLoader).execute(url);
+        new WeatherBitTask(activity,this,imageLoader).execute(url);
     }
 
 
