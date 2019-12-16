@@ -60,7 +60,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
             mMap.moveCamera(cameraUpdate);
 
             if(googleMapStateManager.getSavedMarkerStatus()){
-                 mMap.addMarker(new MarkerOptions().position(googleMapStateManager.getSavedMarkerPosition()).title(googleMapStateManager.getSavedExactLocationAddress()));
+                mMap.addMarker(googleMapStateManager.getSavedMarkerState());
             }
         }
 
@@ -78,8 +78,18 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
 
-                marker =  mMap.addMarker(new MarkerOptions().position(latLng).title("Your location"));
+                Geocoder geocoder= new Geocoder(GoogleMapActivity.this,Locale.getDefault());
+                List<Address> addresses = null;
+                try {
+                    addresses = geocoder.getFromLocation(latLng.latitude,latLng.longitude , 1);
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+
+                marker =  mMap.addMarker(new MarkerOptions().position(latLng).title(addresses.get(0).getAddressLine(0)));
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
+
+                googleMapStateManager.saveMarkerState(marker); //marker state has been save
 
                 Toast.makeText(
                         GoogleMapActivity.this,
@@ -99,10 +109,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     protected void onPause() {
         super.onPause();
-        googleMapStateManager.saveMapState(mMap); //map state has been save
-        if(marker!=null){
-            googleMapStateManager.saveMarkerStatus(marker.getPosition().latitude,marker.getPosition().longitude);
-        }
+        googleMapStateManager.saveCameraPosition(mMap); //camera state has been save
         finish();
     }
 
