@@ -22,6 +22,8 @@ public class GoogleMapStateManager {
     private static final String BEARING = "bearing";
     private static final String TILT = "tilt";
     private static final String MARKER_STATUS = "marker";
+    private static final String MARKER_LATITUDE = "markerLatitude";
+    private static final String MARKER_LONGITUDE = "markerLongitude";
 
 
     private static final String PREFS_NAME ="GoogleMapState";
@@ -29,10 +31,15 @@ public class GoogleMapStateManager {
     private SharedPreferences mapStatePrefs;
     private Context context;
 
-    private double latitude;
-    private double longitude;
-    private LatLng target;
+    private double cameraLatitude;
+    private double cameraLongitude;
+    private LatLng cameraTarget;
+
     private boolean markerStatus;
+    private double markerLatitude;
+    private double markerLongitude;
+    private LatLng markerTarget;
+
 
     public GoogleMapStateManager(Context context) {
         mapStatePrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
@@ -51,19 +58,19 @@ public class GoogleMapStateManager {
     }
 
     public CameraPosition getSavedCameraPosition() {
-        latitude = mapStatePrefs.getFloat(LATITUDE, 0);
-        if (latitude == 0) {
+        cameraLatitude = mapStatePrefs.getFloat(LATITUDE, 0);
+        if (cameraLatitude == 0) {
             return null;
         }
 
-        longitude = mapStatePrefs.getFloat(LONGITUDE, 0);
-        target = new LatLng(latitude, longitude);
+        cameraLongitude = mapStatePrefs.getFloat(LONGITUDE, 0);
+        cameraTarget = new LatLng(cameraLatitude, cameraLongitude);
 
         float zoom = mapStatePrefs.getFloat(ZOOM, 0);
         float bearing = mapStatePrefs.getFloat(BEARING, 0);
         float tilt = mapStatePrefs.getFloat(TILT, 0);
 
-        CameraPosition position = new CameraPosition(target, zoom, tilt, bearing);
+        CameraPosition position = new CameraPosition(cameraTarget, zoom, tilt, bearing);
         return position;
     }
 
@@ -72,17 +79,19 @@ public class GoogleMapStateManager {
         Geocoder geocoder= new Geocoder(context,Locale.getDefault());
         List<Address> addresses = null;
         try {
-            addresses = geocoder.getFromLocation(latitude,longitude , 1);  //get specific address for latitude and longtitude given
-            latitude = addresses.get(0).getLatitude();
-            longitude = addresses.get(0).getLongitude();
+            addresses = geocoder.getFromLocation(markerLatitude,markerLongitude , 1);  //get specific address for latitude and longtitude given
+            markerLatitude = addresses.get(0).getLatitude();
+            markerLongitude = addresses.get(0).getLongitude();
         } catch (IOException e) {
             e.printStackTrace();
         }
         return addresses.get(0).getAddressLine(0);
     }
 
-    public void saveMarkerStatus(){
+    public void saveMarkerStatus(double markerLatitude,double markerLongitude){
         SharedPreferences.Editor editor = mapStatePrefs.edit();
+        editor.putFloat(MARKER_LATITUDE,(float) markerLatitude);
+        editor.putFloat(MARKER_LONGITUDE, (float) markerLongitude);
         editor.putBoolean(MARKER_STATUS,true);
         editor.commit();
     }
@@ -93,7 +102,10 @@ public class GoogleMapStateManager {
     }
 
     public LatLng getSavedMarkerPosition(){
-        return target;
+        markerLatitude = mapStatePrefs.getFloat(MARKER_LATITUDE, 1);
+        markerLongitude= mapStatePrefs.getFloat(MARKER_LONGITUDE,1);
+        markerTarget = new LatLng(markerLatitude,markerLongitude);
+        return markerTarget;
     }
 
 }

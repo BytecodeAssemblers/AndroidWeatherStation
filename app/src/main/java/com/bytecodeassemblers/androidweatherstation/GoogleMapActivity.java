@@ -77,6 +77,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
             @Override
             public void onMapClick(LatLng latLng) {
                 mMap.clear();
+
                 marker =  mMap.addMarker(new MarkerOptions().position(latLng).title("Your location"));
                 mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
@@ -100,7 +101,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         super.onPause();
         googleMapStateManager.saveMapState(mMap); //map state has been save
         if(marker!=null){
-            googleMapStateManager.saveMarkerStatus();
+            googleMapStateManager.saveMarkerStatus(marker.getPosition().latitude,marker.getPosition().longitude);
         }
         finish();
     }
