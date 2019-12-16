@@ -46,23 +46,24 @@ public class GoogleMapStateManager {
         mapStatePrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveCameraPosition(GoogleMap mapMie) {
-        SharedPreferences.Editor editor = mapStatePrefs.edit();
-        CameraPosition position = mapMie.getCameraPosition();
-        editor.putFloat(LATITUDE, (float) position.target.latitude);
-        editor.putFloat(LONGITUDE, (float) position.target.longitude);
-        editor.putFloat(ZOOM, position.zoom);
-        editor.putFloat(TILT, position.tilt);
-        editor.putFloat(BEARING, position.bearing);
-        editor.commit();
+    public void saveCameraState(GoogleMap mapMie) {
+        if(mapStatePrefs != null){
+            SharedPreferences.Editor editor = mapStatePrefs.edit();
+            CameraPosition position = mapMie.getCameraPosition();
+            editor.putFloat(LATITUDE, (float) position.target.latitude);
+            editor.putFloat(LONGITUDE, (float) position.target.longitude);
+            editor.putFloat(ZOOM, position.zoom);
+            editor.putFloat(TILT, position.tilt);
+            editor.putFloat(BEARING, position.bearing);
+            editor.commit();
+        }
     }
 
-    public CameraPosition getSavedCameraPosition() {
+    public CameraPosition getSavedCameraState() {
         cameraLatitude = mapStatePrefs.getFloat(LATITUDE, 0);
         if (cameraLatitude == 0) {
             return null;
         }
-
         cameraLongitude = mapStatePrefs.getFloat(LONGITUDE, 0);
 
         float zoom = mapStatePrefs.getFloat(ZOOM, 0);
@@ -75,12 +76,14 @@ public class GoogleMapStateManager {
 
 
     public void saveMarkerState(Marker marker){
-        SharedPreferences.Editor editor = mapStatePrefs.edit();
-        editor.putFloat(MARKER_LATITUDE,(float) marker.getPosition().latitude);
-        editor.putFloat(MARKER_LONGITUDE, (float) marker.getPosition().longitude);
-        editor.putString(MARKER_TITLE,marker.getTitle());
-        editor.putBoolean(MARKER_STATUS,true);
-        editor.commit();
+        if(mapStatePrefs != null) {
+            SharedPreferences.Editor editor = mapStatePrefs.edit();
+            editor.putFloat(MARKER_LATITUDE, (float) marker.getPosition().latitude);
+            editor.putFloat(MARKER_LONGITUDE, (float) marker.getPosition().longitude);
+            editor.putString(MARKER_TITLE, marker.getTitle());
+            editor.putBoolean(MARKER_STATUS, true);
+            editor.commit();
+        }
     }
 
     public MarkerOptions getSavedMarkerState(){

@@ -52,11 +52,11 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         mMap = googleMap;
         googleMapStateManager = new GoogleMapStateManager(this);
 
-        CameraPosition position = googleMapStateManager.getSavedCameraPosition();
+        CameraPosition position = googleMapStateManager.getSavedCameraState();
 
         if (position != null) { //entering resume state
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(position);
-            googleMapStateManager.getSavedCameraPosition();
+            googleMapStateManager.getSavedCameraState();
             mMap.moveCamera(cameraUpdate);
 
             if(googleMapStateManager.getSavedMarkerStatus()){
@@ -109,7 +109,7 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     protected void onPause() {
         super.onPause();
-        googleMapStateManager.saveCameraPosition(mMap); //camera state has been save
+        googleMapStateManager.saveCameraState(mMap); //camera state has been save
         finish();
     }
 
