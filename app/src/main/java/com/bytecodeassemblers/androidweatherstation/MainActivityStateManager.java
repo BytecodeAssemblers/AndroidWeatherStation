@@ -19,13 +19,16 @@ public class MainActivityStateManager {
 
     public void saveActivityState(TextView cityName,TextView description, TextView temp,String imageUrl) {
         String savedActivityValues = cityName.getText()+"-,"+description.getText()+"-,"+temp.getText()+"-,"+imageUrl;
-        SharedPreferences.Editor editor = mainActivityStatePrefs.edit();
-        editor.putString("MainActivity_Values",savedActivityValues);
-        editor.commit();
+        if(mainActivityStatePrefs!=null){
+            SharedPreferences.Editor editor = mainActivityStatePrefs.edit();
+            editor.remove("MainActivity_Values");
+            editor.putString("MainActivity_Values",savedActivityValues);
+            editor.commit();
+        }
     }
 
     public String loadActivityState(){
-        loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","oopsDintWork");
+        loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","currentlocation");
         return  loadActivityValues;
     }
     

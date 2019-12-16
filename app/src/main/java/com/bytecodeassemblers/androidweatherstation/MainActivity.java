@@ -187,7 +187,6 @@ advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(th
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
                 this.mainActivityController.ExecuteWeatherBitTask();
-
             }
 
         }

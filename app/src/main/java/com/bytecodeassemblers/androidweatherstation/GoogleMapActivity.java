@@ -8,10 +8,12 @@ import android.location.Geocoder;
 import android.os.Bundle;
 import android.widget.Toast;
 
+import com.google.android.gms.maps.CameraUpdate;
 import com.google.android.gms.maps.CameraUpdateFactory;
 import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
+import com.google.android.gms.maps.model.CameraPosition;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
@@ -24,10 +26,8 @@ import java.util.Locale;
 public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCallback {
 
     private GoogleMap mMap;
-    private double lat;
-    private double lon;
-
-
+    private GoogleMapStateManager googleMapStateManager;
+    private Marker marker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -50,16 +50,19 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
     @Override
     public void onMapReady(GoogleMap googleMap) {
         mMap = googleMap;
+        googleMapStateManager = new GoogleMapStateManager(this);
 
-        Geocoder geocoder= new Geocoder(this, Locale.getDefault());
+        CameraPosition position = googleMapStateManager.getSavedCameraPosition();
 
-        List<Address> addresses = null;
-        try {
-            addresses = geocoder.getFromLocation(lat, lon, 1); //get specific address for latitude and longtitude given
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (position != null) { //entering resume state
+            CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(position);
+            googleMapStateManager.getSavedCameraPosition();
+            mMap.moveCamera(cameraUpdate);
+
+            if(googleMapStateManager.getSavedMarkerStatus()){
+                 mMap.addMarker(new MarkerOptions().position(googleMapStateManager.getSavedMarkerPosition()).title(googleMapStateManager.getSavedExactLocationAddress()));
+            }
         }
-
 
         // Add a marker in current location
         /*String exactPosition =  addresses.get(0).getAddressLine(0);
@@ -73,6 +76,9 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
         mMap.setOnMapClickListener(new GoogleMap.OnMapClickListener() {
             @Override
             public void onMapClick(LatLng latLng) {
+                mMap.clear();
+                marker =  mMap.addMarker(new MarkerOptions().position(latLng).title("Your location"));
+                mMap.animateCamera(CameraUpdateFactory.newLatLng(latLng));
 
                 Toast.makeText(
                         GoogleMapActivity.this,
@@ -85,8 +91,18 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
                 intent.putExtra("lat", latLng.latitude);
                 intent.putExtra("lon", latLng.longitude);
                 setResult(RESULT_OK, intent);
-                finish();
             }
         });
     }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        googleMapStateManager.saveMapState(mMap); //map state has been save
+        if(marker!=null){
+            googleMapStateManager.saveMarkerStatus();
+        }
+        finish();
+    }
+
 }

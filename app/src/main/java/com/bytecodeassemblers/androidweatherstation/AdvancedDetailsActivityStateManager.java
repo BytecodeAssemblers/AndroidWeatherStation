@@ -23,11 +23,12 @@ public class AdvancedDetailsActivityStateManager {
 
     public void saveAdvancedActivityState(String UIData) {
         SharedPreferences.Editor editor = AdvancedDetailsharedPrefs.edit();
-        editor.remove("Advanced_Values");
-        editor.putString("Advanced_Values",UIData);
-        editor.commit();
+        if(AdvancedDetailsharedPrefs!=null){
+            editor.remove("Advanced_Values");
+            editor.putString("Advanced_Values",UIData);
+            editor.commit();
+        }
     }
-
 
     public String loadAdvancedDetailsActivityState(){
         loadAdvancedDetailsActivityState = AdvancedDetailsharedPrefs.getString("Advanced_Values","Oops!Something went wrong!");
