@@ -13,7 +13,7 @@ import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 
-public class OpenWeathetTask extends AsyncTask<String,Void, OpenWeatherModel> {
+public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 
     private Activity activity;
     private  MainActivityController mainActivityController;
@@ -26,7 +26,7 @@ public class OpenWeathetTask extends AsyncTask<String,Void, OpenWeatherModel> {
     private OpenWeatherModel openWeatherModel;
     private MimageLoader imageLoader;
 
-    public OpenWeathetTask(Activity activity, MainActivityController mainActivityController, MimageLoader image){
+    public OpenWeatherTask(Activity activity, MainActivityController mainActivityController, MimageLoader image){
         this.imageLoader = image;
         this.activity=activity;
         this.mainActivityController=mainActivityController;
