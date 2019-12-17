@@ -14,6 +14,7 @@ import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
+import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeathetTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 
 import org.json.JSONException;
@@ -74,7 +75,7 @@ public class MainActivityController {
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        new OpenWeatherTask().execute(url);
+        new OpenWeathetTask(activity,this,imageLoader).execute(url);
     }
 
     public void ExecuteWeatherBitTask(){
@@ -128,48 +129,29 @@ public class MainActivityController {
         }
     }
 
-    private class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
-        @Override
-        protected OpenWeatherModel doInBackground(String... strings) {
-            String responseData = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from openWeather using http request
-            openWeatherModel = JSONWeatherParser.getOpenWeatherData(responseData); //sends the response values into parse
-            return openWeatherModel;
-        }
-        @Override
-        protected void onPostExecute(OpenWeatherModel openWeather) {
-            super.onPostExecute(openWeather);
-            cityOnMainActivityView.setText(""+ GetExactLocationAddress());
-            openWeatherMainActivityDescription.setText(openWeather.getDescription());
-            generalTemp.setText(openWeather.getTemp()+ "°C");
-            openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
-
-            String imageUrl = openWeather.getImage(openWeather.getIcon());
-            mainActivityStateManager.saveActivityState(cityOnMainActivityView,openWeatherMainActivityDescription,generalTemp,imageUrl);
-        }
-    }
 
     public OpenWeatherModel getOpenWeatherModel() {
         return openWeatherModel;
+    }
+
+    public void setOpenWeatherModel(OpenWeatherModel openWeatherModel){
+        this.openWeatherModel=openWeatherModel;
     }
 
     public WeatherBitModel getWeatherBitModel() {
         return weatherBitModel;
     }
 
-    public Activity getActivity() {
-        return activity;
+    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
+        this.weatherBitModel = weatherBitModel;
     }
-
+    
     public  void setLatitude(double latitude){
         lat = latitude;
     }
 
     public  void setLongitude(double longitude){
         lon = longitude;
-    }
-
-    public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
-        this.weatherBitModel = weatherBitModel;
     }
 
 }

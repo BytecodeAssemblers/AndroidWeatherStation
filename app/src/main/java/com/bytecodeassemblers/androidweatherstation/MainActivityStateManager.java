@@ -17,7 +17,7 @@ public class MainActivityStateManager {
         mainActivityStatePrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
     }
 
-    public void saveActivityState(TextView cityName,TextView description, TextView temp,String imageUrl) {
+    public static void saveActivityState(TextView cityName,TextView description, TextView temp,String imageUrl) {
         String savedActivityValues = cityName.getText()+"-,"+description.getText()+"-,"+temp.getText()+"-,"+imageUrl;
         if(mainActivityStatePrefs!=null){
             SharedPreferences.Editor editor = mainActivityStatePrefs.edit();

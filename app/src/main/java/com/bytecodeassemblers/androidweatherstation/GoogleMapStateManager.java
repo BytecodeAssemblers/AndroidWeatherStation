@@ -33,7 +33,6 @@ public class GoogleMapStateManager {
 
     private SharedPreferences mapStatePrefs;
 
-
     private double cameraLatitude;
     private double cameraLongitude;
 
