@@ -6,11 +6,8 @@ import android.widget.TextView;
 
 public class MainActivityStateManager {
 
-
     private static final String PREFS_NAME ="MainActivityState";
-
     private static SharedPreferences mainActivityStatePrefs;
-
     private String loadActivityValues;
 
     public MainActivityStateManager(Context context){
@@ -31,5 +28,4 @@ public class MainActivityStateManager {
         loadActivityValues = mainActivityStatePrefs.getString("MainActivity_Values","currentlocation");
         return  loadActivityValues;
     }
-    
 }

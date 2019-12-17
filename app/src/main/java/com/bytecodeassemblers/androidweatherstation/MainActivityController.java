@@ -67,7 +67,7 @@ public class MainActivityController {
             cityOnMainActivityView.setText(result[0]);
             openWeatherMainActivityDescription.setText(""+ result[1]);
             generalTemp.setText(result[2]);
-            openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
+            //openWeatherImageView.setImageUrl(result[3],imageLoader.getmImageLoader());
         }catch (ArrayIndexOutOfBoundsException e){
             e.printStackTrace();
         }
@@ -108,6 +108,8 @@ public class MainActivityController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert addresses != null;
         return addresses.get(0).getAddressLine(0);
     }
 

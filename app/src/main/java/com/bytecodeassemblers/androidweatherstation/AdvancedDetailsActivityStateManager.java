@@ -3,44 +3,40 @@ package com.bytecodeassemblers.androidweatherstation;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.widget.TextView;
-
-import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
-import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
+import android.content.SharedPreferences.Editor;
 
 public class AdvancedDetailsActivityStateManager {
 
-
     private static final String PREFS_NAME ="AdvancedDetailsActivityState";
-
     private static SharedPreferences AdvancedDetailsharedPrefs;
-
-    private String loadAdvancedDetailsActivityState;
-
 
     public AdvancedDetailsActivityStateManager(Context context){
         AdvancedDetailsharedPrefs = context.getSharedPreferences(PREFS_NAME, Context.MODE_PRIVATE);
+
     }
 
     public static void saveAdvancedActivityState(String UIData) {
-        SharedPreferences.Editor editor = AdvancedDetailsharedPrefs.edit();
         if(AdvancedDetailsharedPrefs!=null){
+            Editor editor = AdvancedDetailsharedPrefs.edit();
             editor.remove("Advanced_Values");
             editor.putString("Advanced_Values",UIData);
             editor.commit();
+        } else
+        {
+
         }
     }
 
-    public String loadAdvancedDetailsActivityState(){
-        loadAdvancedDetailsActivityState = AdvancedDetailsharedPrefs.getString("Advanced_Values"," ");
+    private String loadAdvancedDetailsActivityState(){
+        String loadAdvancedDetailsActivityState = AdvancedDetailsharedPrefs.getString("Advanced_Values"," ");
         return  loadAdvancedDetailsActivityState;
     }
 
-    public boolean checkStatus(){
-        if(loadAdvancedDetailsActivityState()!=null){
-            return  true;
-        }else{
+    public static boolean checkStatus(){
+        if(AdvancedDetailsharedPrefs.getString("Advanced_Values"," ").isEmpty()){
             return false;
+        }else{
+            return true;
         }
     }
 

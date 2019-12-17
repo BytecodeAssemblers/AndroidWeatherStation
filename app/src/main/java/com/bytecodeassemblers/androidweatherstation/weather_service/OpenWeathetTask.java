@@ -54,7 +54,7 @@ public class OpenWeathetTask extends AsyncTask<String,Void, OpenWeatherModel> {
          cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
          openWeatherMainActivityDescription.setText(openWeather.getDescription());
          generalTemp.setText(openWeather.getTemp()+ "°C");
-         openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
+         //openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
 
          this.mainActivityController.setOpenWeatherModel(openWeather);
 

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import com.bytecodeassemblers.androidweatherstation.AdvancedDetailsActivity;
 import com.bytecodeassemblers.androidweatherstation.AdvancedDetailsActivityStateManager;
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MainActivityController;
@@ -25,31 +26,27 @@ import java.util.Date;
 
 public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
-
     private Activity activity;
     private MimageLoader imageLoader;
 
-
+    private MainActivityController mainActivityController;
     //WeatherBit
     private WeatherBitModel weatherBitModel;
     private TextView weatherBitCityOnMainActivityView;
 
+    public WeatherBitTask(Activity activity, MainActivityController mainActivityController, MimageLoader image){
 
-    private MainActivityController mainActivitycontroller;
-
-
-    public WeatherBitTask(Activity activity,MainActivityController mainActivitycontroller, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
+        this.mainActivityController = mainActivityController;
         weatherBitModel = new WeatherBitModel();
-	    this.mainActivitycontroller = mainActivitycontroller ;
     }
 
 
     @Override
     protected void onPreExecute() {
         super.onPreExecute();
-       // weatherBitCityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
+        weatherBitCityOnMainActivityView = activity.findViewById(R.id.weatherbitMainActivityCityName);
     }
 
     @Override
@@ -63,16 +60,15 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     @Override
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
-
-      //  weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
-
-        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-
+        mainActivityController.setWeatherBitModel(weatherBitModel);
+        weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
+        mainActivityController.setWeatherBitModel(weatherBitModel);
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(date);
-
-
         DatabaseApiInsert insertWeather = new DatabaseApiInsert();
         JSONObject weatherPayload = new JSONObject();
+
         try {
             weatherPayload.put("region",weatherBitModel.getCityName());
             weatherPayload.put("temperature",weatherBitModel.getTemp());
@@ -86,23 +82,19 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.setContext(activity);
         insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
         insertWeather.executeInsert();
-
-	   mainActivitycontroller.setWeatherBitModel(weatherBitModel);
-
-	   try {
-           AdvancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
-       }catch (NullPointerException e){
-	       e.printStackTrace();
-       }
+        AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(activity);
+        advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
     }
 
         //save AdvancedDetailsActivity dATA
     public String AppendData() {   //Append AdvancedDetails Texviews to save them later
-        String resultStrings =this.mainActivitycontroller.getOpenWeatherModel().getTemp()+ "°C"+","+this.mainActivitycontroller.getOpenWeatherModel().getTempMin()+ "°C"+
-                ","+ this.mainActivitycontroller.getOpenWeatherModel().getTempMax()+ "°C"+","+this.mainActivitycontroller.getOpenWeatherModel().getDescription()+
-                ","+ this.mainActivitycontroller.getOpenWeatherModel().getSpeed()+","+this.mainActivitycontroller.getOpenWeatherModel().getHumidity()+
+        String resultStrings =this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C"+
+                ","+ this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getDescription()+
+                ","+ this.mainActivityController.getOpenWeatherModel().getSpeed()+","+this.mainActivityController.getOpenWeatherModel().getHumidity()+
                 ","+ weatherBitModel.getTemp()+ "°C"+","+weatherBitModel.getDescription();
         return resultStrings;
     }
+
+
 
 }
