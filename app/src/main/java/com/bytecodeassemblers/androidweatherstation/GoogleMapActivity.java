@@ -56,7 +56,6 @@ public class GoogleMapActivity extends FragmentActivity implements OnMapReadyCal
 
         if (position != null) { //entering resume state
             CameraUpdate cameraUpdate= CameraUpdateFactory.newCameraPosition(position);
-            googleMapStateManager.getSavedCameraState();
             mMap.moveCamera(cameraUpdate);
 
             if(googleMapStateManager.getSavedMarkerStatus()){

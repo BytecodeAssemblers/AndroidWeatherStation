@@ -32,7 +32,7 @@ public class AdvancedDetailsActivityStateManager {
     }
 
     public String loadAdvancedDetailsActivityState(){
-        loadAdvancedDetailsActivityState = AdvancedDetailsharedPrefs.getString("Advanced_Values","Oops!Something went wrong!");
+        loadAdvancedDetailsActivityState = AdvancedDetailsharedPrefs.getString("Advanced_Values"," ");
         return  loadAdvancedDetailsActivityState;
     }
 
