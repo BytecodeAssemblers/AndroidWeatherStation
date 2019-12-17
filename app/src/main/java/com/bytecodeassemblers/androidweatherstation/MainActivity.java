@@ -83,11 +83,9 @@ public class MainActivity extends AppCompatActivity {
 
         String lastLocation = locationSharedPreferences.getString("lastToday", "");
         if (!lastLocation.isEmpty()) {
-
-
             if ( == 0 && l == 0) {
                 return;
-            }
+           }
          new
         }
     }

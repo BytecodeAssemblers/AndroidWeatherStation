@@ -27,4 +27,5 @@
     <string name="weatherBit_temp">Weather_Bit_Temp</string>
     <string name="weatherBit_City">CityName</string>
     <string name="weatherBit_Description">weatherBit_Description</string>
+    <string name="textview">WeatherBit_WindSpeed</string>
 </resources>
