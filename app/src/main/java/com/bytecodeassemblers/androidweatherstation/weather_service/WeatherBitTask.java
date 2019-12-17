@@ -84,6 +84,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.executeInsert();
         AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(activity);
         advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
+        
     }
 
         //save AdvancedDetailsActivity dATA
