@@ -145,7 +145,7 @@ public class MainActivityController {
     public void setWeatherBitModel(WeatherBitModel weatherBitModel) {
         this.weatherBitModel = weatherBitModel;
     }
-    
+
     public  void setLatitude(double latitude){
         lat = latitude;
     }

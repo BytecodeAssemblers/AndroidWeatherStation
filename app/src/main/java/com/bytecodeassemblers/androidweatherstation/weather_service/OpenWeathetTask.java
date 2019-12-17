@@ -42,24 +42,23 @@ public class OpenWeathetTask extends AsyncTask<String,Void, OpenWeatherModel> {
     }
 
     @Override
-        protected OpenWeatherModel doInBackground(String... strings) {
-            String responseData = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from openWeather using http request
-            openWeatherModel = JSONWeatherParser.getOpenWeatherData(responseData); //sends the response values into parse
-            return openWeatherModel;
-        }
-        @Override
-        protected void onPostExecute(OpenWeatherModel openWeather) {
-            super.onPostExecute(openWeather);
-             cityOnMainActivityView.setText(""+ mainActivityController.GetExactLocationAddress());
-            openWeatherMainActivityDescription.setText(openWeather.getDescription());
-            generalTemp.setText(openWeather.getTemp()+ "°C");
-            openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
-
-            this.mainActivityController.setOpenWeatherModel(openWeather);
-
-            String imageUrl = openWeatherModel.getImage(openWeatherModel.getIcon());
-            MainActivityStateManager.saveActivityState(cityOnMainActivityView,openWeatherMainActivityDescription,generalTemp,imageUrl);
+    protected OpenWeatherModel doInBackground(String... strings) {
+         String responseData = ((new WeatherHttpClient()).getWeatherData(strings[0])); // get data from openWeather using http request
+         openWeatherModel = JSONWeatherParser.getOpenWeatherData(responseData); //sends the response values into parse
+         return openWeatherModel;
         }
 
+    @Override
+    protected void onPostExecute(OpenWeatherModel openWeather) {
+         super.onPostExecute(openWeather);
+         cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
+         openWeatherMainActivityDescription.setText(openWeather.getDescription());
+         generalTemp.setText(openWeather.getTemp()+ "°C");
+         openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
 
+         this.mainActivityController.setOpenWeatherModel(openWeather);
+
+         String imageUrl = openWeatherModel.getImage(openWeatherModel.getIcon());
+         MainActivityStateManager.saveActivityState(cityOnMainActivityView,openWeatherMainActivityDescription,generalTemp,imageUrl);
+        }
 }

@@ -6,6 +6,7 @@ import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
+import com.bytecodeassemblers.androidweatherstation.AdvancedDetailsActivityStateManager;
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
 import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
@@ -87,6 +88,17 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.executeInsert();
 
 	   mainActivitycontroller.setWeatherBitModel(weatherBitModel);
+
+       AdvancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
+    }
+
+        //save AdvancedDetailsActivity dATA
+    public String AppendData() {   //Append AdvancedDetails Texviews to save them later
+        String resultStrings =this.mainActivitycontroller.getOpenWeatherModel().getTemp()+ "°C"+","+this.mainActivitycontroller.getOpenWeatherModel().getTempMin()+ "°C"+
+                ","+ this.mainActivitycontroller.getOpenWeatherModel().getTempMax()+ "°C"+","+this.mainActivitycontroller.getOpenWeatherModel().getDescription()+
+                ","+ this.mainActivitycontroller.getOpenWeatherModel().getSpeed()+","+this.mainActivitycontroller.getOpenWeatherModel().getHumidity()+
+                ","+ weatherBitModel.getTemp()+ "°C"+","+weatherBitModel.getDescription();
+        return resultStrings;
     }
 
 }
