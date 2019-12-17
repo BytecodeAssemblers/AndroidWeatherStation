@@ -1,12 +1,10 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import android.Manifest;
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
+
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -19,7 +17,7 @@ import androidx.core.content.ContextCompat;
 
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
+
 import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
@@ -41,16 +39,13 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityController mainActivityController;
 
     private GetClientLocation getClientLocation;
-    Menu optionsMenu;
+    private Menu optionsMenu;
     private WeatherHistoryActivity weatherHistoryActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-
         /*--This is a message, that informs a user how to use the app the first time--*/
             View parentLayout = findViewById(android.R.id.content);
             final Snackbar snackbar = Snackbar.make(parentLayout, "Please, Choose a location from the map or check Enable Gps from the Menu", Snackbar.LENGTH_LONG);
@@ -76,49 +71,6 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    /*--Shared Preferences || ---*/
-     /*
-    private void preloadCityName() {
-        SharedPreferences locationSharedPreferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
-        String lastLocation = locationSharedPreferences.getString("lastToday", "");
-        if (!lastLocation.isEmpty()) {
-            if ( == 0 && l == 0) {
-                return;
-           }
-         new
-        }
-    }
-    private void preloadWeather(){
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-
-        String lastToday = sp.getString("lastToday", "");
-        if (!lastToday.isEmpty()) {
-            new TodayWeatherTask(this, this, progressDialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastToday);
-        }
-        String lastLongterm = sp.getString("lastLongterm", "");
-        if (!lastLongterm.isEmpty()) {
-            new LongTermWeatherTask(this, this, progressDialog).executeOnExecutor(AsyncTask.THREAD_POOL_EXECUTOR, "cachedResponse", lastLongterm);
-        }
-    }
-
-    private void saveLocation(String result){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(MainActivity.this);
-        recentCityId = preferences.getString("cityId", Constants.DEFAULT_CITY_ID);
-
-        SharedPreferences.Editor editor = preferences.edit();
-        editor.putString("cityId", result);
-
-        editor.apply();
-
-    }
-
-
-    /*--Shared Preferences || ---*/
-
-
-
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu){
            getMenuInflater().inflate(R.menu.main_menu, menu);
@@ -141,34 +93,25 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:
+                AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
-
-                try {
-                    try {
-                        /*WeatherBit Data Send To Advanced Details*/
-                        intent.putExtra("weatherbit_city", "City Name : " + this.mainActivityController.getWeatherBitModel().getCityName());
-                        intent.putExtra("weatherbit_temperature", "Temperature : " + this.mainActivityController.getWeatherBitModel().getTemp() + "°C");
-                        intent.putExtra("weatherbit_windSpeed", "WindSpeed : " + this.mainActivityController.getWeatherBitModel().getSpeed() + "m/s");
-                        intent.putExtra("weatherbit_description", "Weather Description : " + this.mainActivityController.getWeatherBitModel().getDescription());
-                    }catch (NullPointerException weatherBitMainActivityTask){
-                        weatherBitMainActivityTask.printStackTrace();
-                    }
-                    try {
+                if (advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
+                    advancedDetailsActivityStateManager.getSavedAdvancedData(intent); //set data to Advanced Activity
+                } else {                     //if there is not saved data...
                     /*OpenWeather Data Send To Advanced Details*/
-                    intent.putExtra("Main_Temp", "Temperature : " + this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
-                    intent.putExtra("Minimum_Temp", "Minimum Temperature : " + this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
-                    intent.putExtra("Maximum_Temp", "Maximum Temperature : " + this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
-                    intent.putExtra("Description", "Weather Description : " + this.mainActivityController.getOpenWeatherModel().getDescription());
-                    intent.putExtra("WindSpeed", "WindSpeed : " + this.mainActivityController.getOpenWeatherModel().getSpeed() + "m/s");
-                    intent.putExtra("Humidity", "Humidity : " + this.mainActivityController.getOpenWeatherModel().getHumidity() + "%");
-
-                    }catch (NullPointerException openWeatherMainActivityTask){
-                        openWeatherMainActivityTask.printStackTrace();
-                    }
-                    startActivity(intent);
-                }catch (NullPointerException AdvancedDetailsException){
-                    AdvancedDetailsException.printStackTrace();
+                    intent.putExtra("Main_Temp", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
+                    intent.putExtra("Minimum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
+                    intent.putExtra("Maximum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
+                    intent.putExtra("Description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                    intent.putExtra("WindSpeed", this.mainActivityController.getOpenWeatherModel().getSpeed());
+                    intent.putExtra("Humidity", this.mainActivityController.getOpenWeatherModel().getHumidity());
+                    /*WeatherBit Data Send To Advanced Details*/
+                    intent.putExtra("weatherbit_city", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
+                    intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
+                    intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
+                    intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
                 }
+                startActivity(intent);
                 return true;
             case R.id.myPlaces:
                 mainActivityController.openListViewActivity();
@@ -224,7 +167,6 @@ public class MainActivity extends AppCompatActivity {
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
                 this.mainActivityController.ExecuteWeatherBitTask();
-
             }
 
         }
