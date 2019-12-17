@@ -110,6 +110,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
                     intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
                     intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                    advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
                 }
                 startActivity(intent);
                 return true;
@@ -144,6 +145,15 @@ public class MainActivity extends AppCompatActivity {
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    //save AdvancedDetailsActivity dATA
+    public String AppendData() {   //Append AdvancedDetails Texviews to save them later
+        String resultStrings = this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C"+
+                ","+ this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getDescription()+
+                ","+ this.mainActivityController.getOpenWeatherModel().getSpeed()+","+this.mainActivityController.getOpenWeatherModel().getHumidity()+
+                ","+ this.mainActivityController.getWeatherBitModel().getTemp()+ "°C"+","+this.mainActivityController.getWeatherBitModel().getDescription();
+        return resultStrings;
     }
 
     @Override

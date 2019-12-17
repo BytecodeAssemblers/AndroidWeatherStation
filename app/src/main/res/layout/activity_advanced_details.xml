@@ -9,8 +9,8 @@
 
     <androidx.appcompat.widget.Toolbar
         android:id="@+id/advancedDetailsToolbar"
-        android:layout_width="415dp"
-        android:layout_height="38dp"
+        android:layout_width="403dp"
+        android:layout_height="35dp"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
