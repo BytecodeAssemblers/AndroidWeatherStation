@@ -7,6 +7,8 @@ import android.widget.TextView;
 import com.android.volley.toolbox.NetworkImageView;
 
 import com.bytecodeassemblers.androidweatherstation.DatabaseApiInsert;
+import com.bytecodeassemblers.androidweatherstation.MainActivity;
+import com.bytecodeassemblers.androidweatherstation.MainActivityController;
 import com.bytecodeassemblers.androidweatherstation.MimageLoader;
 import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
@@ -27,7 +29,7 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     private Activity activity;
     private MimageLoader imageLoader;
 
-
+  private MainActivityController mainActivityController ;
     //WeatherBit
     private WeatherBitModel weatherBitModel;
     private TextView weatherBitTempOnView;
@@ -40,9 +42,10 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
 
 
 
-    public WeatherBitTask(Activity activity, MimageLoader image){
+    public WeatherBitTask(Activity activity, MainActivityController mainActivityController, MimageLoader image){
         this.imageLoader = image;
         this.activity = activity;
+       this.mainActivityController = mainActivityController;
         weatherBitModel = new WeatherBitModel();
     }
 
@@ -71,12 +74,12 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
     protected void onPostExecute(WeatherBitModel weatherBitModel) {
         super.onPostExecute(weatherBitModel);
         weatherBitCityOnMainActivityView.setText(""+ weatherBitModel.getCityName());
-        Date date = Calendar.getInstance().getTime();   DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+        mainActivityController.setWeatherBitModel(weatherBitModel);
+        Date date = Calendar.getInstance().getTime();
+        DateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
         String strDate = dateFormat.format(date);
         DatabaseApiInsert insertWeather = new DatabaseApiInsert();
         JSONObject weatherPayload = new JSONObject();
-
-
 
 
 

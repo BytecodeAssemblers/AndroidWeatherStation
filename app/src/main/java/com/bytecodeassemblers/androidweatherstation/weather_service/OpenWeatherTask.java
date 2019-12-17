@@ -73,23 +73,16 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
     @Override
     protected void onPostExecute(OpenWeatherModel openWeatherModel) {
         super.onPostExecute(openWeatherModel);
-        //openWeathercityNameOnView.setText(openWeatherModel.simple.getCityName());
-//        openWeathertempOnView.setText("Temp: "+ openWeatherModel.getTemp());
-//        openWeathermaxTempOnView.setText("Temp max: "+ openWeatherModel.getTempMax());
-//        openWeatherminTempOnView.setText("Temp min: "+ openWeatherModel.getTempMin());
-//        openWeatherhumidityOnView.setText("Humidity: "+ openWeatherModel.getHumidity());
-//        openWeatherwindSpeedOnView.setText("Wind speed: "+ openWeatherModel.getSpeed());
-//        openWeatherdescriptionOnView.setText("Description: "+ openWeatherModel.getDescription());
-//        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
         openWeatherMainActivityDescription.setText(""+ openWeatherModel.getDescription());
         generalTemp.setText(openWeatherModel.getTemp() + "°C");
 
 try {
+    this.mainActivityController.setOpenWeatherModel(openWeatherModel);
     cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
     openWeatherMainActivityDescription.setText(openWeatherModel.getDescription());
-    this.mainActivityController.setOpenWeatherModel(openWeatherModel);
 
-}catch (NullPointerException openWeatherDescription){
+
+}catch (RuntimeException openWeatherDescription){
     openWeatherDescription.printStackTrace();
 }
     }

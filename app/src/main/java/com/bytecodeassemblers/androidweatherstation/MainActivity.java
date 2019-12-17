@@ -113,13 +113,9 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-      */
+
     /*--Shared Preferences || ---*/
 
-  /*  publishUpdate(new ExtensionData()
-                    .visible(true)
-                    .icon(R.drawable.ic_cloud_white_18dp)
-*/
 
 
 
@@ -150,9 +146,9 @@ public class MainActivity extends AppCompatActivity {
                 try {
                     try {
                         /*WeatherBit Data Send To Advanced Details*/
-                        intent.putExtra("weatherbit_city", "Temperature : " + this.mainActivityController.getWeatherBitModel().getCityName()); /*--MISTAKE!!!--*/
-                        intent.putExtra("weatherbit_temperature", "Minimum Temperature : " + this.mainActivityController.getWeatherBitModel().getTemp() + "°C");
-                        intent.putExtra("weatherbit_windSpeed", "Maximum Temperature : " + this.mainActivityController.getWeatherBitModel().getSpeed() + "m/s");
+                        intent.putExtra("weatherbit_city", "City Name : " + this.mainActivityController.getWeatherBitModel().getCityName());
+                        intent.putExtra("weatherbit_temperature", "Temperature : " + this.mainActivityController.getWeatherBitModel().getTemp() + "°C");
+                        intent.putExtra("weatherbit_windSpeed", "WindSpeed : " + this.mainActivityController.getWeatherBitModel().getSpeed() + "m/s");
                         intent.putExtra("weatherbit_description", "Weather Description : " + this.mainActivityController.getWeatherBitModel().getDescription());
                     }catch (NullPointerException weatherBitMainActivityTask){
                         weatherBitMainActivityTask.printStackTrace();

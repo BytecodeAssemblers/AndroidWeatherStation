@@ -59,6 +59,7 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           String openWeatherSetDescription = intent.getStringExtra("Description");
           String openWeatherSetWindSpeed =  intent.getStringExtra("WindSpeed");
           String openWeatherSetHumidity = intent.getStringExtra("Humidity");
+
           openWeatherTemperature.setText(openWeatherMainTemperature);
           openWeatherMinTemperature.setText(openWeatherMinimumTemperature);
           openWeatherMaxTemperature.setText(openWeatherMaximumTemperature);
