@@ -6,7 +6,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_card"
+    android:background="@drawable/widget_card_gray"
     tools:context=".MainActivity">
 
 
@@ -23,6 +23,7 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -106,7 +107,7 @@
         tools:text="currentLocation" />
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/widgetThermometer"
         android:layout_width="wrap_content"
         android:layout_height="28dp"
         app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
@@ -115,7 +116,21 @@
         app:layout_constraintStart_toEndOf="@+id/temp"
         app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
         app:layout_constraintVertical_bias="0.637"
-        app:srcCompat="@drawable/ic_thermometer_white_48dp" />
+        app:srcCompat="@drawable/ic_thermometer_white_48dp"
+        android:contentDescription="TODO" />
+
+    <ImageView
+        android:id="@+id/widgetIcons"
+        android:layout_width="40dp"
+        android:layout_height="49dp"
+        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
+        app:layout_constraintEnd_toStartOf="@+id/temp"
+        app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
+        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
+        app:layout_constraintVertical_bias="0.684"
+        app:srcCompat="@drawable/ic_clear_sky" />
+
+
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

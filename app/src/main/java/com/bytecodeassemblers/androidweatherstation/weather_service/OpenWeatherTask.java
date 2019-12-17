@@ -11,6 +11,7 @@ import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.MainActivityStateManager;
 
 public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 
@@ -19,6 +20,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
     private MimageLoader imageLoader;
     private OpenWeatherModel openWeatherObject;
 
+    private TextView cityOnMainActivityView;
     private TextView openWeathertempOnView;
     private TextView openWeathermaxTempOnView;
     private TextView openWeatherminTempOnView;
@@ -81,6 +83,14 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 //        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
         openWeatherMainActivityDescription.setText(""+ openWeatherModel.getDescription());
         generalTemp.setText(openWeatherModel.getTemp() + "°C");
-         this.mainActivityController.setOpenWeatherModel(openWeatherModel);
+
+try {
+    cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
+    openWeatherMainActivityDescription.setText(openWeatherModel.getDescription());
+    this.mainActivityController.setOpenWeatherModel(openWeatherModel);
+
+}catch (NullPointerException openWeatherDescription){
+    openWeatherDescription.printStackTrace();
+}
     }
 }

@@ -11,4 +11,12 @@
     <style name="AppTheme.Toolbar" parent="AppTheme">
         <item name="searchViewStyle">@color/searchViewColor</item>
     </style>
+
+    <style name="card.main_layout">#0336FF</style>
+
+    <style name="card">#0336FF</style>
+
+    <style name="card.content_outer_layout">#ffff</style>
+
+    <style name="card.main_contentExpand">#ffff</style>
 </resources>

@@ -117,6 +117,8 @@ public class MainActivityController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        assert addresses != null;
         return addresses.get(0).getAddressLine(0);
     }
 

@@ -47,21 +47,18 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
        Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
          /*--OpenWeather Initializer--*/
-
           openWeatherTemperature = findViewById(R.id.openWeatherTemp);
           openWeatherMaxTemperature = findViewById(R.id.openWeatherMaxTemp);
           openWeatherMinTemperature = findViewById(R.id.openWeatherMinTemp);
           openWeatherWindSpeed = findViewById(R.id.openWeatherWindSpeed);
           openWeatherHumidity = findViewById(R.id.openWeatherHumidity);
           openWeatherDescription = findViewById(R.id.openWeatherDescription);
-
           String openWeatherMainTemperature = intent.getStringExtra("Main_Temp");
           String openWeatherMinimumTemperature = intent.getStringExtra("Minimum_Temp");
           String openWeatherMaximumTemperature = intent.getStringExtra("Maximum_Temp");
           String openWeatherSetDescription = intent.getStringExtra("Description");
           String openWeatherSetWindSpeed =  intent.getStringExtra("WindSpeed");
           String openWeatherSetHumidity = intent.getStringExtra("Humidity");
-
           openWeatherTemperature.setText(openWeatherMainTemperature);
           openWeatherMinTemperature.setText(openWeatherMinimumTemperature);
           openWeatherMaxTemperature.setText(openWeatherMaximumTemperature);
@@ -70,10 +67,10 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           openWeatherHumidity.setText(openWeatherSetHumidity);
 
           /*--WeatherBit Initializer--*/
-         weatherbit_city = findViewById(R.id.weatherbit_city);
-         weatherbit_description = findViewById(R.id.weatherbit_description);
-         weatherbit_windspeed=findViewById(R.id.weatherbit_windspeed);
-         weatherbit_temperature=findViewById(R.id.weatherbit_temp);
+         weatherbit_city = findViewById(R.id.weatherBit_city);
+         weatherbit_description = findViewById(R.id.weatherBit_description);
+         weatherbit_windspeed=findViewById(R.id.weatherBit_WindSpeed);
+         weatherbit_temperature=findViewById(R.id.weatherBit_temp);
 
         String weatherbitCityName  = intent.getStringExtra("weatherbit_city");
         String weatherbitTemperature  = intent.getStringExtra("weatherbit_temperature");
