@@ -19,10 +19,11 @@
         android:id="@+id/advancedDetailsToolbar"
         android:layout_width="409dp"
         android:layout_height="144dp"
+        android:layout_marginTop="4dp"
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -68,7 +69,7 @@
         app:layout_constraintHorizontal_bias="0.786"
         app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
         app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="0.523" />
 
     <TextView
         android:id="@+id/mainActivityWeatherDescription"
@@ -107,27 +108,21 @@
 
     <ImageView
         android:id="@+id/widgetThermometer"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_width="29dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="20dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
         app:layout_constraintStart_toEndOf="@+id/temp"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.637"
-        app:srcCompat="@drawable/ic_thermometer_white_48dp"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_thermometer_white_48dp" />
 
     <ImageView
         android:id="@+id/widgetIcons"
         android:layout_width="40dp"
         android:layout_height="49dp"
-        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintEnd_toStartOf="@+id/temp"
-        app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.684"
-        app:srcCompat="@drawable/ic_clear_sky" />
+        app:srcCompat="@drawable/ic_clear_sky"
+        tools:layout_editor_absoluteX="33dp"
+        tools:layout_editor_absoluteY="-2dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -135,14 +135,7 @@
         android:id="@+id/widgetIcons"
         android:layout_width="40dp"
         android:layout_height="49dp"
-        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintEnd_toStartOf="@+id/temp"
-        app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.684"
         app:srcCompat="@drawable/ic_clear_sky" />
-
-
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

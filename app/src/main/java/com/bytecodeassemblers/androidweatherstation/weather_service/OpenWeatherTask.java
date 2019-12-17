@@ -2,6 +2,7 @@ package com.bytecodeassemblers.androidweatherstation.weather_service;
 
 import android.app.Activity;
 import android.os.AsyncTask;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
@@ -53,6 +54,21 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
          super.onPostExecute(openWeather);
          cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
          openWeatherMainActivityDescription.setText(openWeather.getDescription());
+
+        if(openWeather.getDescription().contains("clear sky"))
+         {
+            ((ImageView)activity.findViewById(R.id.widgetIcons)).setImageResource(R.drawable.ic_clear_sky);
+        }else if (openWeather.getDescription().contains("snow")){
+            ((ImageView)activity.findViewById(R.id.widgetIcons)).setImageResource(R.drawable.ic_snow);
+        }else if (openWeather.getDescription().contains("rain")){
+            ((ImageView)activity.findViewById(R.id.widgetIcons)).setImageResource(R.drawable.ic_raining);
+        }else if (openWeather.getDescription().contains("fog")||openWeather.getDescription().contains("mist")){
+            ((ImageView)activity.findViewById(R.id.widgetIcons)).setImageResource(R.drawable.ic_fog);
+        }else{
+            ((ImageView)activity.findViewById(R.id.widgetIcons)).setImageResource(R.drawable.ic_cloud_white_48dp);
+        }
+
+
          generalTemp.setText(openWeather.getTemp()+ "°C");
          //openWeatherImageView.setImageUrl(openWeather.getImage(openWeather.getIcon()),imageLoader.getmImageLoader());
 
