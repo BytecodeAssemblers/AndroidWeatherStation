@@ -21,7 +21,7 @@ public class DatabaseApiSelect {
 
     private JSONObject payload;
 
-    /////////////////////////////
+    /*--------------------*/
 
 
     public RequestQueue getQueue() {
@@ -56,15 +56,15 @@ public class DatabaseApiSelect {
         this.payload = payload;
     }
 
-    ///////////////////////////////
+    /*--------------------*/
 
-    public void executeSelect(){                            //this function inserts data from the api calls that are implemented
+    public void executeSelect(){                            /*this function inserts data from the api calls that are implemented*/
 
-        // Instantiate the RequestQueue.
+        /* Instantiate the RequestQueue.*/
         Queue = Volley.newRequestQueue(context);
 
 
-// Request a response from the provided URL.
+/*Request a response from the provided URL.*/
 
         JsonObjectRequest databaseRequest = new JsonObjectRequest(Request.Method.POST, databaseSelectEndpoint,payload,
 

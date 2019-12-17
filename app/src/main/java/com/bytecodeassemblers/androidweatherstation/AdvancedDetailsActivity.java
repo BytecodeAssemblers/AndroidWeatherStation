@@ -1,15 +1,19 @@
 package com.bytecodeassemblers.androidweatherstation;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
 
-public class AdvancedDetailsActivity extends AppCompatActivity {
+import java.util.Objects;
 
+public class AdvancedDetailsActivity extends AppCompatActivity {
+    private Button upButton;
 
     TextView openWeatherTemperature;
       TextView openWeatherMaxTemperature;
@@ -25,41 +29,30 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           TextView weatherbit_temperature;
             NetworkImageView weatherbitImage;
 
-
-
     MainActivityController mainActivityController;
-
     public AdvancedDetailsActivity(){
-
     }
-
-
     public AdvancedDetailsActivity(MainActivityController mainActivityController){
-
         this.mainActivityController = mainActivityController;
           //this.mainActivityController.ExecuteOpenWeatherTask();
           // this.mainActivityController.ExecuteWeatherBitTask();
-
-
-
-
     }
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_advanced_details);
+        Toolbar advancedDetailsToolbar = findViewById(R.id.advancedDetailsToolbar);
+        setSupportActionBar(advancedDetailsToolbar);
+      //  Objects.requireNonNull(getSupportActionBar()).setTitle("Advanced Details");
+       Objects.requireNonNull(getSupportActionBar()).setDisplayHomeAsUpEnabled(true);
         Intent intent = getIntent();
          /*--OpenWeather Initializer--*/
-
           openWeatherTemperature = findViewById(R.id.openWeatherTemp);
           openWeatherMaxTemperature = findViewById(R.id.openWeatherMaxTemp);
           openWeatherMinTemperature = findViewById(R.id.openWeatherMinTemp);
           openWeatherWindSpeed = findViewById(R.id.openWeatherWindSpeed);
           openWeatherHumidity = findViewById(R.id.openWeatherHumidity);
           openWeatherDescription = findViewById(R.id.openWeatherDescription);
-
-
           String openWeatherMainTemperature = intent.getStringExtra("Main_Temp");
           String openWeatherMinimumTemperature = intent.getStringExtra("Minimum_Temp");
           String openWeatherMaximumTemperature = intent.getStringExtra("Maximum_Temp");
@@ -75,10 +68,10 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
           openWeatherHumidity.setText(openWeatherSetHumidity);
 
           /*--WeatherBit Initializer--*/
-         weatherbit_city = findViewById(R.id.weatherbit_city);
-         weatherbit_description = findViewById(R.id.weatherbit_description);
-         weatherbit_windspeed=findViewById(R.id.weatherbit_windspeed);
-         weatherbit_temperature=findViewById(R.id.weatherbit_temp);
+         weatherbit_city = findViewById(R.id.weatherBit_city);
+         weatherbit_description = findViewById(R.id.weatherBit_description);
+         weatherbit_windspeed=findViewById(R.id.weatherBit_WindSpeed);
+         weatherbit_temperature=findViewById(R.id.weatherBit_temp);
 
         String weatherbitCityName  = intent.getStringExtra("weatherbit_city");
         String weatherbitTemperature  = intent.getStringExtra("weatherbit_temperature");
