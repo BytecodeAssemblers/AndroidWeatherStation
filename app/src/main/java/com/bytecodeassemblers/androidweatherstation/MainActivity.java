@@ -3,37 +3,31 @@ package com.bytecodeassemblers.androidweatherstation;
 import android.Manifest;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.graphics.drawable.AnimationDrawable;
-import android.location.LocationManager;
+
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.content.ContextCompat;
 
 
 import com.bytecodeassemblers.androidweatherstation.client_location.GetClientLocation;
-import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
-import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
-import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
-import com.google.android.gms.maps.model.LatLng;
-import com.google.android.material.snackbar.Snackbar;
 
-import java.io.Serializable;
-import java.util.HashMap;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private static final String[] LOCATION_PERMS={
             Manifest.permission.ACCESS_FINE_LOCATION
@@ -45,31 +39,23 @@ public class MainActivity extends AppCompatActivity {
     private MainActivityController mainActivityController;
 
     private GetClientLocation getClientLocation;
-    Menu optionsMenu;
+    private Menu optionsMenu;
     private WeatherHistoryActivity weatherHistoryActivity;
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
         /*--This is a message, that informs a user how to use the app the first time--*/
-        View parentLayout = findViewById(android.R.id.content);
-
-       final Snackbar snackbar = Snackbar.make(parentLayout,"Please, Choose a location from the map or check Enable Gps from the Menu",Snackbar.LENGTH_LONG);
-
-              snackbar.setAction("Close", new View.OnClickListener(){
-                    @Override
-                    public void onClick(View view){
-
-                        snackbar.dismiss();
-                    }
-                        })
-                .setActionTextColor(getResources().getColor(android.R.color.holo_blue_dark))
-        .show();
-
-              /*--End of Message--*/
+            View parentLayout = findViewById(android.R.id.content);
+            final Snackbar snackbar = Snackbar.make(parentLayout, "Please, Choose a location from the map or check Enable Gps from the Menu", Snackbar.LENGTH_LONG);
+            snackbar.setAction("Close", new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    snackbar.dismiss();
+                }
+            }).setActionTextColor(getResources().getColor(android.R.color.holo_orange_dark)).show();
+            /*--End of Message--*/
 
 
         TextView textView = findViewById(R.id.updated_at);
@@ -77,19 +63,11 @@ public class MainActivity extends AppCompatActivity {
         DateFormat dateFormat = new SimpleDateFormat("EEE, d MMM yyyy");
         String fetchDate = dateFormat.format(date);
         textView.setText(fetchDate);
-
-        ConstraintLayout constraintLayout = findViewById(R.id.layout);
-        AnimationDrawable animationDrawable = (AnimationDrawable) constraintLayout.getBackground();
-        animationDrawable.setEnterFadeDuration(2000);
-        animationDrawable.setExitFadeDuration(4000);
-        animationDrawable.start();
-
-        Toolbar toolbar = findViewById(R.id.app_bar);
+        Toolbar toolbar = findViewById(R.id.advancedDetailsToolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setTitle(null);
-
-
+        Objects.requireNonNull(getSupportActionBar()).setTitle(null);
         mainActivityController = new MainActivityController(this);
+
 
     }
 
@@ -100,7 +78,7 @@ public class MainActivity extends AppCompatActivity {
            return true;
     }
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(@NonNull MenuItem item) {
 
         Intent intent ;
         //respond to menu item selection
@@ -118,23 +96,27 @@ public class MainActivity extends AppCompatActivity {
                 startActivity(intent);
                 return true;
             case R.id.advanceddetails:
+                AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
-                /*OpenWeather Data Send To Advanced Details*/
-                intent.putExtra("Main_Temp",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C");
-                intent.putExtra("Minimum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
-                intent.putExtra("Maximum_Temp",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
-                intent.putExtra("Description",this.mainActivityController.getOpenWeatherModel().getDescription());
-                intent.putExtra("WindSpeed",this.mainActivityController.getOpenWeatherModel().getSpeed());
-                intent.putExtra("Humidity",this.mainActivityController.getOpenWeatherModel().getHumidity());
-                /*WeatherBit Data Send To Advanced Details*/
-                intent.putExtra("weatherbit_city",this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
-                intent.putExtra("weatherbit_temperature",this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C");
-                intent.putExtra("weatherbit_windSpeed",this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C");
-                intent.putExtra("weatherbit_description",this.mainActivityController.getOpenWeatherModel().getDescription());
-
+                if (advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
+                    advancedDetailsActivityStateManager.getSavedAdvancedData(intent); //set data to Advanced Activity
+                } else {                     //if there is not saved data...
+                    /*OpenWeather Data Send To Advanced Details*/
+                    intent.putExtra("Main_Temp", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
+                    intent.putExtra("Minimum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
+                    intent.putExtra("Maximum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
+                    intent.putExtra("Description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                    intent.putExtra("WindSpeed", this.mainActivityController.getOpenWeatherModel().getSpeed());
+                    intent.putExtra("Humidity", this.mainActivityController.getOpenWeatherModel().getHumidity());
+                    /*WeatherBit Data Send To Advanced Details*/
+                    intent.putExtra("weatherbit_city", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
+                    intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
+                    intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
+                    intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                }
                 startActivity(intent);
                 return true;
-            case R.id.about:
+            case R.id.myPlaces:
                 mainActivityController.openListViewActivity();
 
                 return true;
@@ -188,7 +170,6 @@ public class MainActivity extends AppCompatActivity {
 
                 this.mainActivityController.ExecuteOpenWeatherTask();
                 this.mainActivityController.ExecuteWeatherBitTask();
-
             }
 
         }

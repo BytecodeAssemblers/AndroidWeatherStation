@@ -25,6 +25,8 @@
     <uses-permission android:name="android.permission.ACCESS_BACKGROUND_LOCATION" />
 
     <application
+
+        android:hardwareAccelerated="true"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -32,11 +34,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar"
         android:usesCleartextTraffic="true">
+
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
         <activity android:name=".listview.ListViewActivity" />
         <activity android:name=".AdvancedDetailsActivity" />
+
+        <activity android:name=".listview.ListViewActivity"></activity>
+        <activity android:name=".AdvancedDetailsActivity"
+            android:parentActivityName=".MainActivity"></activity>
+
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
              (See the file "res/values/google_maps_api.xml").

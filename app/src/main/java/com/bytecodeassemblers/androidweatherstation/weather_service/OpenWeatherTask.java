@@ -11,6 +11,7 @@ import com.bytecodeassemblers.androidweatherstation.R;
 import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
 import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.MainActivityStateManager;
 
 public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
 
@@ -19,6 +20,7 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
     private MimageLoader imageLoader;
     private OpenWeatherModel openWeatherObject;
 
+    private TextView cityOnMainActivityView;
     private TextView openWeathertempOnView;
     private TextView openWeathermaxTempOnView;
     private TextView openWeatherminTempOnView;
@@ -71,16 +73,17 @@ public class OpenWeatherTask extends AsyncTask<String,Void, OpenWeatherModel> {
     @Override
     protected void onPostExecute(OpenWeatherModel openWeatherModel) {
         super.onPostExecute(openWeatherModel);
-        //openWeathercityNameOnView.setText(openWeatherModel.simple.getCityName());
-//        openWeathertempOnView.setText("Temp: "+ openWeatherModel.getTemp());
-//        openWeathermaxTempOnView.setText("Temp max: "+ openWeatherModel.getTempMax());
-//        openWeatherminTempOnView.setText("Temp min: "+ openWeatherModel.getTempMin());
-//        openWeatherhumidityOnView.setText("Humidity: "+ openWeatherModel.getHumidity());
-//        openWeatherwindSpeedOnView.setText("Wind speed: "+ openWeatherModel.getSpeed());
-//        openWeatherdescriptionOnView.setText("Description: "+ openWeatherModel.getDescription());
-//        openWeathermyImage.setImageUrl(openWeatherModel.getImage(openWeatherModel.getIcon()),imageLoader.getmImageLoader());
         openWeatherMainActivityDescription.setText(""+ openWeatherModel.getDescription());
         generalTemp.setText(openWeatherModel.getTemp() + "°C");
-         this.mainActivityController.setOpenWeatherModel(openWeatherModel);
+
+try {
+    this.mainActivityController.setOpenWeatherModel(openWeatherModel);
+    cityOnMainActivityView.setText(mainActivityController.GetExactLocationAddress());
+    openWeatherMainActivityDescription.setText(openWeatherModel.getDescription());
+
+
+}catch (RuntimeException openWeatherDescription){
+    openWeatherDescription.printStackTrace();
+}
     }
 }

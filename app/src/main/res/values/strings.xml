@@ -1,9 +1,8 @@
 <resources>
     <string name="app_name">AndroidWeatherStation</string>
-    <string name="textview">TextView</string>
+    <string name="weatherBit_WindSpeed">weatherBit_WindSpeed</string>
     <string name="enter_city_name_here">Enter City Name Here</string>
-    <string name="cityname">CityName</string>
-    <string name="serres_greece">Serres Greece</string>
+    <string name="cityName">CityName</string>
     <string name="currentDate">currentDate</string>
     <string name="fog">Fog</string>
     <string name="currentTemperatureInCelsius">0°C</string>
@@ -15,13 +14,14 @@
     <string name="max_temp">max_temp</string>
     <string name="min_temp">min_temp</string>
     <string name="humidity">humidity</string>
-    <string name="descriiption">descriiption</string>
+    <string name="Description">descriiption</string>
     <string name="wind_speed">wind_speed</string>
-    <string name="description">description</string>
+    <string name="someDescription">description</string>
     <string name="title_activity_map">Map</string>
     <string name="title_activity_google_map">Map</string>
     <string name="currentLocation">currentLocation</string>
     <string name="currentWeatherDescription">currentWeatherDescription</string>
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Preference Titles -->
@@ -38,4 +38,13 @@
     <string name="attachment_summary_on">Automatically download attachments for incoming emails
     </string>
     <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
+    <string name="temperature">Temperature</string>
+    <string name="open_weather_api_information">Open Weather API Information</string>
+    <string name="weather_bit_api_information">Weather Bit API Information</string>
+    <string name="weatherBit_temp">Weather_Bit_Temp</string>
+    <string name="weatherBit_City">CityName</string>
+    <string name="weatherBit_Description">weatherBit_Description</string>
+    <string name="textview">WeatherBit_WindSpeed</string>
+
 </resources>
