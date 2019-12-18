@@ -2,14 +2,11 @@
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <item
         android:id="@+id/location"
         android:title="Location"
         app:showAsAction="never"
         />
-
-
     <item
         android:id="@+id/weatherdiagram"
         android:title="Weather Diagram"
@@ -20,13 +17,11 @@
         android:title="Advanced Details"
         app:showAsAction="never"
         />
-
     <item
     android:id="@+id/settings"
     android:title="Settings"
     app:showAsAction="never"
          />
-
     <item
         android:id="@+id/enableGps"
         android:checkable="true"
@@ -34,14 +29,8 @@
         android:enabled="true"
         android:title="Enable Gps"
         app:showAsAction="never" />
-
-
     <item
-        android:id="@+id/about"
+        android:id="@+id/myPlaces"
         android:title="My Places"
         app:showAsAction="never" />
-
-
-
-
 </menu>

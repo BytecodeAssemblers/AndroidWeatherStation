@@ -3,10 +3,16 @@
     <color name="colorPrimary">#00CBFF</color>
     <color name="colorPrimaryDark">#01CDF3</color>
     <color name="colorAccent">#FFAF00</color>
+    <color name="colorWidgetPrimary">#2979FF</color>
+    <color name="colorWidgetSecondary">#292727</color>
+    <color name="colorMainActivityText">#FFFFFF</color>
 
     <color name="primaryTextColor">#FFA200</color>
     <color name="secondaryTextColor">#FFA200</color>
     <color name="searchViewColor">#f3ffff</color>
     <color name="titleColor">#05DBF4</color>
+
+    <color name="tab_indicator">#ffffff</color>
+    <color name="text_dark">#000000</color>
 
 </resources>
