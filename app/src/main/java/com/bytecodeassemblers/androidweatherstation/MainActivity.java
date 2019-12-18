@@ -84,7 +84,10 @@ public class MainActivity extends AppCompatActivity {
         //respond to menu item selection
         switch (item.getItemId()) {
             case R.id.settings:
+                startActivity(new Intent(this,SettingsActivity.class));
                 return true;
+
+
             case R.id.weatherdiagram:
                 TextView cityTextView =  findViewById(R.id.weatherbitMainActivityCityName);
                 String cityName = cityTextView.getText().toString();

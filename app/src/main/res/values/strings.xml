@@ -21,6 +21,24 @@
     <string name="title_activity_google_map">Map</string>
     <string name="currentLocation">currentLocation</string>
     <string name="currentWeatherDescription">currentWeatherDescription</string>
+
+    <string name="title_activity_settings">Settings</string>
+
+    <!-- Preference Titles -->
+    <string name="messages_header">Messages</string>
+    <string name="sync_header">Sync</string>
+
+    <!-- Messages Preferences -->
+    <string name="signature_title">Your signature</string>
+    <string name="reply_title">Default reply action</string>
+
+    <!-- Sync Preferences -->
+    <string name="sync_title">Sync email periodically</string>
+    <string name="attachment_title">Download incoming attachments</string>
+    <string name="attachment_summary_on">Automatically download attachments for incoming emails
+    </string>
+    <string name="attachment_summary_off">Only download attachments when manually requested</string>
+
     <string name="temperature">Temperature</string>
     <string name="open_weather_api_information">Open Weather API Information</string>
     <string name="weather_bit_api_information">Weather Bit API Information</string>
@@ -28,4 +46,5 @@
     <string name="weatherBit_City">CityName</string>
     <string name="weatherBit_Description">weatherBit_Description</string>
     <string name="textview">WeatherBit_WindSpeed</string>
+
 </resources>
