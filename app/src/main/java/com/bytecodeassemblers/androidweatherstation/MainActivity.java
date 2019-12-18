@@ -115,7 +115,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
                     intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
                     intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
-                    advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
+                    //advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
                 }
                 startActivity(intent);
                 return true;
