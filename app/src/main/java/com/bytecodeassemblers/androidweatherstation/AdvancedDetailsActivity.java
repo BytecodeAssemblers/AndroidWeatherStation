@@ -84,8 +84,8 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
         weatherbit_windspeed.setText(weatherbitWindspeed);
         weatherbit_temperature.setText(weatherbitTemperature);
 
-        AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
-        advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
+        //AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
+        //advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
 
     }
 
