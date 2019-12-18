@@ -38,12 +38,11 @@
         <activity
             android:name=".SettingsActivity"
             android:label="@string/title_activity_settings"></activity>
-        <activity android:name=".listview.ListViewActivity" />
-        <activity android:name=".AdvancedDetailsActivity" />
+        <activity android:name=".listview.ListViewActivity"
+            android:parentActivityName=".MainActivity"/>
 
-        <activity android:name=".listview.ListViewActivity"></activity>
         <activity android:name=".AdvancedDetailsActivity"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.
