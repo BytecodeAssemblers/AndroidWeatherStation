@@ -84,7 +84,6 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
         weatherbit_windspeed.setText(weatherbitWindspeed);
         weatherbit_temperature.setText(weatherbitTemperature);
 
-
     }
 
 
