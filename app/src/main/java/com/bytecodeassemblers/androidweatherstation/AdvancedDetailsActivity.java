@@ -9,6 +9,7 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.android.volley.toolbox.NetworkImageView;
+import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
 
 import java.util.Objects;
 
@@ -83,7 +84,20 @@ public class AdvancedDetailsActivity extends AppCompatActivity {
         weatherbit_windspeed.setText(weatherbitWindspeed);
         weatherbit_temperature.setText(weatherbitTemperature);
 
+        if(mainActivityController != null)
+        {
+            AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
+            advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
 
+        }
 
+    }
+
+    public String AppendData() {   //Append AdvancedDetails Texviews to save them later
+        String resultStrings = this.mainActivityController.getOpenWeatherModel().getTemp() + "°C" + "," + this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C" +
+                "," + this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C" + "," + this.mainActivityController.getOpenWeatherModel().getDescription() +
+                "," + this.mainActivityController.getOpenWeatherModel().getSpeed() + "," + this.mainActivityController.getOpenWeatherModel().getHumidity() +
+                "," + this.mainActivityController.getWeatherBitModel().getTemp() + "°C" + "," + this.mainActivityController.getWeatherBitModel().getDescription();
+        return resultStrings;
     }
 }

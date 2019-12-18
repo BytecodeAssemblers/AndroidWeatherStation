@@ -4,17 +4,14 @@ import android.app.Activity;
 import android.content.Intent;
 import android.location.Address;
 import android.location.Geocoder;
-import android.os.AsyncTask;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.toolbox.NetworkImageView;
-import com.bytecodeassemblers.androidweatherstation.data.JSONWeatherParser;
-import com.bytecodeassemblers.androidweatherstation.data.WeatherHttpClient;
 import com.bytecodeassemblers.androidweatherstation.listview.ListViewActivity;
 import com.bytecodeassemblers.androidweatherstation.openWeather_model.OpenWeatherModel;
 import com.bytecodeassemblers.androidweatherstation.weatherBitModel.WeatherBitModel;
-import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeathetTask;
+import com.bytecodeassemblers.androidweatherstation.weather_service.OpenWeatherTask;
 import com.bytecodeassemblers.androidweatherstation.weather_service.WeatherBitTask;
 
 import org.json.JSONException;
@@ -75,7 +72,7 @@ public class MainActivityController {
 
     public void ExecuteOpenWeatherTask(){
         String url = Common.openWeatherRequestLink(lat,lon);
-        new OpenWeathetTask(activity,this,imageLoader).execute(url);
+        new OpenWeatherTask(activity,this,imageLoader).execute(url);
     }
 
     public void ExecuteWeatherBitTask(){

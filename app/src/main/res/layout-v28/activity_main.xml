@@ -22,7 +22,6 @@
         android:elevation="4dp"
         android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
@@ -65,68 +64,68 @@
         android:textSize="20sp"
         app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
         app:layout_constraintEnd_toEndOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintHorizontal_bias="0.786"
+        app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
         app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.846" />
+        app:layout_constraintVertical_bias="0.4" />
 
     <TextView
         android:id="@+id/mainActivityWeatherDescription"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="4dp"
+        android:layout_width="296dp"
+        android:layout_height="18dp"
+        android:layout_marginTop="8dp"
         android:text="@string/currentWeatherDescription"
-        android:textAlignment="viewStart"
+        android:textAlignment="center"
         android:textAllCaps="false"
         android:textColor="@color/colorMainActivityText"
-        android:textSize="16sp"
+        android:textSize="14sp"
         android:textStyle="bold|italic"
-        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintStart_toStartOf="@+id/weatherbitMainActivityCityName"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.829" />
+        app:autoSizeMaxTextSize="18sp"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.495"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weatherbitMainActivityCityName" />
 
     <TextView
 
         android:id="@+id/weatherbitMainActivityCityName"
-        android:layout_width="wrap_content"
+        android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_marginStart="8dp"
+        android:layout_marginTop="56dp"
         android:fontFamily="@font/aldrich"
         android:text="@string/currentLocation"
         android:textAlignment="center"
+        android:textAllCaps="false"
         android:textAppearance="@style/AlertDialog.AppCompat.Light"
         android:textColor="@color/colorMainActivityText"
         android:textFontWeight="400"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintStart_toStartOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintTop_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.485"
+        app:autoSizeMinTextSize="12sp"
+        app:autoSizeTextType="uniform"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         tools:text="currentLocation" />
 
     <ImageView
         android:id="@+id/widgetThermometer"
-        android:layout_width="wrap_content"
-        android:layout_height="28dp"
+        android:layout_width="29dp"
+        android:layout_height="31dp"
+        android:layout_marginBottom="12dp"
+        android:contentDescription="TODO"
         app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.752"
         app:layout_constraintStart_toEndOf="@+id/temp"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.637"
-        app:srcCompat="@drawable/ic_thermometer_white_48dp"
-        android:contentDescription="TODO" />
+        app:srcCompat="@drawable/ic_thermometer_white_48dp" />
 
     <ImageView
         android:id="@+id/widgetIcons"
         android:layout_width="40dp"
         android:layout_height="49dp"
-        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintEnd_toStartOf="@+id/temp"
-        app:layout_constraintStart_toEndOf="@+id/weatherbitMainActivityCityName"
-        app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
-        app:layout_constraintVertical_bias="0.684"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="84dp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
         app:srcCompat="@drawable/ic_clear_sky" />
 
 

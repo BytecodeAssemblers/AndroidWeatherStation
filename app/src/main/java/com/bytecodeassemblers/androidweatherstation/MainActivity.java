@@ -98,9 +98,14 @@ public class MainActivity extends AppCompatActivity {
             case R.id.advanceddetails:
                 AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(this);
                 intent = new Intent(mainView, AdvancedDetailsActivity.class);
-                if (advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
-                    advancedDetailsActivityStateManager.getSavedAdvancedData(intent); //set data to Advanced Activity
-                } else {                     //if there is not saved data...
+                if(this.mainActivityController.getWeatherBitModel() == null && this.mainActivityController.getOpenWeatherModel() == null)
+                {
+                    if (advancedDetailsActivityStateManager.checkStatus()) { //if there is some data saved
+                        advancedDetailsActivityStateManager.getSavedAdvancedData(intent); //set data to Advanced Activity
+                    } else {                     //if there is not saved data...
+
+                    }
+                }else {
                     /*OpenWeather Data Send To Advanced Details*/
                     intent.putExtra("Main_Temp", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
                     intent.putExtra("Minimum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
@@ -113,6 +118,7 @@ public class MainActivity extends AppCompatActivity {
                     intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
                     intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
                     intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                    //advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
                 }
                 startActivity(intent);
                 return true;
@@ -148,6 +154,10 @@ public class MainActivity extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    //save AdvancedDetailsActivity dATA
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {

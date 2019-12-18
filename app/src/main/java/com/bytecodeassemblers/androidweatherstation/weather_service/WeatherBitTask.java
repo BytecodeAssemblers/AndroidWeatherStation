@@ -82,19 +82,10 @@ public class WeatherBitTask extends AsyncTask<String,Void, WeatherBitModel> {
         insertWeather.setContext(activity);
         insertWeather.setDatabaseInsertEndpoint("http://weatherassemble.hopto.org:8080/updateweatherhistory.php");
         insertWeather.executeInsert();
-        AdvancedDetailsActivityStateManager advancedDetailsActivityStateManager = new AdvancedDetailsActivityStateManager(activity);
-        advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
         
     }
 
-        //save AdvancedDetailsActivity dATA
-    public String AppendData() {   //Append AdvancedDetails Texviews to save them later
-        String resultStrings =this.mainActivityController.getOpenWeatherModel().getTemp()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getTempMin()+ "°C"+
-                ","+ this.mainActivityController.getOpenWeatherModel().getTempMax()+ "°C"+","+this.mainActivityController.getOpenWeatherModel().getDescription()+
-                ","+ this.mainActivityController.getOpenWeatherModel().getSpeed()+","+this.mainActivityController.getOpenWeatherModel().getHumidity()+
-                ","+ weatherBitModel.getTemp()+ "°C"+","+weatherBitModel.getDescription();
-        return resultStrings;
-    }
+
 
 
 
