@@ -70,6 +70,8 @@ public class ListViewActivity extends AppCompatActivity {
             }
         });
 
+
+
         list.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {  //Delete item from listview and update the changes (runs on longclick of an item)
             @Override
             public boolean onItemLongClick(AdapterView<?> parent, View view, final int position, long id) {
@@ -97,7 +99,7 @@ public class ListViewActivity extends AppCompatActivity {
         SharedPreferences pSharedPref = getApplicationContext().getApplicationContext().getSharedPreferences("MyVariables", Context.MODE_PRIVATE);
         if (pSharedPref != null){
             SharedPreferences.Editor editor = pSharedPref.edit();
-            editor.remove("My_map").commit();
+            editor.remove("My_map").apply();
             editor.putString("My_map", inputMap.toString());
             editor.commit();
         }

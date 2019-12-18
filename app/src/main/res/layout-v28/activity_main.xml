@@ -5,7 +5,7 @@
     android:id="@+id/layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/widget_card_gray"
+    android:background="@drawable/gradient2"
     tools:context=".MainActivity">
 
 
@@ -122,10 +122,8 @@
         android:id="@+id/widgetIcons"
         android:layout_width="40dp"
         android:layout_height="49dp"
-        android:layout_marginStart="24dp"
-        android:layout_marginTop="84dp"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/advancedDetailsToolbar"
+        app:layout_constraintEnd_toStartOf="@+id/mainActivityWeatherDescription"
         app:srcCompat="@drawable/ic_clear_sky" />
 
 

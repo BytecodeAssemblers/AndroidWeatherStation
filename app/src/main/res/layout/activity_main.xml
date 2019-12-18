@@ -87,18 +87,6 @@
         app:layout_constraintTop_toTopOf="@+id/advancedDetailsToolbar"
         app:layout_constraintVertical_bias="0.829" />
 
-    <com.android.volley.toolbox.NetworkImageView
-        android:id="@+id/openWeatherImage"
-        android:layout_width="48dp"
-        android:layout_height="48dp"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="28dp"
-        app:layout_constraintEnd_toStartOf="@+id/guideline3"
-        app:layout_constraintHorizontal_bias="0.811"
-        app:layout_constraintStart_toStartOf="@+id/guideline2"
-        app:layout_constraintTop_toBottomOf="@+id/mainActivityWeatherDescription" />
-
     <TextView
 
         android:id="@+id/weatherbitMainActivityCityName"
@@ -135,7 +123,9 @@
         android:id="@+id/widgetIcons"
         android:layout_width="40dp"
         android:layout_height="49dp"
-        app:srcCompat="@drawable/ic_clear_sky" />
+        app:srcCompat="@drawable/ic_clear_sky"
+        tools:layout_editor_absoluteX="30dp"
+        tools:layout_editor_absoluteY="148dp" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

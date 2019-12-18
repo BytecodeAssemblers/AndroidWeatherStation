@@ -46,5 +46,6 @@
     <string name="weatherBit_City">CityName</string>
     <string name="weatherBit_Description">weatherBit_Description</string>
     <string name="textview">WeatherBit_WindSpeed</string>
+    <string name="splashScreenText">We assemble your weather</string>
 
 </resources>

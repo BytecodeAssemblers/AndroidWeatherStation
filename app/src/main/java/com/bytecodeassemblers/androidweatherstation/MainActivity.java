@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -107,17 +108,17 @@ public class MainActivity extends AppCompatActivity {
                     }
                 }else {
                     /*OpenWeather Data Send To Advanced Details*/
-                    intent.putExtra("Main_Temp", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
-                    intent.putExtra("Minimum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
-                    intent.putExtra("Maximum_Temp", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
-                    intent.putExtra("Description", this.mainActivityController.getOpenWeatherModel().getDescription());
-                    intent.putExtra("WindSpeed", this.mainActivityController.getOpenWeatherModel().getSpeed());
-                    intent.putExtra("Humidity", this.mainActivityController.getOpenWeatherModel().getHumidity());
+                    intent.putExtra("Main_Temp","Temperature : " + this.mainActivityController.getOpenWeatherModel().getTemp() + "°C");
+                    intent.putExtra("Minimum_Temp","Maximum Temperature : " + this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
+                    intent.putExtra("Maximum_Temp", "Minimum Temperature : " + this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
+                    intent.putExtra("Description","Weather Description : " + this.mainActivityController.getOpenWeatherModel().getDescription());
+                    intent.putExtra("WindSpeed","WindSpeed : " + this.mainActivityController.getOpenWeatherModel().getSpeed()+"m/s");
+                    intent.putExtra("Humidity","Humidity : " + this.mainActivityController.getOpenWeatherModel().getHumidity()+"%");
                     /*WeatherBit Data Send To Advanced Details*/
-                    intent.putExtra("weatherbit_city", this.mainActivityController.getOpenWeatherModel().getTemp() + "°C"); /*--MISTAKE!!!! getOpenweather in Weatherbit, i will rectify!!!--*/
-                    intent.putExtra("weatherbit_temperature", this.mainActivityController.getOpenWeatherModel().getTempMin() + "°C");
-                    intent.putExtra("weatherbit_windSpeed", this.mainActivityController.getOpenWeatherModel().getTempMax() + "°C");
-                    intent.putExtra("weatherbit_description", this.mainActivityController.getOpenWeatherModel().getDescription());
+                    intent.putExtra("weatherbit_city","City Name :" +this.mainActivityController.getWeatherBitModel().getCityName());
+                    intent.putExtra("weatherbit_temperature", "Temperature : "+this.mainActivityController.getWeatherBitModel().getTemp() + "°C");
+                    intent.putExtra("weatherbit_windSpeed", "WindSpeed : "+this.mainActivityController.getWeatherBitModel().getSpeed() + "m/s");
+                    intent.putExtra("weatherbit_description", "Weather Description : "+this.mainActivityController.getOpenWeatherModel().getDescription());
                     //advancedDetailsActivityStateManager.saveAdvancedActivityState(AppendData());
                 }
                 startActivity(intent);
